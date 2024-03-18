@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('booking', function (Blueprint $table) {
-            $table->increments('id')->unique()->primary();
+            $table->string('id')->unique()->primary();
             $table->string('patient_id', 200)->notNull();
             $table->string('doctor_id', 200)->notNull();
             $table->date('date_booking')->notNull();
