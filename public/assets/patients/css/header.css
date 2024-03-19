@@ -98,41 +98,6 @@ body {
     justify-content: space-between;
 }
 
-/* jha */
-.container {
-    margin-left: 20px;
-    padding: 35px 20px;
-    font: 700 20px sans-serif;
-}
-
-.grid-container {
-  gap: 25px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-}
-
-.columns {
-  display: flex;
-  justify-content: center;
-}
-
-.content {
-  color: #767676;
-  font-family: sans-serif;
-  text-align: center;
-}
-
-.number {
-  font-size: 45px;
-  color: rgba(28, 187, 208, 1);
-}
-
-.description {
-  font-weight: 400;
-  font-size: 20px;
-  color: rgba(118, 118, 118, 1);
-}
-
 /* dkdnj */
 .container-section {
     background-color: #fff;

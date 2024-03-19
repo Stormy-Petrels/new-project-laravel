@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Title Here</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/home.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/footer.css') }}">
 </head>
 <body>
