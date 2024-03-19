@@ -2,44 +2,103 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
-
-class User extends Authenticatable
+use Illuminate\Database\Eloquent\Model;
+class User extends BaseModel
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    private string $userId;
+    private Role $role;
+    private string $email;
+    private string $password;
+    private string $fullName;
+    private string $address;
+    private string $phone;
+    private string|null $urlImage;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    public function __construct(
+        Role $role,
+        string $email,
+        string $password,
+        string $fullName,
+        string $address,
+        string $phone,
+        string|null $urlImage = null
+    ) {
+        parent::__construct();
+        $this->role = $role;
+        $this->email = $email;
+        $this->password = $password;
+        $this->fullName = $fullName;
+        $this->address = $address;
+        $this->phone = $phone;
+        $this->urlImage = $urlImage;
+    }
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-        'password' => 'hashed',
-    ];
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    public function getFullName(): string
+    {
+        return $this->fullName;
+    }
+
+    public function setFullName(string $fullName): void
+    {
+        $this->fullName = $fullName;
+    }
+
+    public function getAddress(): string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): void
+    {
+        $this->address = $address;
+    }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(string $phone): void
+    {
+        $this->phone = $phone;
+    }
+
+    public function getUrlImage(): string
+    {
+        return $this->urlImage == null ? "" : $this->urlImage;
+    }
+
+    public function setUrlImage(string $urlImage): void
+    {
+        $this->urlImage = $urlImage;
+    }
+    
+    public function setUserId(string $userId): void{
+        $this->userId = $userId;
+    }
+
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
 }
