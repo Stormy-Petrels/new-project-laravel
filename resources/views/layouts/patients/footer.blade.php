@@ -9,7 +9,7 @@
                     <div class="column-2">
                         <div class="container-section15">
                             <div class="container-section16">Your Email Address</div>
-                            <div class="container-section17">SUBSCRIBE</div>
+                            <a href="" class="container-section17">SUBSCRIBE</a>
                         </div>
                     </div>
                 </div>

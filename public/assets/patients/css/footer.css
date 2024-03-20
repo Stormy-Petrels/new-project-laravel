@@ -82,7 +82,8 @@
     color: #767676;
     white-space: nowrap;
     justify-content: center;
-    padding: 25px 41px;
+    padding: 25px 41px;  
+    text-decoration: none;
 }
 
 

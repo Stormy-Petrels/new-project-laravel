@@ -9,26 +9,26 @@
 
         <img loading="lazy" src="assets/patients/images/email.png" id="location-icon" />
         <div id="header-location">Hospital@hello.com</div>
-        <div id="book-now"><b>BOOK NOW</b></div>
+        <a href="" id="book-now"><b>BOOK NOW</b></a>
     </div>
 </div>
 
-<div class="body">
-    <div class="container-2">
-        <div class="container-3">Home</div>
+<div class="menu">
+    <div class="menu-1">
+        <a href="" class="name1">Home</a>
             <img loading="lazy" src="assets/patients/images/vector.png" style="height: 35px"/>
-        <div class="container-4">About Us</div>
+        <a href="" class="name2">About Us</a>
             <img loading="lazy" src="assets/patients/images/vector.png" style="height: 35px"/>
-        <div class="container-5">Department</div>
+        <a href="" class="name3">Department</a>
             <img loading="lazy" src="assets/patients/images/vector.png" style="height: 35px"/>
-        <div class="container-6">Doctors</div>
+        <a href="" class="name4">Doctors</a>
             <img loading="lazy" src="assets/patients/images/vector.png" style="height: 35px"/>
-        <div class="container-7">Services</div>
+        <a href="" class="name5">Services</a>
             <img loading="lazy" src="assets/patients/images/vector.png" style="height: 35px"/>
-        <div class="container-8">Contact Us</div>
-        <div class="container-9">
-            <div class="container-10">Sign in</div>
-            <div class="container-11">Sign up</div>
+        <a href="" class="name6">Contact Us</a>
+        <div class="name7">
+            <a href="" class="name8">Sign in</a>
+            <a href="" class="name9">Sign up</a>
         </div>
     </div>
 </div>
@@ -49,7 +49,7 @@
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium
             </div>
-            <div class="container-section8">CONTACT US</div>
+            <a href="" class="submit">CONTACT US</a>
         </div>
     </div>
 
