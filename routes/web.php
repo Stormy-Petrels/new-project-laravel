@@ -1,8 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Patient\PageDoctorController;
+use App\Http\Controllers\PageDoctorController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\AppointmentController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,13 +19,40 @@ use App\Http\Controllers\BookingController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// PATIENT 
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/about-us', [HomeController::class, 'aboutUs']);
+Route::get('/contact-us', [HomeController::class, 'contactUs']);
+// Route::get('/doctors', [HomeController::class, 'doctors']);
+Route::get('/doctors', [DoctorController::class, 'index']);
+Route::get('/services', [HomeController::class, 'services']);
 
-Route::get('/', function () {
-    return view('welcome');
+// ADMIN
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'dashboard']);
+
+    // Route cho quản lý bệnh nhân
+    Route::prefix('patients')->group(function () {
+        Route::get('/', [PatientController::class, 'index']);
+        Route::get('/create', [PatientController::class, 'create'])->name('create');
+        Route::get('/update', [PatientController::class, 'update'])->name('update');
+    });
+
+    // Route cho quản lý bác sĩ
+    Route::prefix('doctors')->group(function () {
+        Route::get('/', [DoctorController::class, 'index']);
+        Route::get('/create', [DoctorController::class, 'create'])->name('create');
+        Route::get('/update', [DoctorController::class, 'update'])->name('update');
+    });
+
+    // Route cho bảng điều khiển admin
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
+
+    // Route cho quản lý cuộc hẹn
+    Route::get('/appointment', [AppointmentController::class, 'index']);
+
 });
 
-Route::get('/page/doctor', [PageDoctorController::class, 'index']);
-Route::get('/page/doctor/{id}/booking', [BookingController::class, 'index']);
+Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
-Route::post('/create/doctor', [PageDoctorController::class, 'index']);
 

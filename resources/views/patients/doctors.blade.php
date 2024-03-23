@@ -1,4 +1,9 @@
-<link rel="stylesheet" href="../root/CSS/booking.css">
+@extends('layouts.patients.master')
+@section('title', 'Mental Health Care')
+
+@section('header')
+  @parent 
+@endsection
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 </style>
@@ -15,14 +20,11 @@
 
     .container {
         width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
+        margin-left: 0px;
     }
 
-    .header {
-        position: relative;
-        text-align: center;
+    .header {   
+       width: 100%;
     }
 
     .title,
@@ -30,7 +32,13 @@
         text-align: center;
     }
 
-    .title {
+    .titles{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .title{
         font-size: 50px;
         font-weight: bolder;
         font-family: Georgia, "Times New Roman", Times, serif;
@@ -58,6 +66,7 @@
     }
 
     .lists_card {
+        width: 100%;
         display: flex;
         flex-wrap: wrap;
 
@@ -117,12 +126,10 @@
         }
     }
 </style>
-
-<body>
-    <img class="imgDoctor" src="{{asset('images/totalphoto.png')}}" alt="doctor">
-    <div class="container">
+@section('content')
+<div class="container" style="margin-left: -15px;">
         <div class="header">
-            <h1 class="title"><span class="color">Team of doctors </span>of different specialties</h1>
+            <h1 class="title"  style="width: 100%;"><span class="color">Team of doctors </span>of different specialties</h1>
             <p class="sub_title">
                 We would like to extend our warm greetings and express our gratitude for your interest in our services. This website was created with the aim of providing you with excellent experiences and high-quality services.
             </p>
@@ -134,15 +141,15 @@
                         <img class="rounded-t-lg h-80 object-cover" src="{{asset('images/'.$doctor->url_image)}}" alt="" />
                     </a>
                     <div class="p-5">
-                        <a href="#">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bs. {{$doctor->name}}</h5>
-                        </a>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
         <ul class="listPage"></ul>
         </div>
+@endsection
+@section('JScontent')
 <script>
     function redirectBooking(doctorId) {
         window.location.href = 'doctor/'+doctorId+'/booking' ;
@@ -199,6 +206,7 @@
         loadItem();
     }
 </script>
-
-</body>
-</html>
+@endsection
+@section('footer')
+  @parent 
+@endsection
