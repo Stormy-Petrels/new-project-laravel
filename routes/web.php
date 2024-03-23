@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PageDoctorController;
-use App\Http\Controllers\BookingController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +16,4 @@ use App\Http\Controllers\BookingController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/page/doctor', [PageDoctorController::class, 'index']);
-Route::get('/page/doctor/{id}/booking', [BookingController::class, 'index']);
-Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
-Route::post('/create/doctor', [PageDoctorController::class, 'index']);
 
