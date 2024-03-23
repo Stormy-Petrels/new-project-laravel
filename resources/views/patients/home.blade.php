@@ -1,47 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/home.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/footer.css') }}">
-</head>
-<body>
-  @include('layouts.patients.header')
+{{-- Xây dựng layout bằng tính kế thừa --}}
+@extends('layouts.patients.master')
 
+@section('title', 'Mental Health Care')
+
+@section('header')
+  @parent 
+@endsection
+
+@section('content')
   <div class="container">
-      <div class="grid-container">
-        <div class="columns">
-          <div class="content">
-            <span class="number">+ 5120</span>
-            <br /><br /><br />
-            <span class="description">Happy Patients</span>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="content">
-            <span class="number">+ 26</span>
-            <br /><br /><br />
-            <span class="description">Total Branches</span>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="content">
-            <span class="number">+ 50</span>
-            <br /><br /><br />
-            <span class="description">Senior Doctors</span>
-          </div>
-        </div>
-        <div class="columns">
-          <div class="content">
-            <span class="number">+ 20</span>
-            <br /><br /><br />
-            <span class="description">Years Experience</span>
-          </div>
+    <div class="grid-container">
+      <div class="columns">
+        <div class="content">
+          <span class="number">+ 5120</span>
+          <br /><br /><br />
+          <span class="description">Happy Patients</span>
         </div>
       </div>
+      <div class="columns">
+        <div class="content">
+          <span class="number">+ 26</span>
+          <br /><br /><br />
+          <span class="description">Total Branches</span>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="content">
+          <span class="number">+ 50</span>
+          <br /><br /><br />
+          <span class="description">Senior Doctors</span>
+        </div>
+      </div>
+      <div class="columns">
+        <div class="content">
+          <span class="number">+ 20</span>
+          <br /><br /><br />
+          <span class="description">Years Experience</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="custom-container">
@@ -90,11 +87,7 @@
   <div class="body">
     <div class="left">
       <div class="left-2">
-        <img
-          loading="lazy"
-          srcset="assets/patients/images/photo2.png"
-          class="image"
-        />
+        <img loading="lazy" srcset="assets/patients/images/image.png" class="image mx-auto d-block"/>
         <div class="left-3">
           Say Goodbye
           <span style="color: rgba(28, 187, 208, 1)">to <br> detached doctors</span>
@@ -198,11 +191,11 @@
       </div>
     </div>
     <img loading="lazy"
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/120195dba242992d6c6329dd07669a632a8d377117487a8350b74d4d253f47ac?apiKey=cceb8282e0e64aaeb0533b2dfea39e76&"
-        class="button" />
+      src="https://cdn.builder.io/api/v1/image/assets/TEMP/120195dba242992d6c6329dd07669a632a8d377117487a8350b74d4d253f47ac?apiKey=cceb8282e0e64aaeb0533b2dfea39e76&"
+      class="button" />
   </div>
+@endsection
 
-  @include('layouts.patients.footer')
-
-</body>
-</html>
+@section('footer')
+  @parent 
+@endsection

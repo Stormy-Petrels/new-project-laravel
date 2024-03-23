@@ -3,11 +3,11 @@
 @section('content')
 <div class="head-title">
     <div class="left">
-        <h1>Add new patient</h1>
+        <h1>Dashboard</h1>
     </div>
-    <a href="{{url('/admin/patients')}}"><button class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
+    {{-- <a href="{{url('/admin/patients')}}"><button class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
         active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-        data-ripple-light="true"> Back</button></a>
+        data-ripple-light="true"> Back</button></a> --}}
     
 </div>
 <div class="antialiased sans-serif bg-gray-200 w-lg min-h-screen ">

@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,56 +18,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // PATIENT 
-Route::get('/', function () {
-    return view('patients.home');
-});
+Route::get('/home', [HomeController::class, 'index']);
+Route::get('/about-us', [HomeController::class, 'aboutUs']);
+Route::get('/contact-us', [HomeController::class, 'contactUs']);
+Route::get('/doctors', [HomeController::class, 'doctors']);
+Route::get('/services', [HomeController::class, 'services']);
 
 // ADMIN
 Route::prefix('admin')->group(function () {
-
-    // Route cho trang admin chính
-    Route::get('/', function () {
-        return view('layouts.admin.admin');
-    });
+    Route::get('/', [AdminController::class, 'dashboard']);
 
     // Route cho quản lý bệnh nhân
     Route::prefix('patients')->group(function () {
-        Route::get('/', function () {
-            return view('admin.patients.patients');
-        });
-
-        Route::get('/create', function () {
-            return view('admin.patients.create_patient');
-        });
-
-        Route::get('/edit', function () {
-            return view('admin.patients.update_patient');
-        });
+        Route::get('/', [PatientController::class, 'index']);
+        Route::get('/create', [PatientController::class, 'create'])->name('create');
+        Route::get('/update', [PatientController::class, 'update'])->name('update');
     });
 
     // Route cho quản lý bác sĩ
     Route::prefix('doctors')->group(function () {
-        Route::get('/', function () {
-            return view('admin.doctors.doctors');
-        });
-
-        Route::get('/create', function () {
-            return view('admin.doctors.create_doctor');
-        });
-
-        Route::get('/edit', function () {
-            return view('admin.doctors.update_doctor');
-        });
+        Route::get('/', [DoctorController::class, 'index']);
+        Route::get('/create', [DoctorController::class, 'create'])->name('create');
+        Route::get('/update', [DoctorController::class, 'update'])->name('update');
     });
 
     // Route cho bảng điều khiển admin
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard');
-    });
+    Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
     // Route cho quản lý cuộc hẹn
-    Route::get('/appointment', function () {
-        return view('admin.appointments.appointment');
-    });
+    Route::get('/appointment', [AppointmentController::class, 'index']);
 
 });
