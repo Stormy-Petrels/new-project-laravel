@@ -11,7 +11,7 @@ class DoctorRepository
 
     public function insert_doctor(Doctor $doctor)
     {
-        $sql = "INSERT INTO $this->tableName (ID, UserId, Specialization, Description) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, user_id, specialization, description) VALUES (?, ?, ?, ?)";
         DB::insert($sql, [
             $doctor->getId(),
             $doctor->getId(),
@@ -28,6 +28,7 @@ class DoctorRepository
 
     public function getAllDoctor()
     {
+        return DB::table('users')->where('role', 'doctor')->get();
     }
 
     public function getDoctorById(string $id)

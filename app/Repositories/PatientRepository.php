@@ -11,7 +11,7 @@ class PatientRepository
 
     public function insert(Patient $patient)
     {
-        $sql = "INSERT INTO $this->tableName (ID, UserId) VALUES (?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, user_id) VALUES (?, ?)";
         DB::insert($sql, [
             $patient->getId(),
             $patient->getId(),

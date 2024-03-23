@@ -92,8 +92,9 @@ class User extends BaseModel
     {
         $this->urlImage = $urlImage;
     }
-    
-    public function setUserId(string $userId): void{
+
+    public function setUserId(string $userId): void
+    {
         $this->userId = $userId;
     }
 
