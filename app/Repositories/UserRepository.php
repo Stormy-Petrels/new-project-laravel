@@ -13,7 +13,7 @@ class UserRepository
 
     public function insert(User $user)
     {
-        $sql = "INSERT INTO $this->tableName (ID, Role, FullName, Email, Password, Address, Phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, role, name, email, password, address, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
         DB::insert($sql, [
             $user->getId(),
             $user->getRole()->getValue(),
@@ -24,7 +24,6 @@ class UserRepository
             $user->getPhone()
         ]);
     }
-
     public function selectAll()
     {
     }
