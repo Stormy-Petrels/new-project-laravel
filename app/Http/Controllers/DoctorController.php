@@ -10,6 +10,7 @@ use  App\Repositories\PatientRepository;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Doctor;
+use Illuminate\Database\Eloquent\Model;
 
 class DoctorController extends Controller
 {
@@ -48,7 +49,27 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $select = new AdminRepository();
+        $insert_doctor = new DoctorRepository();
+        $user = new User(
+            Role::Doctor,
+            $request->input('email'),
+            $request->input('password'),
+            $request->input('name'),
+            $request->input('phone'),
+            $request->input('address'),
+            $request->input('url_image'),
+        );
+        $doctor = $select->addNewDoctor($user);
+        $newDoctor = new Doctor($user->getId(), $request->input('specialization'), $request->input('description'));
+        $insert_doctor->insert_doctor($newDoctor);
+
+        if ($doctor != null) {
+            return response()->json([
+                "message" => "add doctor",
+                "doctor" => $doctor
+            ], 200);
+        }
     }
 
     /**
@@ -72,7 +93,26 @@ class DoctorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        // $req = new DoctorReq($request);
+        $select = new AdminRepository();
+        $newUser = new User(
+            Role::Doctor,
+            $request->input('email'),
+            $request->input('password'),
+            $request->input('name'),
+            $request->input('phone'),
+            $request->input('address'),
+            $request->input('url_image')
+        );
+        $newDoctor = new Doctor($id, $request->input('specialization'), $request->input('description'));
+        $doctor = $select->updateDoctor($newUser, $newDoctor);
+
+        if ($doctor != null) {
+            return response()->json([
+                "message" => "update doctor complete",
+                "doctor" => $doctor
+            ], 201);
+        }
     }
 
     /**
@@ -80,6 +120,13 @@ class DoctorController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $select = new AdminRepository();
+        $delete = $select->deleteDoctor($id);
+
+        if ($delete != null) {
+            return response()->json([
+                "message" => "delete doctor complete",
+            ], 201);
+        }
     }
 }

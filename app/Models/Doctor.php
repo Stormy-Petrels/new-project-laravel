@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 class Doctor extends BaseModel
 {
     public string $userid;
@@ -22,7 +24,7 @@ class Doctor extends BaseModel
     {
         return $this->userid;
     }
-    public function getHospital(): string
+    public function getDescription(): string
     {
         return $this->description;
     }

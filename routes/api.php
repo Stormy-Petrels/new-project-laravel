@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("/admin/doctors", [DoctorController::class, 'index']);
 // Route::post("/admin/doctors", [DoctorController::class, 'create']);
 Route::post("/admin/doctors", [DoctorController::class, 'store']);
+Route::post("/admin/doctors/{id}", [DoctorController::class, 'update']);
+Route::delete("/admin/doctors/delete/{id}", [DoctorController::class, 'destroy']);
