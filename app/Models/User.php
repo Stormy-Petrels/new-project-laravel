@@ -33,6 +33,9 @@ class User extends BaseModel
         $this->urlImage = $urlImage;
     }
 
+
+    
+
     public function getRole(): Role
     {
         return $this->role;

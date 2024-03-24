@@ -89,14 +89,13 @@ class AdminRepository
 
     public function update_patient(User $user, Patient $patient)
     {
-        $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ?, url_image = ? WHERE id = ?";
+        $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? WHERE id = ?";
         $patient_sql = "UPDATE patients SET health_condition = ?, note = ?  WHERE user_id = ?";
         $user = DB::update($user_sql, [
             $user->getFullName(),
             $user->getPassword(),
             $user->getPhone(),
             $user->getAddress(),
-            $user->getUrlImage(),
             $user->getId()
         ]);
 
@@ -112,13 +111,13 @@ class AdminRepository
     public function delete_patient($patientID)
     {
         // Lấy UserId từ bảng patients
-        $userId = DB::table('patients')->where('Id', $patientID)->value('UserId');
+        $userId = DB::table('patients')->where('id', $patientID)->value('user_id');
 
         // Xóa hàng trong bảng patients
-        DB::table('patients')->where('Id', $patientID)->delete();
+        DB::table('patients')->where('id', $patientID)->delete();
 
         // Xóa hàng trong bảng users
-        DB::table('users')->where('Id', $userId)->delete();
+        DB::table('users')->where('id', $userId)->delete();
     }
 
     

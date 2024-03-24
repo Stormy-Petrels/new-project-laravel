@@ -73,15 +73,23 @@
           
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
             
-                <a href="{{ route('edit', $patient->user_id) }}">
+                <a href="{{ route('edit', $patient->user_id) }}" >
                     <button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Update</button>
                 </a>
-                <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Block</button>
-            </td>
+                {{-- <button  type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
+                    
+                    <a href="{{route('delete', $patient->user_id)}}" onclick="return confirm ('Are you sure?')" ></a>
+                    Block</button> --}}
+                    <form action="{{ route('delete_patient', ['user_id' => $patient->user_id]) }}" method="POST" onsubmit="return confirm('Are you sure?');">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
         </tr>
         @endforeach
     </tbody>
 </table>
-{{-- {{url('/admin/patients/'.$patient->user_id.'/update')}} --}}
+
       
 @endsection

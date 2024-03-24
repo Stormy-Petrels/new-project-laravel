@@ -34,17 +34,18 @@ class PatientController extends Controller
     public function index()
     {
         $patients = $this->patientRepository->get_info_patients();
-        // dd($patients);
         return view('admin.patients.patients', compact('patients'));
     }
-
-
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => [
+                'required',
+                'min:6',
+                
+            ],
             'name' => 'required',
             'phone' => ['required', 'regex:/^0\d{9}$/'],
             'address' => 'required',
@@ -83,81 +84,108 @@ class PatientController extends Controller
         );
         $insert_patient->add_new_patient($new_patient);
 
-        if ($patient != null) {
-            return Redirect::route('admin/patients/patients')->with('success', 'Patient successfully added');
-        }
+        // if ($patient != null) {
+        //     return Redirect::route('admin/patients')->with('success', 'Patient successfully added');
+        // }
+
+        if ($patient!=null) {
+            // Chuyển hướng đến trang chủ và hiển thị thông báo
+            return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
+        } 
+        
     }
 
     public function edit($user_id)
     {   
         $patient = $this->patientRepository->get_patient_by_id($user_id);
-        dd($patient);
-        //return view('admin.patients.update-patient', compact('patient'));
+       // dd($patient);
+        return view('admin.patients.update_patient', compact('patient'));
     }
 
+public function update(Request $request, string $id)
+{
+    $select = new AdminRepository();
 
-    public function update(Request $request, string $id)
-    {
+    // Validate input data
+    $validator = Validator::make($request->all(), [
+        'name' => 'required|string',
+        'new_password' => 'nullable|string|min:6',
+        'phone' => 'required|string',
+        'address' => 'required|string',
+        'health_condition' => 'nullable',
+        'note' => 'nullable',
+    ]);
 
-        $select = new AdminRepository();
-        $newUser = new User(
-            Role::Doctor,
-            $request->input('email'),
-            $request->input('password'),
-            $request->input('name'),
-            $request->input('phone'),
-            $request->input('address'),
-            $request->input('url_image')
-        );
-        $newDoctor = new Doctor($id, $request->input('specialization'), $request->input('description'));
-        $doctor = $select->updateDoctor($newUser, $newDoctor);
-
-        if ($doctor != null) {
-            return response()->json([
-                "message" => "update doctor complete",
-                "doctor" => $doctor
-            ], 201);
-        }
+    // Check if validation fails
+    if ($validator->fails()) {
+        return response()->json([
+            'message' => 'Validation error',
+            'errors' => $validator->errors()
+        ], 400);
     }
 
+    // Proceed with updating the patient
+    $password = $request->input('password');
+    $newPassword = $request->input('new_password');
+    if (!empty($newPassword)) {
+        $password = $newPassword;
+    }
+
+    // Update user information
+    $updateUser = new User(
+        Role::Doctor,
+        $request->input('name'),
+        $password,
+        '',
+        $request->input('phone'),
+        $request->input('address'),
+        ''
+    );
+    
+    $updatePatient = new Patient($id, $request->input('health_condition', null), $request->input('note', null));
+    $patient = $select->update_patient($updateUser, $updatePatient);
+    if ($patient!=null) {
+        // Chuyển hướng đến trang chủ và hiển thị thông báo
+        return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
+    } 
+    if ($patient != null) {
+        return response()->json([
+            "message" => "Updated patient complete",
+            "patient" => $patient
+        ], 201);
+    }
+}
+
+
+
+
+        
     public function create()
     {
         return view('admin.patients.create_patient');
     }
 
-
-
-
-
-    // public function updatePatient(Request $request)
-    // {
-    //    $req = new PatientReq($request);
-    //    $select = new AdminRepository();
-    //    $newPatient = new User(Role::Patient,
-    //    $req->email, 
-    //    $req->password,
-    //    $req->fullName, 
-    //    $req->address,
-    //    $req->phone,
-    //    $req->imageurl,
-    // );
-    //    $patient = $select->updatePatient($newPatient);
-    //     if ($patient != null) {
-    //         return response()->json([
-    //             "message" => "update patient complete",
-    //             "patient" => $patient
-    //         ], 200);
-    //     }
-    // }
-
-    // public function deletePatient($patientID)
-    // {
-    //     $admin = new AdminRepository();
-    //     $admin->deletePatient($patientID);
-    //     if ($admin != null) {
-    //         return response()->json([
-    //             "message" => "delete patient complete"
-    //         ], 200);
-    //     }
-    // }
+    public function destroy(string $userId)
+    {
+        $select = new PatientRepository();
+         
+        // Kiểm tra xem bệnh nhân có tồn tại hay không
+        $existingPatient = $select->get_patient_by_id($userId);
+        if ($existingPatient == null) {
+            return response()->json([
+                'message' => 'Patient not found'
+            ], 404);
+        }
+    
+        // Xóa bệnh nhân
+        $result = $select->delete_patient($userId);
+        if ($result) {
+            // Chuyển hướng đến trang chủ và hiển thị thông báo
+            return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
+        } else {
+            return response()->json([
+                'message' => 'Failed to delete patient'
+            ], 500);
+        }
+    }
 }

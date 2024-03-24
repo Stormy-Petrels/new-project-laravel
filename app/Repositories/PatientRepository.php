@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
+use League\CommonMark\Reference\Reference;
 
 class PatientRepository
 {
@@ -29,15 +30,29 @@ class PatientRepository
     }
 
     public function get_patient_by_id($id)
-{
-    $sql = "SELECT u.name, u.password, u.phone, u.address, p.health_condition, p.note, p.user_id
-            FROM patients p
-            JOIN users u ON p.user_id = u.id
-            WHERE p.user_id = :id";
+    {
+        $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, p.health_condition, p.note
+                FROM patients p
+                JOIN users u ON p.user_id = u.id
+                WHERE p.user_id = :id";
+        
+        $patient = DB::select($sql, ['id' => $id]);
     
-    $patient = DB::select($sql, ['id' => $id]);
+        return $patient;
+    }
 
-    return $patient;
+    public function delete_patient(string $userId): bool
+{
+    // Lấy ID bệnh nhân từ bảng patients
+    $patientId = DB::table('patients')->where('user_id', $userId)->value('id');
+
+    // Xóa hàng trong bảng patients
+    DB::table('patients')->where('id', $patientId)->delete();
+
+    // Xóa hàng trong bảng users
+    DB::table('users')->where('id', $userId)->delete();
+
+    return true; // Trả về true nếu xóa thành công
 }
 
 }

@@ -34,7 +34,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', [PatientController::class, 'create'])->name('create');
         Route::post('/create', [PatientController::class, 'store'])->name('admin.patients.store');
        Route::get('{user_id}/update', [PatientController::class, 'edit'])->name('edit');
-       Route::put('{id}/update', [PatientController::class, 'update'])->name('update');
+       Route::put('{user_id}/update', [PatientController::class, 'update'])->name('update');
+       Route::delete('{user_id}/delete', [PatientController::class,'destroy'])->name('delete_patient');
     });
 
     // Route cho quản lý bác sĩ
