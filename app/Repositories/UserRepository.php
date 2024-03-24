@@ -1,7 +1,6 @@
 <?php
-
 namespace App\Repositories;
-
+use Illuminate\Support\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -13,7 +12,7 @@ class UserRepository
 
     public function insert(User $user)
     {
-        $sql = "INSERT INTO $this->tableName (id, role, name, email, password, address, phone) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, role, name, email, password, address, phone, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         DB::insert($sql, [
             $user->getId(),
             $user->getRole()->getValue(),
@@ -21,7 +20,9 @@ class UserRepository
             $user->getEmail(),
             $user->getPassword(),
             $user->getAddress(),
-            $user->getPhone()
+            $user->getPhone(),
+            Carbon::now(),
+            Carbon::now()
         ]);
     }
 

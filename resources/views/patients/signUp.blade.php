@@ -89,7 +89,7 @@
                     <button onclick="handleSubmitSignUp()" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Sign Up</button>
                 </div>
                 <div>
-                    <p style="color:white">Already have an account? <a href="#" class="text-blue-600 hover:underline">Sign In</a></p>
+                    <p style="color:white">Already have an account? <a href="/sign-in" class="text-blue-600 hover:underline">Sign In</a></p>
                 </div>
             </div>
         </div>
@@ -115,7 +115,7 @@ const address = document.getElementById("address").value;
             .then(res => {
                 const payload = res.data.payload;
                 if (res.status === 200) {
-                    window.location.href = "/login";
+                    window.location.href = "/sign-in";
                 }
             })
             .catch(error => {
@@ -180,6 +180,6 @@ document.getElementById("addres-error").textContent = "Please fill in your addre
     }
 
     function handleOnClickSignIn() {
-        window.location.href = "/"
+        window.location.href = "/sign-in"
     }
 </script>
