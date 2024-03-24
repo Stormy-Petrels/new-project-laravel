@@ -6,7 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\AppointmentController;
-
+use App\Http\Controllers\SignUpController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,12 +17,15 @@ use App\Http\Controllers\AppointmentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// PATIENT 
+// PATIENT
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/services', [HomeController::class, 'services']);
+Route::get('/sign-up', [SignUpController::class, 'index']);
+Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
+
 
 // ADMIN
 Route::prefix('admin')->group(function () {

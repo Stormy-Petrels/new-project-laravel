@@ -11,7 +11,7 @@ class PatientRepository
 
     public function insert(Patient $patient)
     {
-        $sql = "INSERT INTO $this->tableName (ID, UserId) VALUES (?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, user_id) VALUES (?, ?)";
         DB::insert($sql, [
             $patient->getId(),
             $patient->getId(),
@@ -20,6 +20,13 @@ class PatientRepository
 
     public function getAllPatients()
     {
+    }
+    public function findByEmail($email)
+    {
+        $result = DB::select("SELECT * FROM users
+        WHERE email = ? LIMIT 1", [$email]);
+        $newUser = $result[0];
+        return $newUser->id;
     }
 
 }
