@@ -57,6 +57,8 @@ class DoctorController extends Controller
             'phone' => ['required', 'regex:/^0\d{9}$/'],
             'address' => 'required',
             'url_image' => 'required|file|mimes:png,jpg,jpeg,webp,gif',
+            'specialization' => 'required',
+            'description' => 'required',
         ];
 
         $validator = Validator::make($request->all(), $rule);
