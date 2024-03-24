@@ -39,7 +39,10 @@ Route::prefix('admin')->group(function () {
     Route::prefix('doctors')->group(function () {
         Route::get('/', [DoctorController::class, 'index']);
         Route::get('/create', [DoctorController::class, 'create'])->name('create');
-        Route::get('/update', [DoctorController::class, 'update'])->name('update');
+        Route::post('/create', [DoctorController::class, 'store'])->name('store');
+        Route::get('/doctor/{id}', [DoctorController::class, 'edit'])->name('edit');
+        Route::post('/doctor/{id}', [DoctorController::class, 'update'])->name('update');
+        Route::get("/delete/doctor/{id}", [DoctorController::class, 'destroy'])->name('destroy');
     });
 
     // Route cho bảng điều khiển admin
@@ -47,5 +50,4 @@ Route::prefix('admin')->group(function () {
 
     // Route cho quản lý cuộc hẹn
     Route::get('/appointment', [AppointmentController::class, 'index']);
-
 });

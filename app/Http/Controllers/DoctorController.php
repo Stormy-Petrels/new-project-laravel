@@ -10,7 +10,8 @@ use  App\Repositories\PatientRepository;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Doctor;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class DoctorController extends Controller
 {
@@ -33,7 +34,7 @@ class DoctorController extends Controller
     public function index()
     {
         $doctors = $this->doctorRepository->getAllDoctor();
-        return $doctors;
+        return view('admin.doctors.doctors', compact('doctors'));
     }
 
     /**
@@ -41,7 +42,7 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('admin.doctors.create_doctor');
     }
 
     /**
@@ -49,28 +50,52 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-        $select = new AdminRepository();
-        $insert_doctor = new DoctorRepository();
-        $user = new User(
-            Role::Doctor,
-            $request->input('email'),
-            $request->input('password'),
-            $request->input('name'),
-            $request->input('phone'),
-            $request->input('address'),
-            $request->input('url_image'),
-        );
-        $doctor = $select->addNewDoctor($user);
-        $newDoctor = new Doctor($user->getId(), $request->input('specialization'), $request->input('description'));
-        $insert_doctor->insert_doctor($newDoctor);
+        $rule = [
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6|not_regex:/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9\s])[\w\s]+$/',
+            'name' => 'required',
+            'phone' => ['required', 'regex:/^0\d{9}$/'],
+            'address' => 'required',
+            'url_image' => 'required|file|mimes:png,jpg,jpeg,webp,gif',
+        ];
 
-        if ($doctor != null) {
-            return response()->json([
-                "message" => "add doctor",
-                "doctor" => $doctor
-            ], 200);
+        $validator = Validator::make($request->all(), $rule);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('url_image')) {
+            $file = $request->file('url_image');
+            $name = time() . "_" . $file->getClientOriginalName();
+            $path = public_path('assets/admin/images');
+
+            $file->move($path, $name);
+            $url_image = $name;
+
+            $select = new AdminRepository();
+            $insert_doctor = new DoctorRepository();
+            $user = new User(
+                Role::Doctor,
+                $request->input('email'),
+                $request->input('password'),
+                $request->input('name'),
+                $request->input('phone'),
+                $request->input('address'),
+                $url_image
+            );
+            $doctor = $select->addNewDoctor($user);
+            $newDoctor = new Doctor($user->getId(), $request->input('specialization'), $request->input('description'));
+            $insert_doctor->insert_doctor($newDoctor);
+
+            if ($doctor != null) {
+                return redirect('admin/doctors/')->with('success', 'Doctor successfully added');
+            }
+        } else {
+            return back()->withErrors(['url_image' => 'The image field is required.'])->withInput();
         }
     }
+
 
     /**
      * Display the specified resource.
@@ -85,7 +110,10 @@ class DoctorController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $doc = new DoctorRepository();
+        $doctor = $doc->getDoctorById($id);
+        return view('admin.doctors.update_doctor', compact('doctor'));
+        // return $doctor;
     }
 
     /**
@@ -93,25 +121,47 @@ class DoctorController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        // $req = new DoctorReq($request);
-        $select = new AdminRepository();
-        $newUser = new User(
-            Role::Doctor,
-            $request->input('email'),
-            $request->input('password'),
-            $request->input('name'),
-            $request->input('phone'),
-            $request->input('address'),
-            $request->input('url_image')
-        );
-        $newDoctor = new Doctor($id, $request->input('specialization'), $request->input('description'));
-        $doctor = $select->updateDoctor($newUser, $newDoctor);
+        $rule = [
+            'password' => 'required|min:6|not_regex:/^(?=.*\d)(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9\s])[\w\s]+$/',
+            'name' => 'required',
+            'phone' => ['required', 'regex:/^0\d{9}$/'],
+            'address' => 'required',
+            'url_image' => 'required|mimes:png,jpg,jpeg,webp,gif',
+        ];
 
-        if ($doctor != null) {
-            return response()->json([
-                "message" => "update doctor complete",
-                "doctor" => $doctor
-            ], 201);
+        $validator = Validator::make($request->all(), $rule);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        if ($request->hasFile('url_image')) {
+
+            $file = $request->file('url_image');
+            $name = time() . "_" . $file->getClientOriginalName();
+            $path = public_path('assets/admin/images');
+
+            $file->move($path, $name);
+            $url_image = $name;
+
+            $select = new AdminRepository();
+            $user = new User(
+                Role::Doctor,
+                $request->input('email'),
+                $request->input('password'),
+                $request->input('name'),
+                $request->input('phone'),
+                $request->input('address'),
+                $url_image
+            );
+            $newDoctor = new Doctor($id, $request->input('specialization'), $request->input('description'));
+            $doctor = $select->updateDoctor($user, $newDoctor);
+           
+            if ($doctor != null) {
+                return redirect('admin/doctors/')->with('success', 'Doctor successfully updated');
+            }
+        } else {
+            return back()->withErrors(['url_image' => 'The image field is required.'])->withInput();
         }
     }
 
@@ -121,12 +171,7 @@ class DoctorController extends Controller
     public function destroy(string $id)
     {
         $select = new AdminRepository();
-        $delete = $select->deleteDoctor($id);
-
-        if ($delete != null) {
-            return response()->json([
-                "message" => "delete doctor complete",
-            ], 201);
-        }
+        $select->deleteDoctor($id);
+        return redirect('admin/doctors/')->with('success', 'Doctor successfully deleted');
     }
 }
