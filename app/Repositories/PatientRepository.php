@@ -9,17 +9,35 @@ class PatientRepository
 {
     private string $tableName = "patients";
 
-    public function insert(Patient $patient)
+    public function add_new_patient(Patient $patient)
     {
-        $sql = "INSERT INTO $this->tableName (ID, UserId) VALUES (?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, user_id, health_condition, note) VALUES (?, ?, ?, ?)";
         DB::insert($sql, [
             $patient->getId(),
             $patient->getId(),
+            $patient->getHealthCondition(),
+            $patient->getNote()
         ]);
     }
-
-    public function getAllPatients()
+     
+    public function get_info_patients()
     {
+        $sql = "SELECT u.url_image, u.name, u.email, u.phone, u.address, p.health_condition, p.note, p.user_id
+        FROM $this->tableName p
+        JOIN users u ON p.user_id = u.id;";
+        return DB::select($sql); 
     }
+
+    public function get_patient_by_id($id)
+{
+    $sql = "SELECT u.name, u.password, u.phone, u.address, p.health_condition, p.note, p.user_id
+            FROM patients p
+            JOIN users u ON p.user_id = u.id
+            WHERE p.user_id = :id";
+    
+    $patient = DB::select($sql, ['id' => $id]);
+
+    return $patient;
+}
 
 }

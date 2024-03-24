@@ -28,11 +28,13 @@ Route::get('/services', [HomeController::class, 'services']);
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
 
-    // Route cho quản lý bệnh nhân
-    Route::prefix('patients')->group(function () {
+     // Route cho quản lý bệnh nhân
+     Route::prefix('patients')->group(function () {
         Route::get('/', [PatientController::class, 'index']);
         Route::get('/create', [PatientController::class, 'create'])->name('create');
-        Route::get('/update', [PatientController::class, 'update'])->name('update');
+        Route::post('/create', [PatientController::class, 'store'])->name('admin.patients.store');
+       Route::get('{user_id}/update', [PatientController::class, 'edit'])->name('edit');
+       Route::put('{id}/update', [PatientController::class, 'update'])->name('update');
     });
 
     // Route cho quản lý bác sĩ

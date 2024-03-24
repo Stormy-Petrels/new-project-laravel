@@ -14,38 +14,48 @@
 <table class="border-collapse w-full">
     <thead>
         <tr>
-            <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">No.</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Patient name</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Email</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Phone</th>
+            <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Address</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Health conditional</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Note </th>
+
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Status account</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Action</th>
         </tr>
     </thead>
     <tbody>
+        @foreach ($patients as $patient)
+            
+       
         <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                1 
-            </td>
+            {{-- name --}}
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                 <div class="flex items-center">
-                    <img src="https://png.pngtree.com/png-vector/20220817/ourmid/pngtree-cartoon-man-avatar-vector-ilustration-png-image_6111064.png" alt="Avatar" class="w-10 h-10 rounded-full mr-2">
-                    <span>Luân</span>
+                    <img src="{{ asset($patient->url_image) }} " alt="Avatar" class="w-10 h-10 rounded-full mr-2" >
+                    <span>{{$patient->name}}</span>
                 </div>
             </td>
+            {{-- email --}}
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                luan.@gmail.com
+                {{$patient->email}}
             </td>
+            {{-- phone --}}
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                0987654321
+                {{$patient->phone}}
             </td>
+            {{-- address --}}
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                Rối loạn lo âu
+                {{$patient->address}}
             </td>
+            {{-- health conditional --}}
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                Chú ý thời gian ngủ nghỉ
+                {{$patient->health_condition}}
+            </td>
+            {{-- note --}}
+            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
+                {{$patient->note}}
             </td>
 
             {{-- <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
@@ -62,100 +72,16 @@
             </td>
           
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                
-                <a href="{{url('/admin/patient/edit')}}"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</button></a>
+            
+                <a href="{{ route('edit', $patient->user_id) }}">
+                    <button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Update</button>
+                </a>
                 <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Block</button>
             </td>
         </tr>
-
-        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                1 
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <div class="flex items-center">
-                    <img src="https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png" alt="Avatar" class="w-10 h-10 rounded-full mr-2">
-                    <span>Luân</span>
-                </div>
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                luan.@gmail.com
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                0987654321
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                Rối loạn lo âu
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                Chú ý thời gian ngủ nghỉ
-            </td>
-
-            {{-- <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <span class="rounded py-1 px-3 text-xs font-bold 
-                             {{ active ? 'bg-green-400' : 'bg-red-400' }}">
-                    {{ active ? 'active' : 'inactive' }}
-                </span>
-            </td> --}}
-            <td>
-                <select class="block w-full p-3 text-gray-800 border border-b rounded-md">
-                    <option value="active" class="bg-green-400 text-white font-bold">Active</option>
-                    <option value="inactive" class="bg-red-400 text-white font-bold">Inactive</option>
-                </select>
-            </td>
-          
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                
-                <a href="{{url('/admin/patient/edit')}}"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</button></a>
-                <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Block</button>
-            </td>
-        </tr>
-
-        <tr class="bg-white lg:hover:bg-gray-100 flex lg:table-row flex-row lg:flex-row flex-wrap lg:flex-no-wrap mb-10 lg:mb-0">
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b block lg:table-cell relative lg:static">
-                1 
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <div class="flex items-center">
-                    <img src="https://png.pngtree.com/png-vector/20190710/ourmid/pngtree-user-vector-avatar-png-image_1541962.jpg" alt="Avatar" class="w-10 h-10 rounded-full mr-2">
-                    <span>Luân</span>
-                </div>
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                luan.@gmail.com
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                0987654321
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                Rối loạn lo âu
-            </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                Chú ý thời gian ngủ nghỉ
-            </td>
-
-            {{-- <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <span class="rounded py-1 px-3 text-xs font-bold 
-                             {{ active ? 'bg-green-400' : 'bg-red-400' }}">
-                    {{ active ? 'active' : 'inactive' }}
-                </span>
-            </td> --}}
-            <td>
-                <select class="block w-full p-3 text-gray-800 border border-b rounded-md">
-                    <option value="active" class="bg-green-400 text-white font-bold">Active</option>
-                    <option value="inactive" class="bg-red-400 text-white font-bold">Inactive</option>
-                </select>
-            </td>
-          
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                
-                <a href="{{url('/admin/patients/update')}}"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</button></a>
-                <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Block</button>
-            </td>
-        </tr>
-        
+        @endforeach
     </tbody>
 </table>
-
+{{-- {{url('/admin/patients/'.$patient->user_id.'/update')}} --}}
       
 @endsection
