@@ -5,25 +5,25 @@
     </a>
     <ul class="side-menu top flex flex-col mt-8">
         <li>
-            <a href="{{url('/admin/patients')}}" class="flex items-center px-4 py-2">
+            <a href="/admin/patients" class="flex items-center px-4 py-2">
                 <i class='bx bxs-shopping-bag-alt text-xl'></i>
                 <span class="text-lg ml-2">Patients</span>
             </a>
         </li>
         <li>
-            <a href="{{url('/admin/doctors')}}" class="flex items-center px-4 py-2">
+            <a href="/admin/doctors" class="flex items-center px-4 py-2">
                 <i class='bx bxs-dashboard text-xl'></i>
                 <span class="text-lg ml-2">Doctors</span>
             </a>
         </li>
         <li>
-            <a href="{{url('/admin/appointment')}}" class="flex items-center px-4 py-2">
+            <a href="/admin/appointment" class="flex items-center px-4 py-2">
                 <i class='bx bxs-message-dots text-xl'></i>
                 <span class="text-lg ml-2">Appointments</span>
             </a>
         </li>
         <li>
-            <a href="{{url('/admin/dashboard')}}" class="flex items-center px-4 py-2">
+            <a href="/admin/dashboard" class="flex items-center px-4 py-2">
                 <i class='bx bxs-dashboard text-xl'></i>
                 <span class="text-lg ml-2">Dashboard</span>
             </a>
@@ -37,4 +37,5 @@
             </a>
         </li>
     </ul>
+
 </section>

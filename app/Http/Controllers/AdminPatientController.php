@@ -65,7 +65,7 @@ class AdminPatientController extends Controller
                 'errors' => $validator->errors(),
             ], 400);
         }
-        $hashedPassword = Hash::make($request->input('password'));
+        $hashedPassword = ($request->input('password'));
         $select = new AdminRepository();
         $insert_patient = new PatientRepository();
         $user = new User(
@@ -126,7 +126,7 @@ class AdminPatientController extends Controller
         $password = $request->input('password');
         $newPassword = $request->input('new_password');
         if (!empty($newPassword)) {
-            $password = Hash::make($newPassword);
+            $password = $newPassword;
         }
     
         // Update user information
