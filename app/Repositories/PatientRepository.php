@@ -21,7 +21,6 @@ class PatientRepository
     public function getAllPatients()
     {
     }
-
     public function findByEmail($email)
     {
         $result = DB::select("SELECT * FROM users
@@ -29,4 +28,5 @@ class PatientRepository
         $newUser = $result[0];
         return $newUser->id;
     }
+
 }
