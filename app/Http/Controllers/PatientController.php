@@ -20,5 +20,6 @@ class PatientController extends Controller
     {
         return view('admin.patients.update_patient');
     }
+   
 }
 
