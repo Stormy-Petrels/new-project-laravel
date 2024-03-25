@@ -25,6 +25,10 @@ Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/services', [HomeController::class, 'services']);
+Route::get('/sign-up', [SignUpController::class, 'index']);
+Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
+
+
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
 Route::post('/api/sign-in',[SignInController::class, 'signIn']);
