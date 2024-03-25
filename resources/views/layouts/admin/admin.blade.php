@@ -37,7 +37,7 @@
 	</section>
 	<!-- CONTENT -->
 	
-
+	@yield('js')
 	<script src="/assets/admin/js/main.js"></script>
 </body>
 </html>

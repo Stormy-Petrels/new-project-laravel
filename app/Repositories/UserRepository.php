@@ -4,6 +4,7 @@ use Illuminate\Support\Carbon;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class UserRepository
 {
@@ -12,7 +13,7 @@ class UserRepository
 
     public function insert(User $user)
     {
-        $sql = "INSERT INTO $this->tableName (id, role, name, email, password, address, phone, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO $this->tableName (id, role, name, email, password, address, phone, , created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         DB::insert($sql, [
             $user->getId(),
             $user->getRole()->getValue(),
@@ -37,6 +38,7 @@ class UserRepository
     public function delete(string $id)
     {
     }
+
     public function findByEmail($email)
     {
         $result = DB::select("SELECT * FROM users
