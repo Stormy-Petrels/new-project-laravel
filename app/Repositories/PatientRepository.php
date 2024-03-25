@@ -28,6 +28,13 @@ class PatientRepository
         JOIN users u ON p.user_id = u.id;";
         return DB::select($sql); 
     }
+    public function findByEmail($email)
+    {
+        $result = DB::select("SELECT * FROM users
+        WHERE email = ? LIMIT 1", [$email]);
+        $newUser = $result[0];
+        return $newUser->id;
+    }
 
     public function get_patient_by_id($id)
     {

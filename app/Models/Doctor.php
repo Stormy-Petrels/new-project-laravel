@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
-class Doctor extends BaseModel
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Doctor extends BaseModel                          
 {
     public string $userid;
     public string $specialization;
@@ -11,6 +14,7 @@ class Doctor extends BaseModel
      * @param string $userid
      * @throws \Exception
      */
+    
     public function __construct(string $userid, string $specialization, string $description)
     {
         parent::__construct();

@@ -15,9 +15,9 @@ class HomeController extends Controller
     public function aboutUs() {
         return view('patients.aboutUs');
     }
-    public function doctors() {
-        return view('patients.doctors');
-    }
+    // public function doctors() {
+    //     return view('patients');
+    // }
     public function services() {
         return view('patients.services');
     }

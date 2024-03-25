@@ -13,8 +13,8 @@ class AdminRepository
     // for doctors
     public function addNewDoctor(User $doctor)
     {
-        $userSql = "INSERT INTO users (id, role, email, password, name, phone, address, url_image)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $userSql = "INSERT INTO users (id, role, email, password, name, phone, address, url_image, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $doctor = DB::insert($userSql, [
             $doctor->getId(),
             $doctor->getRole()->getValue(),
@@ -23,7 +23,9 @@ class AdminRepository
             $doctor->getFullName(),
             $doctor->getPhone(),
             $doctor->getAddress(),
-            $doctor->getUrlImage()
+            $doctor->getUrlImage(),
+            Carbon::now(),
+            Carbon::now()
         ]);
         return $doctor;
     }
@@ -31,7 +33,7 @@ class AdminRepository
     public function updateDoctor(User $user, Doctor $doctor)
     {
         $userSql = "UPDATE users
-        SET name = ?, password = ?, phone = ?, address = ?, url_image = ?, email = ? WHERE id = ?";
+        SET name = ?, password = ?, phone = ?, address = ?, url_image = ?, email = ?, created_at = ?, updated_at = ? WHERE id = ?";
 
         $userSqldoctor = "UPDATE doctors SET specialization = ?, description = ? , created_at = ?, updated_at = ? WHERE user_id = ?";
 
@@ -42,6 +44,8 @@ class AdminRepository
             $user->getAddress(),
             $user->getUrlImage(),
             $user->getEmail(),
+            Carbon::now(),
+            Carbon::now(),
             $doctor->getUserId()
         ]);
 
@@ -49,20 +53,19 @@ class AdminRepository
         DB::update($userSqldoctor, [
             $doctor->getSpecialization(),
             $doctor->getDescription(),
-            $doctor->getUserId(),
             Carbon::now(),
-            Carbon::now()
+            Carbon::now(),
+            $doctor->getUserId(),
         ]);
         return $userSql;
     }
 
-    public function deleteDoctor($doctorId)
+    public function deleteDoctor($id)
     {
-        $userId = DB::table('doctors')->where('id', $doctorId)->value('user_id');
+        $userId = DB::table('doctors')->where('id', $id)->value('user_id');
 
-        DB::table('doctors')->where('id', $doctorId)->delete();
+        DB::table('doctors')->where('id', $id)->delete();
         DB::table('users')->where('id', $userId)->delete();
-        return DB::table('user')->where('id', $doctorId);
     }
 
     public function edit($id)

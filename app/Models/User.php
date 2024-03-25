@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 class User extends BaseModel
 {
     private string $userId;
@@ -32,10 +34,6 @@ class User extends BaseModel
         $this->address = $address;
         $this->urlImage = $urlImage;
     }
-
-
-    
-
     public function getRole(): Role
     {
         return $this->role;
@@ -95,8 +93,9 @@ class User extends BaseModel
     {
         $this->urlImage = $urlImage;
     }
-    
-    public function setUserId(string $userId): void{
+
+    public function setUserId(string $userId): void
+    {
         $this->userId = $userId;
     }
 
