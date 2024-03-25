@@ -24,6 +24,7 @@
                 Full name
               </label>
               <input
+              value="{{old('name')}}"
                 type="text"
                 name="name"
                 id="name"
@@ -45,6 +46,7 @@
               </label>
         
               <input
+              value="{{old('email')}}"
                 type="email"
                 name="email"
                 id="email"
@@ -66,6 +68,7 @@
                 Password
               </label>
               <input
+                value="{{old('password')}}"
                 type="password"
                 name="password"
                 id="password"
@@ -87,6 +90,8 @@
                 Phone
               </label>
               <input
+              
+              value="{{old('phone')}}"
                 type="text"
                 name="phone"
                 id="phone"
@@ -108,6 +113,7 @@
                 Address
               </label>
               <input
+              value="{{old('address')}}"
                 type="text"
                 name="address"
                 id="address"
@@ -151,6 +157,7 @@
                   Health conditional
                 </label>
                 <textarea
+                value="{{old('health_condition')}}"
                   type="text"
                   name="health_condition"
                   id="health_condition"
@@ -172,6 +179,7 @@
                     Note
                   </label>
                   <textarea
+                  value="{{old('note')}}"
                     type="text"
                     name="note"
                     id="note"

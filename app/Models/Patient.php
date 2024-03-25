@@ -4,14 +4,16 @@ namespace App\Models;
 
 class Patient extends BaseModel
 {
+    
     public string $userid;
     public string $health_condition;
-    public string $note;
+    public string|null $note;
+   
 
     /**
      * @param string $userid
      */
-    public function __construct(string $userid, string $health_condition, string $note)
+    public function __construct(string $userid, string $health_condition, string|null $note)
     {
         parent::__construct();
         $this->userid = $userid;
@@ -28,7 +30,7 @@ class Patient extends BaseModel
     {
         return $this->health_condition;
     }
-    public function getNote(): string
+    public function getNote(): string|null
     {
         return $this->note;
     }

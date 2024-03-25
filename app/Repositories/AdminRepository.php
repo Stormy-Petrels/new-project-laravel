@@ -91,18 +91,19 @@ class AdminRepository
     {
         $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? WHERE id = ?";
         $patient_sql = "UPDATE patients SET health_condition = ?, note = ?  WHERE user_id = ?";
+         
         $user = DB::update($user_sql, [
             $user->getFullName(),
             $user->getPassword(),
             $user->getPhone(),
             $user->getAddress(),
-            $user->getId()
+            $patient->getUserId()
         ]);
 
         $patient= DB::update($patient_sql, [
             $patient->getHealthCondition(),
             $patient->getNote(),
-            $patient->getId()
+            $patient->getUserId()
         ]);
 
         return $patient;

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
@@ -50,9 +51,16 @@ class PatientController extends Controller
             'phone' => ['required', 'regex:/^0\d{9}$/'],
             'address' => 'required',
             'url_image' => 'required|mimes:png,jpg,jpeg,webp,gif',
-            'health_condition' => 'nullable',
+            'health_condition' => 'required|string',
             'note' => 'nullable',
         ]);
+
+        if ($validator->fails()) {
+            return redirect('admin/patients/create')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
 
         if ($validator->fails()) {
             return response()->json([
@@ -61,16 +69,17 @@ class PatientController extends Controller
             ], 400);
         }
 
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput();
-        }
+        $hashedPassword = Hash::make($request->input('password'));
+
+       
+
 
         $select = new AdminRepository();
         $insert_patient = new PatientRepository();
         $user = new User(
             Role::Patient,
             $request->input('email'),
-            $request->input('password'),
+            $hashedPassword,
             $request->input('name'),
             $request->input('phone'),
             $request->input('address'),
@@ -102,64 +111,58 @@ class PatientController extends Controller
         return view('admin.patients.update_patient', compact('patient'));
     }
 
-public function update(Request $request, string $id)
-{
-    $select = new AdminRepository();
-
-    // Validate input data
-    $validator = Validator::make($request->all(), [
-        'name' => 'required|string',
-        'new_password' => 'nullable|string|min:6',
-        'phone' => 'required|string',
-        'address' => 'required|string',
-        'health_condition' => 'nullable',
-        'note' => 'nullable',
-    ]);
-
-    // Check if validation fails
-    if ($validator->fails()) {
+    public function update(Request $request, string $id)
+    {   
+        $select = new AdminRepository();
+    
+        // Validate input data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'new_password' => 'nullable|string|min:6',
+            'phone' => 'required|string',
+            'address' => 'required|string',
+            'health_condition' => 'nullable|string',
+            'note' => 'nullable|string',
+        ]);
+        
+       
+        if ($validator->fails()) {
+            return redirect('admin/patients/'.$id.'/update')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        // Proceed with updating the patient
+        $password = $request->input('password');
+        $newPassword = $request->input('new_password');
+        if (!empty($newPassword)) {
+            $password = Hash::make($newPassword);
+        }
+    
+        // Update user information
+        $updateUser = new User(
+            Role::Doctor,
+            '',
+            $password,
+            $request->input('name'),
+            $request->input('address'),
+            $request->input('phone'),
+            ''
+        );
+        $updatePatient = new Patient(
+            $id, 
+            $request->input('health_condition'), 
+            $request->input('note')
+        );
+        $patient = $select->update_patient($updateUser, $updatePatient);
+        
+        if ($patient != null) {
+            return redirect('/admin/patients')->with('success', 'Patient updated successfully');
+        } 
+    
         return response()->json([
-            'message' => 'Validation error',
-            'errors' => $validator->errors()
+            "message" => "Failed to update the patient",
         ], 400);
     }
-
-    // Proceed with updating the patient
-    $password = $request->input('password');
-    $newPassword = $request->input('new_password');
-    if (!empty($newPassword)) {
-        $password = $newPassword;
-    }
-
-    // Update user information
-    $updateUser = new User(
-        Role::Doctor,
-        $request->input('name'),
-        $password,
-        '',
-        $request->input('phone'),
-        $request->input('address'),
-        ''
-    );
-    
-    $updatePatient = new Patient($id, $request->input('health_condition', null), $request->input('note', null));
-    $patient = $select->update_patient($updateUser, $updatePatient);
-    if ($patient!=null) {
-        // Chuyển hướng đến trang chủ và hiển thị thông báo
-        return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
-    } 
-    if ($patient != null) {
-        return response()->json([
-            "message" => "Updated patient complete",
-            "patient" => $patient
-        ], 201);
-    }
-}
-
-
-
-
-        
     public function create()
     {
         return view('admin.patients.create_patient');

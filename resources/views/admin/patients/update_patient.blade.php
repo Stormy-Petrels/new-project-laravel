@@ -47,7 +47,7 @@
               </label>
               <input
                 value="{{$patient[0]->email}}"
-                disabled
+                readonly
                 type="text"
                 name="email"
                 id="email"
@@ -126,6 +126,9 @@
                 </svg>
               </div>
             </div>
+            @error('new_password')
+            <span class="text-danger">{{$message}}</span>
+            @enderror
           </div>
         </div>
         
@@ -187,19 +190,18 @@
             <div class="w-full px-3 sm:w-1/2">
               <div class="mb-5">
                 <label
-                  for="health-con"
+                  for="health_condition"
                   class="mb-3 block text-base font-medium text-[#07074D]"
                 >
                   Health conditional
                 </label>
                 <textarea
-                  value="{{$patient[0]->health_condition}}"
                   type="text"
-                  name="health-con"
-                  id="health-con"
-                  placeholder=" Health conditional"
+                  name="health_condition"
+                  id="health_condition"
+                  placeholder="Health conditional"
                   class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                ></textarea>
+                >{{$patient[0]->health_condition}}</textarea>
                 @error('health_condition')
                 <span class="text-danger">{{$message}}</span>
                 @enderror
@@ -214,13 +216,12 @@
                     Note
                   </label>
                   <textarea
-                  value="{{$patient[0]->note}}"
                     type="text"
                     name="note"
                     id="note"
                     placeholder="Note"
                     class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                  ></textarea>
+                  >{{$patient[0]->note}}</textarea>
                   @error('note')
                   <span class="text-danger">{{$message}}</span>
                   @enderror
