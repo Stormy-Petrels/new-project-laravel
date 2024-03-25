@@ -13,7 +13,7 @@ use App\Models\Doctor;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 
-class DoctorController extends Controller
+class AdminDoctorController extends Controller
 {
     private $adminRepository;
     private $patientRepository;

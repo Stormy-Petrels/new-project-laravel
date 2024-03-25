@@ -39,11 +39,11 @@ class DoctorRepository
 
     public function getDoctorById(string $id)
     {
-        $doctor = DB::table('doctors')
-            ->join('users', 'users.id', '=', 'doctors.user_id')
-            ->where('doctors.id', $id)
+        $doctor = DB::table('users')
+            ->leftJoin('doctors', 'users.id', '=', 'doctors.user_id')
+            ->where('users.id', $id)
+            ->select('users.*', 'doctors.description', 'doctors.specialization')
             ->first();
-
         return $doctor;
     }
 }
