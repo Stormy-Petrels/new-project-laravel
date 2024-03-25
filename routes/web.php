@@ -25,7 +25,9 @@ Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/services', [HomeController::class, 'services']);
-
+//Common
+Route::get('/sign-in', [SignInController::class, 'index']);
+Route::post('/api/sign-in',[SignInController::class, 'signIn']);
 // ADMIN
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
