@@ -1,24 +1,12 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Repositories\DoctorRepository;
 
 class DoctorController extends Controller
 {
-    public function index()
-    {
-        return view('admin.doctors.doctors');
-    }
-
-    public function create()
-    {
-        return view('admin.doctors.create_doctor');
-    }
-
-    public function update()
-    {
-        return view('admin.doctors.update_doctor');
+    public function index(){
+        $request = new DoctorRepository;
+        return view('patients.doctors',['doctors' => $request->getAllDoctor()]);
     }
 }
-

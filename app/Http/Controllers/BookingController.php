@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Repositories\DoctorRepository;
 use Illuminate\Http\Request;
 
@@ -8,7 +9,7 @@ class BookingController extends Controller
 {
     public function index(string $id){
         $doctorRepository = new DoctorRepository;
-        return view("Booking", ['doctor' => $doctorRepository->getDoctorById($id)], ['times' => $doctorRepository->getAllTimeDoctor()]);
+        return view("patients.Booking", ['doctor' => $doctorRepository->getDoctorById($id)], ['times' => $doctorRepository->getAllTimeDoctor()]);
     }
 
     
