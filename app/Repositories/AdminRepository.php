@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use App\Models\Patient;
 
 class AdminRepository
 {
@@ -70,4 +71,58 @@ class AdminRepository
     public function edit($id)
     {
     }
+
+
+    public function add_new_user(User $user)
+    {
+        $user_sql = "INSERT INTO users (id, role, email, password, name, phone, address, url_image)VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $user = DB::insert($user_sql, [
+            $user->getId(),
+            $user->getRole()->getValue(),
+            $user->getEmail(),
+            $user->getPassword(),
+            $user->getFullName(),
+            $user->getPhone(),
+            $user->getAddress(),
+            $user->getUrlImage()
+        ]);
+
+        return $user;
+    }
+
+    public function update_patient(User $user, Patient $patient)
+    {
+        $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? WHERE id = ?";
+        $patient_sql = "UPDATE patients SET health_condition = ?, note = ?  WHERE user_id = ?";
+         
+        $user = DB::update($user_sql, [
+            $user->getFullName(),
+            $user->getPassword(),
+            $user->getPhone(),
+            $user->getAddress(),
+            $patient->getUserId()
+        ]);
+
+        $patient= DB::update($patient_sql, [
+            $patient->getHealthCondition(),
+            $patient->getNote(),
+            $patient->getUserId()
+        ]);
+
+        return $patient;
+    }
+
+    public function delete_patient($patientID)
+    {
+        // Lấy UserId từ bảng patients
+        $userId = DB::table('patients')->where('id', $patientID)->value('user_id');
+
+        // Xóa hàng trong bảng patients
+        DB::table('patients')->where('id', $patientID)->delete();
+
+        // Xóa hàng trong bảng users
+        DB::table('users')->where('id', $userId)->delete();
+    }
+
+    
 }

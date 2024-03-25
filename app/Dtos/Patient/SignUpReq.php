@@ -20,6 +20,5 @@ class SignUpReq
         $this->password = $req->input("password");
         $this->phone = $req->input("phone");
         $this->address = $req->input("address");
-
     }
 }
