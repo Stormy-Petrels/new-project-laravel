@@ -31,18 +31,21 @@ Route::get('/doctors', [DoctorController::class, 'index']);
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
-Route::post('/api/sign-in',[SignInController::class, 'signIn']);
+Route::post('/api/sign-in', [SignInController::class, 'signIn']);
+
+Route::get('/sign-up', [SignUpController::class, 'index']);
+Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
 // ADMIN
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
 
-    Route::prefix('patients') ->group(function(){
+    Route::prefix('patients')->group(function () {
         Route::get('/', [AdminPatientController::class, 'index']);
         Route::get('/create', [AdminPatientController::class, 'create'])->name('create');
         Route::post('/create', [AdminPatientController::class, 'store'])->name('admin.patients.store');
-        Route::get('{user_id}/update', [AdminPatientController::class, 'edit'])->name('edit');
-        Route::put('{user_id}/update', [AdminPatientController::class, 'update'])->name('update');
-        Route::delete('{user_id}/delete', [AdminPatientController::class,'destroy'])->name('delete_patient');
+        Route::get('{user_id}/update', [AdminPatientController::class, 'edit'])->name('edit.patient');
+        Route::put('{user_id}/update', [AdminPatientController::class, 'update'])->name('update.patient');
+        Route::delete('{user_id}/delete', [AdminPatientController::class, 'destroy'])->name('delete_patient');
     });
 
     // Route cho quản lý bác sĩ
@@ -60,7 +63,6 @@ Route::prefix('admin')->group(function () {
 
     // Route cho quản lý cuộc hẹn
     Route::get('/appointment', [AppointmentController::class, 'index']);
-
 });
 
 

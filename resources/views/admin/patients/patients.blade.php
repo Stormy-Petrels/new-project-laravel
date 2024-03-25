@@ -72,7 +72,7 @@
             </td>
           
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <a href="{{ route('edit', $patient->user_id) }}">
+                <a href="{{ route('edit.patient', $patient->user_id) }}">
                     <button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Update</button>
                 </a>
                 <form action="{{ route('delete_patient', ['user_id' => $patient->user_id]) }}" method="POST" onsubmit="return confirm('Are you sure?');">

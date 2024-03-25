@@ -61,12 +61,12 @@
                 </div>
             <div class="mb-4" >
                 <label for="full-name" class="block font-semibold text-gray-700 mb-1 text-white text-white">Full Name</label>
-                <input id="full-name" name="full-name" type="text" required placeholder="Your Full Name" class="border-gray-300 border rounded-md px-4 py-2 w-full">
+                <input id="name" name="name" type="text" required placeholder="Your Full Name" class="border-gray-300 border rounded-md px-4 py-2 w-full">
                 <p id="full-name-error" class="text-red-600 text-[13px]"></p>
             </div>
             <div class="mb-4">
                 <label for="phoneNumber" class="block font-semibold text-gray-700 mb-1 text-white text-white">Phone Number</label>
-                <input id="phoneNumber" name="phoneNumber" type="text" required placeholder="Your Phone Number" class="border-gray-300 border rounded-md px-4 py-2 w-full">
+                <input id="phone" name="phone" type="text" required placeholder="Your Phone Number" class="border-gray-300 border rounded-md px-4 py-2 w-full">
                 <p id="phoneNumber-error" class="text-red-600 text-[13px]"></p>
             </div>
             <div class="mb-4">
@@ -98,13 +98,17 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     function handleSubmitSignUp() {
-        const fullName = document.getElementById("full-name").value;
-        const phone = document.getElementById("phoneNumber").value;
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-const address = document.getElementById("address").value;
+        var fullName = document.getElementById("name").value;
+        var phone = document.getElementById("phone").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var address = document.getElementById("address").value;
 
-
+        console.log(fullName);
+        console.log(phone);
+        console.log(password);
+        console.log(email);
+        console.log(address);
         axios.post('/api/patient/sign-up', {
                 email,
                 password,

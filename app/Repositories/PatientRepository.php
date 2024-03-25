@@ -20,6 +20,18 @@ class PatientRepository
             $patient->getNote()
         ]);
     }
+
+    public function insert(Patient $patient)
+    {
+        $sql = "INSERT INTO $this->tableName (id, user_id, health_condition, note) VALUES (?, ? , ?, ?)";
+        DB::insert($sql, [
+            $patient->getId(),
+            $patient->getId(),
+            $patient->getHealthCondition(),
+            $patient->getNote()
+        ]);
+    }
+    
      
     public function get_info_patients()
     {
