@@ -20,17 +20,4 @@ class DoctorRepository
 
         ]);
     }
-
-
-    public function getAllTimeDoctor()
-    {
-    }
-
-    public function getAllDoctor()
-    {
-    }
-
-    public function getDoctorById(string $id)
-    {
-    }
 }

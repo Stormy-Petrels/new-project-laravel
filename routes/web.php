@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SignInController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
+
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SignUpController;
 /*
@@ -23,9 +25,6 @@ Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/services', [HomeController::class, 'services']);
-Route::get('/sign-up', [SignUpController::class, 'index']);
-Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
-
 
 // ADMIN
 Route::prefix('admin')->group(function () {
@@ -52,3 +51,4 @@ Route::prefix('admin')->group(function () {
     Route::get('/appointment', [AppointmentController::class, 'index']);
 
 });
+
