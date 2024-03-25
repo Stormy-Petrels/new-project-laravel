@@ -190,14 +190,14 @@
         <div class="w-full max-w-screen-sm m-auto mt-12 lg:w-1/4 lg:order-first">
             <div class="p-2 transition duration-500 ease-in-out transform bg-white border rounded-lg">
                 <div id="image-div" class="w-full h-3/4 object-cover">
-                    <img src="{{asset('images/'.$doctor->url_image)}}" class="w-full h-full object-cover">
+                    <img src="{{asset('images/'.$doctor[0]->url_image)}}" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
         <div class="w-full px-4 mt-12 prose lg:px-0 lg:w-3/4">
             <div class="mb-5 border-b border-gray-200">
                 <div class="flex flex-wrap items-baseline mt-2">
-                    <h1 class="css-1jxf684 text-2xl font-bold leading-[20.8px] text-primary text-blue-600">Doctor, Psychologist  {{$doctor->name}}</h1>
+                    <h1 class="css-1jxf684 text-2xl font-bold leading-[20.8px] text-primary text-blue-600">Doctor, Psychologist  {{$doctor[0]->name}}</h1>
                     <div class="paragrap">
                         <p class="row">Expert in counseling for stress reduction, psychological crisis, improving sleep quality, and deep sleep in adolescents and adults.</p>
                         <p class="row">Expert in school psychological intervention, assisting parents and teachers in managing oppositional behavior, disciplinary violations of students, or helping students build healthy friendships.</p>
@@ -230,9 +230,12 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
     var totalPrice = document.getElementById("price").innerHTML = 0
-
+    var Time =""
     var currentDate = new Date().toISOString().split('T')[0];
     document.getElementById('dateInput').value = currentDate;
     document.getElementById('dateInput').setAttribute('min', currentDate);
@@ -314,6 +317,7 @@
                     this.classList.add("checkbox-selected");
                     timeText.style.color = "#fff";
                     selectedTimeId = listTime[index].id;
+                    Time = listTime[index].time_start+" - "+listTime[index].time_end;
                     price = listTime[index].price;
                     document.getElementById("price").innerHTML = price
 
@@ -325,27 +329,29 @@
     var doctorId = ""
     var patientId = ""
 
-    var url = window.location.href;
-    var idIndex = url.indexOf("id=");
-    if (idIndex !== -1) {
-        var idSubstring = url.substring(idIndex + 3);
-        var id = parseInt(idSubstring, 10);
-        if (!isNaN(id)) {
-            doctorId = id;
-        }
-    }
+    var url = window.location.href; // Lấy đường dẫn URL hiện tại trên trình duyệt
+
+    var startIndex = url.indexOf("/doctor/") + 8; // Tìm vị trí bắt đầu của số "2059" (8 là độ dài của "/doctor/")
+    var endIndex = url.indexOf("/booking"); // Tìm vị trí kết thúc của số "2059"
+    var idSubstring = url.substring(startIndex, endIndex); // Lấy phần chuỗi giữa vị trí bắt đầu và kết thúc
+    var id = parseInt(idSubstring, 10); // Chuyển chuỗi thành số nguyên
+    doctorId = id; // Gán giá trị "id" vào biến doctorId
 
     var data = localStorage.getItem("user-info");
     if (data) {
         var jsonData = JSON.parse(data);
         var id = jsonData.roleId;
+        var name = jsonData.fullName;
         patientId = id
         console.log(patientId)
     }
 
     function book() {
         {
-            var selectedDate = dateInput.value;
+            console.log(patientId);
+            console.log(doctorId);
+            console.log(selectedTimeId);
+            console.log(selectedDate);
             axios.post('/patient/list-doctor/booking', {
                     patientId: patientId,
                     doctorId: doctorId,
@@ -354,6 +360,7 @@
                 })
                 .then(res => {
                     if (res.status === 200) {
+
                         const bookingOverlay = document.getElementById('booking-overlay');
                         const bookingSuccess = document.getElementById('booking-success');
 
@@ -375,4 +382,5 @@
                 })
         }
     }
+    
 </script>
