@@ -7,9 +7,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SignInController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PatientController;
-use App\Http\Controllers\DoctorController;
-
+use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SignUpController;
 /*
 |--------------------------------------------------------------------------
@@ -44,12 +44,12 @@ Route::prefix('admin')->group(function () {
 
     // Route cho quản lý bác sĩ
     Route::prefix('doctors')->group(function () {
-        Route::get('/', [DoctorController::class, 'index']);
-        Route::get('/create', [DoctorController::class, 'create'])->name('create');
-        Route::post('/create', [DoctorController::class, 'store'])->name('store');
-        Route::get('/doctor/{id}', [DoctorController::class, 'edit'])->name('edit');
-        Route::post('/doctor/{id}', [DoctorController::class, 'update'])->name('update');
-        Route::get("/delete/doctor/{id}", [DoctorController::class, 'destroy'])->name('destroy');
+        Route::get('/', [AdminDoctorController::class, 'index']);
+        Route::get('/create', [AdminDoctorController::class, 'create'])->name('create');
+        Route::post('/create', [AdminDoctorController::class, 'store'])->name('store');
+        Route::get('/doctor/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
+        Route::post('/doctor/{id}', [AdminDoctorController::class, 'update'])->name('update');
+        Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('destroy');
     });
 
     // Route cho bảng điều khiển admin
