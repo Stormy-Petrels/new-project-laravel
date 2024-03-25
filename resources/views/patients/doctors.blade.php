@@ -187,7 +187,8 @@
             let newPage = document.createElement('li');
             newPage.innerText = i;
             if (i == thisPage) {
-                newPage.classList.add('active');
+                newP
+                age.classList.add('active');
             }
             newPage.setAttribute('onclick', "changePage(" + i + ")");
             document.querySelector('.listPage').appendChild(newPage);
