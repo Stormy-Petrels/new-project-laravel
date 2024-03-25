@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageDoctorController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SignInController;
 use App\Http\Controllers\AdminController;
@@ -23,7 +25,8 @@ use App\Http\Controllers\AppointmentController;
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
-Route::get('/doctors', [HomeController::class, 'doctors']);
+// Route::get('/doctors', [HomeController::class, 'doctors']);
+Route::get('/doctors', [DoctorController::class, 'index']);
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
@@ -55,3 +58,7 @@ Route::prefix('admin')->group(function () {
     // Route cho quản lý cuộc hẹn
     Route::get('/appointment', [AppointmentController::class, 'index']);
 });
+
+Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
+Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
+
