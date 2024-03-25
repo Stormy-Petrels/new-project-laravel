@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AdminPatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\AppointmentController;
 
@@ -28,14 +28,13 @@ Route::get('/services', [HomeController::class, 'services']);
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
 
-     // Route cho quản lý bệnh nhân
-     Route::prefix('patients')->group(function () {
-        Route::get('/', [PatientController::class, 'index']);
-        Route::get('/create', [PatientController::class, 'create'])->name('create');
-        Route::post('/create', [PatientController::class, 'store'])->name('admin.patients.store');
-       Route::get('{user_id}/update', [PatientController::class, 'edit'])->name('edit');
-       Route::put('{user_id}/update', [PatientController::class, 'update'])->name('update');
-       Route::delete('{user_id}/delete', [PatientController::class,'destroy'])->name('delete_patient');
+    Route::prefix('patients') ->group(function(){
+        Route::get('/', [AdminPatientController::class, 'index']);
+        Route::get('/create', [AdminPatientController::class, 'create'])->name('create');
+        Route::post('/create', [AdminPatientController::class, 'store'])->name('admin.patients.store');
+        Route::get('{user_id}/update', [AdminPatientController::class, 'edit'])->name('edit');
+        Route::put('{user_id}/update', [AdminPatientController::class, 'update'])->name('update');
+        Route::delete('{user_id}/delete', [AdminPatientController::class,'destroy'])->name('delete_patient');
     });
 
     // Route cho quản lý bác sĩ

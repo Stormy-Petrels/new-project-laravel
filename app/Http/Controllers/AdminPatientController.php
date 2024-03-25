@@ -9,14 +9,12 @@ use App\Repositories\UserRepository;
 use  App\Repositories\PatientRepository;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Doctor;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Patient;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Hash;
 
-class PatientController extends Controller
+class AdminPatientController extends Controller
 {
     private $adminRepository;
     private $doctorRepository;
