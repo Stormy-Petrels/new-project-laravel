@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Faker\Factory as FakerFactory;
@@ -25,17 +26,19 @@ class UserFactory extends Factory
     public function definition(): array
     {
         $faker = FakerFactory::create();
+        $arr = ['Admin', 'Doctor', 'Patient'];
         return [
-            'id' => $faker->unique()->randomNumber(5),
-            'role' => $faker->randomElement(['admin', 'doctor', 'patient']),
-            'email' => $faker->unique()->email,
-            'password' => bcrypt('password'), // Thay 'password' bằng mật khẩu mà bạn muốn sử dụng
+            'id' => Str::uuid()->toString(),
+            'role' => $arr[array_rand($arr)],
+            'email' => $faker->unique()->safeEmail,
+            'password' => $faker->password, // Default password 'password'
             'name' => $faker->name,
             'phone' => $faker->phoneNumber,
             'address' => $faker->address,
-            'url_image' => rand(1,4).'.jpg',
+            'url_image' => $faker->imageUrl(),
             'created_at' => now(),
             'updated_at' => now(),
+            // 'remember_token' => Str::random(10),
         ];
     }
 
