@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class User extends BaseModel
@@ -33,7 +34,6 @@ class User extends BaseModel
         $this->address = $address;
         $this->urlImage = $urlImage;
     }
-
     public function getRole(): Role
     {
         return $this->role;

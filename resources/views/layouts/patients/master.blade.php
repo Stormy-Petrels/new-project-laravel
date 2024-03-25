@@ -15,6 +15,8 @@
         <div class="container">
             @yield('content')
         </div>
+        @yield('JScontent')
+
 
         @section('footer')
             @include('layouts.patients.footer')
