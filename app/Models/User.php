@@ -19,8 +19,8 @@ class User extends BaseModel
         string $email,
         string $password,
         string $fullName,
-        string $address,
         string $phone,
+        string $address,
         string|null $urlImage = null
     ) {
         parent::__construct();
@@ -28,8 +28,8 @@ class User extends BaseModel
         $this->email = $email;
         $this->password = $password;
         $this->fullName = $fullName;
-        $this->address = $address;
         $this->phone = $phone;
+        $this->address = $address;
         $this->urlImage = $urlImage;
     }
 

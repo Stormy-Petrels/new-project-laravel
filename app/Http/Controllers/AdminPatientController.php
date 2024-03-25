@@ -59,19 +59,13 @@ class AdminPatientController extends Controller
                 ->withInput();
         }
         
-
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Validation failed',
                 'errors' => $validator->errors(),
             ], 400);
         }
-
         $hashedPassword = Hash::make($request->input('password'));
-
-       
-
-
         $select = new AdminRepository();
         $insert_patient = new PatientRepository();
         $user = new User(
@@ -90,7 +84,6 @@ class AdminPatientController extends Controller
             $request->input('note') ?? ''
         );
         $insert_patient->add_new_patient($new_patient);
-
         // if ($patient != null) {
         //     return Redirect::route('admin/patients')->with('success', 'Patient successfully added');
         // }
@@ -117,8 +110,8 @@ class AdminPatientController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'new_password' => 'nullable|string|min:6',
-            'phone' => 'required|string',
             'address' => 'required|string',
+            'phone' => 'required|string',
             'health_condition' => 'nullable|string',
             'note' => 'nullable|string',
         ]);
