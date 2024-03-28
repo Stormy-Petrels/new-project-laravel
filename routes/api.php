@@ -3,7 +3,10 @@
 use App\Http\Controllers\AdminDoctorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\AppointmentController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
