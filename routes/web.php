@@ -65,4 +65,5 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
+Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
 

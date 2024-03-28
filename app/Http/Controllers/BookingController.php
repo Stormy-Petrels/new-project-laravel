@@ -21,7 +21,8 @@ class BookingController extends Controller
         $requestDay = $req;
         $request = new DoctorRepository;
         $day = $requestDay->selectedDate;
-        $listTime = $request->getAvailableTimesForBooking($day);
+        $doctorid = $requestDay->doctorId;
+        $listTime = $request->getAvailableTimesForBooking($day, $doctorid);
         return response()->json([
             'message' => 'List time user',
             'listTime' => $listTime

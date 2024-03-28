@@ -234,6 +234,17 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+        var doctorId = ""
+    var patientId = ""
+
+    var url = window.location.href; // Lấy đường dẫn URL hiện tại trên trình duyệt
+
+    var startIndex = url.indexOf("/doctor/") + 8; // Tìm vị trí bắt đầu của số "2059" (8 là độ dài của "/doctor/")
+    var endIndex = url.indexOf("/booking"); // Tìm vị trí kết thúc của số "2059"
+    var idSubstring = url.substring(startIndex, endIndex); // Lấy phần chuỗi giữa vị trí bắt đầu và kết thúc
+    var id = parseInt(idSubstring, 10); // Chuyển chuỗi thành số nguyên
+    doctorId = id; // Gán giá trị "id" vào biến doctorId
+    
     var totalPrice = document.getElementById("price").innerHTML = 0
     var Time =""
     var currentDate = new Date().toISOString().split('T')[0];
@@ -241,6 +252,7 @@
     document.getElementById('dateInput').setAttribute('min', currentDate);
     var selectedDate = currentDate
     axios.post('/patient/list-doctor/booking/time', {
+            doctorId,
             selectedDate
         })
         .then(res => {
@@ -263,6 +275,7 @@
         var totalPrice = document.getElementById("price").innerHTML = 0
         console.log("Selected Date: " + selectedDate);
         axios.post('/patient/list-doctor/booking/time', {
+                doctorId,
                 selectedDate
             })
             .then(res => {
@@ -326,16 +339,7 @@
             })(i);
         }
     }
-    var doctorId = ""
-    var patientId = ""
 
-    var url = window.location.href; // Lấy đường dẫn URL hiện tại trên trình duyệt
-
-    var startIndex = url.indexOf("/doctor/") + 8; // Tìm vị trí bắt đầu của số "2059" (8 là độ dài của "/doctor/")
-    var endIndex = url.indexOf("/booking"); // Tìm vị trí kết thúc của số "2059"
-    var idSubstring = url.substring(startIndex, endIndex); // Lấy phần chuỗi giữa vị trí bắt đầu và kết thúc
-    var id = parseInt(idSubstring, 10); // Chuyển chuỗi thành số nguyên
-    doctorId = id; // Gán giá trị "id" vào biến doctorId
 
     var data = localStorage.getItem("user-info");
     if (data) {
