@@ -93,9 +93,9 @@
                 if (res.status === 200) {
                     localStorage.setItem("user-info", JSON.stringify(payload))
                     if (payload.role === "Admin") {
-                        window.location.href = "/admin/getDoctor"
+                        window.location.href = "/admin/doctors"
                     } else if (payload.role === "Doctor") {
-                        window.location.href = "/doctor/booking"
+                        window.location.href = "/admin/doctors"
                     } else if (payload.role === "Patient") {
                         window.location.href = "/home"
                     }

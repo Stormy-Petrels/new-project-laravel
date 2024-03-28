@@ -102,8 +102,12 @@
         const phone = document.getElementById("phoneNumber").value;
         const email = document.getElementById("email").value;
         const password = document.getElementById("password").value;
-const address = document.getElementById("address").value;
-
+        const address = document.getElementById("address").value;
+        console.log(fullName);
+        console.log(phone);
+        console.log(email);
+        console.log(password);
+        console.log(address);
 
         axios.post('/api/patient/sign-up', {
                 email,
@@ -160,7 +164,7 @@ const address = document.getElementById("address").value;
                         document.getElementById("phoneNumber-error").textContent = "";
                     }
                     if (errors.error.address == "") {
-document.getElementById("addres-error").textContent = "Please fill in your address";
+                        document.getElementById("addres-error").textContent = "Please fill in your address";
                     } else {
                         document.getElementById("addres-error").textContent = "";
                     }
