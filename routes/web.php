@@ -1,12 +1,18 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PageDoctorController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SignInController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AdminPatientController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\PatientController;
+use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AppointmentController;
-
+use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\AdminBanners;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,69 +23,58 @@ use App\Http\Controllers\AppointmentController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-// PATIENT 
+// PATIENT
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
-Route::get('/doctors', [HomeController::class, 'doctors']);
+// Route::get('/doctors', [HomeController::class, 'doctors']);
+Route::get('/doctors', [DoctorController::class, 'index']);
 Route::get('/services', [HomeController::class, 'services']);
-
+//Common
+Route::get('/sign-in', [SignInController::class, 'index']);
+Route::post('/api/sign-in',[SignInController::class, 'signIn']);
 // ADMIN
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
 
-    // Route cho quản lý bệnh nhân
     Route::prefix('patients')->group(function () {
-        Route::get('/', [PatientController::class, 'index']);
-        Route::get('/create', [PatientController::class, 'create'])->name('create');
-        Route::get('/update', [PatientController::class, 'update'])->name('update');
+        Route::get('/', [AdminPatientController::class, 'index']);
+        Route::get('/create', [AdminPatientController::class, 'create'])->name('create');
+        Route::post('/create', [AdminPatientController::class, 'store'])->name('admin.patients.store');
+        Route::get('{user_id}/update', [AdminPatientController::class, 'edit'])->name('edit.patient');
+        Route::put('{user_id}/update', [AdminPatientController::class, 'update'])->name('update.patient');
+        Route::delete('{user_id}/delete', [AdminPatientController::class, 'destroy'])->name('delete_patient');
     });
 
     // Route cho quản lý bác sĩ
     Route::prefix('doctors')->group(function () {
-        Route::get('/', [DoctorController::class, 'index']);
-        Route::get('/create', [DoctorController::class, 'create'])->name('create');
-        Route::get('/update', [DoctorController::class, 'update'])->name('update');
+        Route::get('/', [AdminDoctorController::class, 'index']);
+        Route::get('/create', [AdminDoctorController::class, 'create'])->name('create');
+        Route::post('/create', [AdminDoctorController::class, 'store'])->name('store');
+        Route::get('/doctor/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
+        Route::post('/doctor/{id}', [AdminDoctorController::class, 'update'])->name('update');
+        Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('destroy');
     });
+    // quan ly banner
+    Route::prefix('banners')->group(function(){
+        Route::get('/', [AdminBanners::class, 'index'])->name('index');
+        Route::get('/create', [AdminBanners::class, 'create'])->name('create');
+        Route::post('/create', [AdminBanners::class,'store'])->name('store');
+        Route::get('/banner/{id}', [AdminBanners::class, 'edit'])->name('edit');
+        Route::put('/banner/{id}', [AdminBanners::class, 'update'])->name('update');
+        Route::get("/banner/{id}", [AdminBanners::class, 'destroy'])->name('destroy');
+    });
+ 
 
     // Route cho bảng điều khiển admin
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
     // Route cho quản lý cuộc hẹn
     Route::get('/appointment', [AppointmentController::class, 'index']);
-
-});
-
-Route::get('/admin/patients', function () {
-    return view('admins/patients/patients');
-});
-
-Route::get('/admin/patient/create', function () {
-    return view('admins/patients/add-patient');
-});
-
-Route::get('/admin/patient/edit', function () {
-    return view('admins/patients/edit-patient');
+    
 });
 
 
-Route::get('/admin/doctors', function () {
-    return view('admins/doctors/doctors');
-});
-
-Route::get('/admin/doctor/create', function () {
-    return view('admins/doctors/add-doctor');
-});
-
-Route::get('/admin/doctor/edit', function () {
-    return view('admins/doctors/edit-doctor');
-});
-
-
-Route::get('/admin/dashboard', function () {
-    return view('admins/dashboard');
-});
-
-Route::get('/admin/appointment', function () {
-    return view('admins/appointments/appointment');
-});
+Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
+Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
+Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);

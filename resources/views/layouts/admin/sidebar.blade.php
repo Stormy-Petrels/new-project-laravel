@@ -1,43 +1,47 @@
-<section id="sidebar">
-    <a href="#" class="brand">
-        <img src="/assets/admin/images/logo.png" style="width: 40px;" />
-        <span class="text">Mental Health Care</span>
+<section id="sidebar" class="flex flex-col h-screen bg-gray-200">
+    <a href="#" class="brand flex items-center p-4">
+        <img src="/assets/admin/images/logo.png" class="w-10" alt="Logo" />
+        <span class="text-lg font-semibold ml-2">Mental Health Care</span>
     </a>
-    <ul class="side-menu top">
-        
+    <ul class="side-menu top flex flex-col mt-8">
         <li>
-            <a href="{{url('/admin/patients')}}">
-                <i class='bx bxs-shopping-bag-alt' ></i>
-                <span  class="text">Patients</span>
+            <a href="/admin/patients" class="flex items-center px-4 py-2">
+                <i class='bx bxs-shopping-bag-alt text-xl'></i>
+                <span class="text-lg ml-2">Patients</span>
             </a>
         </li>
         <li>
-            <a href="{{url('/admin/doctors')}}">
-                <i class='bx bxs-dashboard' ></i>
-                <span class="text">Doctors</span>
+            <a href="/admin/doctors" class="flex items-center px-4 py-2">
+                <i class='bx bxs-dashboard text-xl'></i>
+                <span class="text-lg ml-2">Doctors</span>
             </a>
         </li>
         <li>
-            <a href="{{url('/admin/appointment')}}">
-                <i class='bx bxs-message-dots' ></i>
-                <span class="text">Appointments</span>
+            <a href="/admin/appointment" class="flex items-center px-4 py-2">
+                <i class='bx bxs-message-dots text-xl'></i>
+                <span class="text-lg ml-2">Appointments</span>
             </a>
         </li>
+        <li>
+            <a href="/admin/banners" class="flex items-center px-4 py-2">
+                <i class='bx bxs-message-dots text-xl'></i>
+                <span class="text-lg ml-2">Banners</span>
+            </a>
+        </li>
+        <li>
+            <a href="/admin/dashboard" class="flex items-center px-4 py-2">
+                <i class='bx bxs-dashboard text-xl'></i>
+                <span class="text-lg ml-2">Dashboard</span>
+            </a>
+        </li>
+    </ul>
+    <ul class="side-menu mt-auto">
+        <li>
+            <a href="#" class="logout flex items-center px-4 py-2">
+                <i class='bx bxs-log-out-circle text-xl'></i>
+                <span class="text-lg ml-2">Logout</span>
+            </a>
+        </li>
+    </ul>
 
-        <li class="active">
-            <a href="{{url('/admin/dashboard')}}" >
-                <i class='bx bxs-dashboard' ></i>
-                <span class="text">Dashboard</span>
-            </a>
-        </li>
-       
-    </ul>
-    <ul class="side-menu">
-        <li>
-            <a href="#" class="logout">
-                <i class='bx bxs-log-out-circle' ></i>
-                <span class="text">Logout</span>
-            </a>
-        </li>
-    </ul>
 </section>
