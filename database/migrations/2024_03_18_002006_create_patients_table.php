@@ -15,6 +15,8 @@ return new class extends Migration
             $table->string('id', 200)->unique()->primary();
             $table->string('user_id', 200)->notNull();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('health_condition', 800);
+            $table->string('note',700);
             $table->timestamps();
         });
     }
