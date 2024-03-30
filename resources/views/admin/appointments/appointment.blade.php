@@ -57,16 +57,7 @@
             </td>
           
             <td   class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                {{-- @if (strtotime($appointment->date_booking . ' ' . $appointment->time_end) > time())
-                    <span class="rounded py-1 px-3 text-xs font-bold bg-yellow-500 text-white">
-                        Processing
-                    </span>
-                @else
-                    <span class="rounded py-1 px-3 text-xs font-bold bg-green-500 text-white">
-                        Completed
-                    </span>
-                @endif --}}
-                <div>time ht: <span id="current-time">hi</span></div>
+                
             </td>
           @endforeach
             
@@ -78,19 +69,6 @@
         
     </tbody>
 </table>
-      <script>
-        function updateTime() {
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "server_time.php", true);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    var serverTime = parseInt(xhr.responseText);
-                    // Cập nhật thời gian trong DOM
-                    document.getElementById("current-time").innerHTML = new Date(serverTime * 1000).toLocaleString();
-                }
-            };
-            xhr.send();
-        }
-        setInterval(updateTime, 1000)
-      </script>
+
+      
 @endsection
