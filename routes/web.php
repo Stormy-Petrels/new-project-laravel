@@ -12,6 +12,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\FavoriteDoctorsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,6 +29,8 @@ Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 // Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/doctors', [DoctorController::class, 'index']);
+Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);
+Route::get('/favorite-doctors', [FavoriteDoctorsController::class, 'index']);
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);

@@ -136,13 +136,18 @@
         </div>
         <div class="lists_card">
             <?php foreach ($doctors as $doctor) : ?>
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" onclick="redirectBooking('{{$doctor->id}}')">
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
-                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('images/'.$doctor->url_image)}}" alt="" />
+                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
                     </a>
-                    <div class="p-5">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bs. {{$doctor->name}}</h5>
+                    <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bs. {{$doctor->name}}</h5>
                     </div>
+                     <!-- Thêm biểu tượng yêu thích -->
+                    <button type="button" class="btn btn-danger" onclick="addToFavorites('{{$doctor->id}}')">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        Like
+                    </button>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -150,6 +155,7 @@
         </div>
 @endsection
 @section('JScontent')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     function redirectBooking(doctorId) {
         window.location.href = 'doctor/'+doctorId+'/booking' ;
@@ -200,6 +206,23 @@
             next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
             document.querySelector('.listPage').appendChild(next);
         }
+    }
+
+    function addToFavorites(doctorId) {
+        const userInfo = localStorage.getItem("user-info");
+        if (userInfo !== null) {
+            const userData = JSON.parse(userInfo);
+            const userId = userData.roleId;
+            
+            axios.post('/doctor/favorite',{userId, doctorId})
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.error('Has error:', err)
+            })
+        }
+        
     }
 
     function changePage(i) {

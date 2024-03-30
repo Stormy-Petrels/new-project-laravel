@@ -190,7 +190,7 @@
         <div class="w-full max-w-screen-sm m-auto mt-12 lg:w-1/4 lg:order-first">
             <div class="p-2 transition duration-500 ease-in-out transform bg-white border rounded-lg">
                 <div id="image-div" class="w-full h-3/4 object-cover">
-                    <img src="{{asset('images/'.$doctor->url_image)}}" class="w-full h-full object-cover">
+                    <img src="{{asset('assets/admin/images/'.$doctor->url_image)}}" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
@@ -224,7 +224,7 @@
                         VND
                     </div>
                     <button type="submit" onclick="book()" class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Make an appointment</button>
-                    <button class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2"><a href="/patient/list-doctor" style="border: none;">Back</a></button>
+                    <button class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2"><a href="/doctors" style="border: none;">Back</a></button>
                 </div>
             </div>
         </div>

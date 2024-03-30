@@ -105,7 +105,7 @@ body {
 
 .name6,
 .name8 {
-  flex-grow: 1;
+  padding-right: 30%;
 }
 
 .name7 {
@@ -199,4 +199,29 @@ body {
   justify-content: center;
   padding: 20px 20px;  
   text-decoration: none;
+}
+#user-name {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#profile-links {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 120px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+#profile-links a {
+  color: black;
+  padding: 10px 20px;
+  width: 100%;
+  text-decoration: none;
+  display: block;
+}
+
+#profile-links a:hover {
+  background-color: #f1f1f1;
 }
