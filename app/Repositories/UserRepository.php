@@ -37,6 +37,7 @@ class UserRepository
     public function delete(string $id)
     {
     }
+    
 
     public function findByEmail($email)
     {

@@ -35,32 +35,37 @@ class DoctorRepository
 
     public function getAllDoctor()
     {
-        return DB::table('users')
-            ->join('doctors', 'users.id', '=', 'doctors.user_id')
-            ->where('users.role', 'doctor')
-            ->get();
+        $query = "SELECT  users.id AS user_id, users.id, users.email, users.name, users.phone, users.password,
+        users.address, users.url_image, doctors.id, doctors.specialization, doctors.description
+        FROM users
+        JOIN doctors ON users.id = doctors.user_id
+        WHERE users.role = 'doctor'";
+
+        $result = DB::select($query);
+        return $result;
     }
 
     public function getDoctorById(string $id)
     {
-        $doctor = DB::table('users')
-            ->leftJoin('doctors', 'users.id', '=', 'doctors.user_id')
-            ->where('users.id', $id)
-            ->select('users.*', 'doctors.description', 'doctors.specialization')
-            ->first();
-            return $doctor;
-    }
-    
-    public function getAvailableTimesForBooking($selectedDate)
-    {
-        $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
-                  FROM list_time_doctor
-                  LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ?
-                  WHERE booking.time_id IS NULL";
-        $result = DB::select($query, [$selectedDate]);
+        $query = "SELECT users.id AS user_id, users.email, users.name, users.phone, users.address, users.url_image, doctors.specialization, doctors.description
+          FROM users
+          JOIN doctors ON users.id = doctors.user_id
+          WHERE users.role = 'doctor' AND doctors.id = '$id'";
+        $result = DB::select($query);
         return $result;
     }
-
+    
+    public function getAvailableTimesForBooking($selectedDate, $Doctorid)
+    {
+        $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
+        FROM list_time_doctor
+        LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ? AND booking.doctor_id = ?
+        WHERE booking.time_id IS NULL";
+        
+        $result = DB::select($query, [$selectedDate, $Doctorid]);
+        return $result;
+    }
+    
     public function getAllFavoriteDoctors()
     {
         $favoriteDoctors = DB::table('favorites')

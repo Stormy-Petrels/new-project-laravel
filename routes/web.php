@@ -34,10 +34,7 @@ Route::get('/favorite-doctors', [FavoriteDoctorsController::class, 'index']);
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
-Route::post('/api/sign-in', [SignInController::class, 'signIn']);
-
-Route::get('/sign-up', [SignUpController::class, 'index']);
-Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
+Route::post('/api/sign-in',[SignInController::class, 'signIn']);
 // ADMIN
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
@@ -71,3 +68,5 @@ Route::prefix('admin')->group(function () {
 
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
+Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
+

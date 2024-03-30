@@ -158,77 +158,79 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     function redirectBooking(doctorId) {
-        window.location.href = 'doctor/'+doctorId+'/booking' ;
-    }
-    let thisPage = 1;
-    let limit = 8;
-    let list = document.querySelectorAll('.lists_card .max-w-sm');
+    window.location.href = 'doctor/' + doctorId + '/booking';
+}
 
-    function loadItem() {
-        let beginGet = limit * (thisPage - 1);
-        let endGet = limit * thisPage - 1;
-        list.forEach((item, key) => {
-            if (key >= beginGet && key <= endGet) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
-        })
-        listPage();
-    }
-    loadItem();
+let thisPage = 1;
+let limit = 8;
+let list = document.querySelectorAll('.lists_card .max-w-sm');
 
-    function listPage() {
-        let count = Math.ceil(list.length / limit);
-        document.querySelector('.listPage').innerHTML = '';
-
-        if (thisPage != 1) {
-            let prev = document.createElement('li');
-            prev.innerText = 'PREV';
-            prev.setAttribute('onclick', "changePage(" + (thisPage - 1) + ")");
-            document.querySelector('.listPage').appendChild(prev);
+function loadItem() {
+    let beginGet = limit * (thisPage - 1);
+    let endGet = limit * thisPage - 1;
+    list.forEach((item, key) => {
+        if (key >= beginGet && key <= endGet) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
         }
+    });
+    listPage();
+}
 
-        for (i = 1; i <= count; i++) {
-            let newPage = document.createElement('li');
-            newPage.innerText = i;
-            if (i == thisPage) {
-                newP
-                age.classList.add('active');
-            }
-            newPage.setAttribute('onclick', "changePage(" + i + ")");
-            document.querySelector('.listPage').appendChild(newPage);
-        }
+function listPage() {
+    let count = Math.ceil(list.length / limit);
+    let listPageContainer = document.querySelector('.listPage');
+    listPageContainer.innerHTML = '';
 
-        if (thisPage != count) {
-            let next = document.createElement('li');
-            next.innerText = 'NEXT';
-            next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
-            document.querySelector('.listPage').appendChild(next);
-        }
+    if (thisPage > 1) {
+        let prev = document.createElement('li');
+        prev.innerText = 'PREV';
+        prev.setAttribute('onclick', "changePage(" + (thisPage - 1) + ")");
+        listPageContainer.appendChild(prev);
     }
 
-    function addToFavorites(doctorId) {
-        const userInfo = localStorage.getItem("user-info");
-        if (userInfo !== null) {
-            const userData = JSON.parse(userInfo);
-            const userId = userData.roleId;
-            
-            axios.post('/doctor/favorite',{userId, doctorId})
-            .then(res => {
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.error('Has error:', err)
-            })
+    for (let i = 1; i <= count; i++) {
+        let newPage = document.createElement('li');
+        newPage.innerText = i;
+        if (i === thisPage) {
+            newPage.classList.add('active');
         }
+        newPage.setAttribute('onclick', "changePage(" + i + ")");
+        listPageContainer.appendChild(newPage);
+    }
+
+    if (thisPage < count) {
+        let next = document.createElement('li');
+        next.innerText = 'NEXT';
+        next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
+        listPageContainer.appendChild(next);
+    }
+}
+
+function addToFavorites(doctorId) {
+    const userInfo = localStorage.getItem("user-info");
+    if (userInfo !== null) {
+        const userData = JSON.parse(userInfo);
+        const userId = userData.roleId;
         
+        axios.post('/doctor/favorite',{userId, doctorId})
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.error('Has error:', err)
+        })
     }
+    
+}
 
-    function changePage(i) {
-        thisPage = i;
-        loadItem();
-    }
+function changePage(i) {
+    thisPage = i;
+    loadItem();
+}
+
+loadItem();
 </script>
 @endsection
 @section('footer')

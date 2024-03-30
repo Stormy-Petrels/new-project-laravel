@@ -164,7 +164,7 @@
                         document.getElementById("phoneNumber-error").textContent = "";
                     }
                     if (errors.error.address == "") {
-document.getElementById("addres-error").textContent = "Please fill in your address";
+                        document.getElementById("addres-error").textContent = "Please fill in your address";
                     } else {
                         document.getElementById("addres-error").textContent = "";
                     }
