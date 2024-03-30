@@ -124,5 +124,27 @@ class AdminRepository
         DB::table('users')->where('id', $userId)->delete();
     }
 
+    public function get_appointments(){
+        $appointments =  DB::table('booking')
+        ->join('patients', 'booking.patient_id', '=', 'patients.id')
+        ->join('doctors', 'booking.doctor_id', '=', 'doctors.id')
+        ->join('users AS p', 'patients.user_id', '=', 'p.id')
+        ->join('users AS d', 'doctors.user_id', '=', 'd.id')
+        ->join('list_time_doctor AS ltd', 'booking.time_id', '=', 'ltd.id')
+        ->select(
+            'p.name AS patient_name',
+            'p.phone AS patient_phone',
+            'd.name AS doctor_name',
+            'd.phone AS doctor_phone',
+            'ltd.time_start AS time_start',
+            'ltd.time_end AS time_end',
+            'booking.date_booking AS date_booking',
+            'patients.health_condition AS health_condition',
+            'patients.note AS note'
+        )
+        ->get();
+        return $appointments;
+    }
+
     
 }

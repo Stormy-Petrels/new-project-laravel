@@ -234,6 +234,7 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script>
+  
         var doctorId = ""
     var patientId = ""
 
@@ -352,10 +353,7 @@
 
     function book() {
         {
-            console.log(patientId);
-            console.log(doctorId);
-            console.log(selectedTimeId);
-            console.log(selectedDate);
+            var selectedDate = dateInput.value;
             axios.post('/patient/list-doctor/booking', {
                     patientId: patientId,
                     doctorId: doctorId,

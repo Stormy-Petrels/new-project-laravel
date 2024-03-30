@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminPatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDoctorController;
-use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AdminAppointmentController;
 use App\Http\Controllers\SignUpController;
 /*
 |--------------------------------------------------------------------------
@@ -59,9 +59,12 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
     // Route cho quản lý cuộc hẹn
-    Route::get('/appointment', [AppointmentController::class, 'index']);
+    Route::get('/appointment', [AdminAppointmentController::class, 'index']);
 });
 
+Route::get('/admin/server_time', function () {
+    return view('admin.appointments.appointment');
+});
 
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
