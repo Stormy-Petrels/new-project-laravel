@@ -136,7 +136,7 @@
         </div>
         <div class="lists_card">
             <?php foreach ($doctors as $doctor) : ?>
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 d-flex flex-column justify-content-between">
                     <a href="#">
                         <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
                     </a>

@@ -70,12 +70,9 @@ class DoctorRepository
     {
         $favoriteDoctors = DB::table('favorites')
         ->join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
-        // ->join('users', 'favorites.doctor_id', '=', 'users.id')
         ->join('users', 'doctors.user_id', '=', 'users.id')
-        // ->where('favorites.user_id', '=', $userId)
         ->where('users.role', '=', 'doctor')
         ->select('favorites.*', 'users.name as doctor_name')
-        // ->select('doctors.*', 'favorites.user_id', 'favorites.doctor_id') // Chọn thêm trường 'favorites.user_id'
         ->get();
 
     return $favoriteDoctors;

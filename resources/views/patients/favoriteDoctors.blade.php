@@ -28,29 +28,28 @@
             <a href="{{ url('/contact-us') }}" class="name6 {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
             <div>
                 <div id="user-info">
-                    <span id="user-name" style="cursor: pointer;"></span> <!-- Hiển thị tên người dùng sau khi đăng nhập -->
-                        <div id="profile-links" style="display: none; width: 20%">
-                            <a href="">Profile</a>
+
+                    <script>
+                        var user = localStorage.getItem('user-info');
+                        if (user) {
+                            user = JSON.parse(user); // Chuyển đổi dữ liệu thành đối tượng JSON
+                            if (user.image) {
+                                document.getElementById('profile-image').src = user.image; // Thiết lập src cho hình ảnh
+                            }
+                        }
+                    </script>
+                
+                    <img id="profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Z16m8LamczQtv32mpIB0V2dvphxoWNQUam3qelv703soHZccCy_cKV_02g&s" alt="Profile Image" style="width: 50px; border-radius:50%; height: 50px; object-fit: cover;">
+                
+                    <div id="profile-links" style="display: none; width: 20%">
+                        <a href="#">Profile</a>
                             <a href="/favorite-doctors">Favorite Doctors</a>
-                            <a href="">Appointment History</a>
+                            <a href="#">Appointment History</a>
                             <a href="">Logout</a>
-                        </div>
-                </div>
-                <div id="sign-in-up">
-                    <a href="/sign-in" id="sign-in-link">Sign In</a>
-                    <a href="/sign-up" id="sign-up-link">Sign Up</a> 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="container mt-3">
-        <form action="#">
-            <div class="input-group mb-3" style="margin-left: 79px;"">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
     </div>
 @endsection
 
@@ -59,7 +58,7 @@
         <div class="container">
             <main>
                 <section id="favorite-doctors">
-                    <h2>List Favorite Doctors</h2>
+                    <h2 class="p-4">List Favorite Doctors</h2>
                     <ul id="doctor-list">
                         <table class="table table-bordered">
                             <thead>
@@ -68,7 +67,6 @@
                                     <th width="15%">Name Doctor</th>
                                     <th width="15%">User ID</th>
                                     <th width="15%">Doctor ID</th>
-                                    <th width="5%">Update</th>
                                     <th width="5%">Delete</th>
                                 </tr>
                             </thead>
@@ -80,9 +78,6 @@
                                             <td>{{$item->doctor_name}}</td>
                                             <td>{{$item->user_id}}</td>
                                             <td>{{$item->doctor_id}}</td>
-                                            <td>
-                                                <a href="" class="btn btn-warning btn-sm">Sửa</a>
-                                            </td>
                                             <td>
                                                 <a onclick="return confirm('Bạn có chắc chắc muốn xóa?')" href="" class="btn btn-danger btn-sm">Xóa</a>
                                             </td>

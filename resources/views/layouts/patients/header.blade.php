@@ -21,6 +21,8 @@
         <a href="{{ url('/doctors') }}" class="name4 {{ Request::is('doctors') ? 'active' : '' }}">Doctors</a>
         <a href="{{ url('/services') }}" class="name5 {{ Request::is('services') ? 'active' : '' }}">Services</a>
         <a href="{{ url('/contact-us') }}" class="name6 {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
+
         <div>
             <div>
                 <div id="user-info">
@@ -43,14 +45,27 @@
             </div>
             
             <div id="user-info">
-                <span id="user-name" style="cursor: pointer;"></span> <!-- Hiển thị tên người dùng sau khi đăng nhập -->
-                    <div id="profile-links" style="display: none; width: 20%">
-                        <a href="">Profile</a>
+
+                <script>
+                    var user = localStorage.getItem('user-info');
+                    if (user) {
+                        user = JSON.parse(user); // Chuyển đổi dữ liệu thành đối tượng JSON
+                        if (user.image) {
+                            document.getElementById('profile-image').src = user.image; // Thiết lập src cho hình ảnh
+                        }
+                    }
+                </script>
+            
+                <img id="profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Z16m8LamczQtv32mpIB0V2dvphxoWNQUam3qelv703soHZccCy_cKV_02g&s" alt="Profile Image" style="width: 50px; border-radius:50%; height: 50px; object-fit: cover;">
+            
+                <div id="profile-links" style="display: none; width: 20%">
+                    <a href="#">Profile</a>
                         <a href="/favorite-doctors">Favorite Doctors</a>
-                        <a href="">Appointment History</a>
+                        <a href="#">Appointment History</a>
                         <a href="">Logout</a>
-                    </div>
+                </div>
             </div>
+            
             <div id="sign-in-up">
                 <a href="/sign-in" id="sign-in-link">Sign In</a>
                 <a href="/sign-up" id="sign-up-link">Sign Up</a> 
@@ -58,15 +73,17 @@
         </div>
     </div>
 </div>
-<div class="container mt-3">
-    <form action="#">
-        <div class="input-group mb-3" style="margin-left: 79px;"">
-            <input type="search" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
-        </div>
-    </form>
-</div>
 
+{{-- @if (url()->current() == 'http://127.0.0.1:8000/doctors') 
+    <div class="container mt-3">
+        <form action="#">
+            <div class="input-group mb-3" style="margin: 0 auto; z-index:0; width: 80%;">
+                <input type="search" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
+                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+@endif --}}
 <div class="container-section">
     <div class="container-section2">
         <img loading="lazy" src="assets/patients/images/photo 1.png" class="imgs" />
