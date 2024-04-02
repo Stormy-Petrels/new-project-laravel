@@ -23,41 +23,9 @@
         <a href="{{ url('/contact-us') }}" class="name6 {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
 
-        <div>
-            <div>
-                <div id="user-info">
-                    @if (auth()->check())
-                        <span id="user-name" style="cursor: pointer;">{{ auth()->user()->name }}</span>
-                        <div id="profile-links" style="display: none; width: 20%">
-                            <a href="#">Profile</a>
-                            <a href="/favorite-doctors">Favorite Doctors</a>
-                            <a href="#">Appointment History</a>
-                            <a href="">Logout</a>
-                        </div>
-                    @else
-                        {{-- <div id="sign-in-up">
-                            <!-- Hiển thị nội dung khi người dùng chưa đăng nhập -->
-                            <a href="/sign-in" id="sign-in-link">Sign In</a>
-                            <a href="/sign-up" id="sign-up-link">Sign Up</a> 
-                        </div> --}}
-                    @endif
-                </div>
-            </div>
-            
+        <div claa="ml-8" style="margin-left: 15rem;">            
             <div id="user-info">
-
-                <script>
-                    var user = localStorage.getItem('user-info');
-                    if (user) {
-                        user = JSON.parse(user); // Chuyển đổi dữ liệu thành đối tượng JSON
-                        if (user.image) {
-                            document.getElementById('profile-image').src = user.image; // Thiết lập src cho hình ảnh
-                        }
-                    }
-                </script>
-            
-                <img id="profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Z16m8LamczQtv32mpIB0V2dvphxoWNQUam3qelv703soHZccCy_cKV_02g&s" alt="Profile Image" style="width: 50px; border-radius:50%; height: 50px; object-fit: cover;">
-            
+                <img id="profile-image" src="https://static.thenounproject.com/png/4314581-200.png" alt="Profile Image" style="width: 40px; border-radius:50%; height: 40px; object-fit: cover;">
                 <div id="profile-links" style="display: none; width: 20%">
                     <a href="#">Profile</a>
                         <a href="/favorite-doctors">Favorite Doctors</a>
@@ -66,24 +34,28 @@
                 </div>
             </div>
             
-            <div id="sign-in-up">
-                <a href="/sign-in" id="sign-in-link">Sign In</a>
-                <a href="/sign-up" id="sign-up-link">Sign Up</a> 
+            <div id="sign-in-up" class="btn-group" role="group" aria-label="Sign In and Sign Up">
+                <a href="/sign-in" id="sign-in-link" class="btn text-decoration-none">Sign In</a>
+                <a href="/sign-up" id="sign-up-link" class="btn text-decoration-none">Sign Up</a> 
             </div>
         </div>
     </div>
 </div>
+<script>
+    var user = localStorage.getItem('user-info');
+    if (user) {
+        user = JSON.parse(user); 
+        document.getElementById('user-info').style.display = "block"; 
+        if (user.image) {
+            document.getElementById('profile-image').src = user.image; 
+        }
+        document.getElementById('sign-in-up').style.display = "none"; 
+    } else {
+        document.getElementById('user-info').style.display = "none";
+        document.getElementById('sign-in-up').style.display = "block"; 
+    }
+</script>
 
-{{-- @if (url()->current() == 'http://127.0.0.1:8000/doctors') 
-    <div class="container mt-3">
-        <form action="#">
-            <div class="input-group mb-3" style="margin: 0 auto; z-index:0; width: 80%;">
-                <input type="search" class="form-control" placeholder="Search..." aria-label="Search" aria-describedby="button-addon2" style="border-bottom-left-radius: 15px; border-top-left-radius: 15px;">
-                <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-    </div>
-@endif --}}
 <div class="container-section">
     <div class="container-section2">
         <img loading="lazy" src="assets/patients/images/photo 1.png" class="imgs" />

@@ -69,7 +69,7 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-
+        padding-top: 5%;
     }
 
     .max-w-sm {
@@ -144,7 +144,7 @@
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bs. {{$doctor->name}}</h5>
                     </div>
                      <!-- Thêm biểu tượng yêu thích -->
-                    <button type="button" class="btn btn-danger" onclick="addToFavorites('{{$doctor->id}}')">
+                    <button type="button" class="btn btn-danger" data-doctor-id="{{$doctor->id}}" onclick="addToFavorites(this)">
                         <i class="fa fa-heart" aria-hidden="true"></i>
                         Like
                     </button>
@@ -207,14 +207,42 @@ function listPage() {
         listPageContainer.appendChild(next);
     }
 }
+document.addEventListener('DOMContentLoaded', function() {
+    var likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+    likedItems.forEach(function(doctorId) {
+        var heartIcon = document.querySelector('button[data-doctor-id="' + doctorId + '"] i.fa-heart');
+        if (heartIcon) {
+            heartIcon.classList.add('liked');
+            heartIcon.style.color = 'red';
+        }
+    });
+});
 
-function addToFavorites(doctorId) {
+function addToFavorites(button) {
+    var doctorId = button.getAttribute('data-doctor-id');
     const userInfo = localStorage.getItem("user-info");
+    var heartIcon = button.querySelector('i.fa-heart');
+
+    if (heartIcon && doctorId) {
+        var iconClassList = heartIcon.classList;
+        var likedClass = 'liked';
+
+        // Kiểm tra xem nút đã được thích hay chưa bằng cách kiểm tra class 'liked'
+        if (iconClassList.contains(likedClass)) {
+            iconClassList.remove(likedClass);
+            heartIcon.style.color = 'white'; // Chuyển sang biểu tượng trái tim không được thích
+            removeFromLikedItems(doctorId);
+        } else {
+            iconClassList.add(likedClass);
+            heartIcon.style.color = 'red'; // Chuyển sang biểu tượng trái tim được thích
+            addToLikedItems(doctorId);
+        }
+    }
     if (userInfo !== null) {
         const userData = JSON.parse(userInfo);
         const userId = userData.roleId;
         
-        axios.post('/doctor/favorite',{userId, doctorId})
+        axios.post('/doctor/favorite',{userId: userId, doctorId: doctorId })
         .then(res => {
             console.log(res.data)
         })
@@ -223,6 +251,22 @@ function addToFavorites(doctorId) {
         })
     }
     
+}
+function addToLikedItems(doctorId) {
+    var likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+    if (!likedItems.includes(doctorId)) {
+        likedItems.push(doctorId);
+        localStorage.setItem('likedItems', JSON.stringify(likedItems));
+    }
+}
+
+function removeFromLikedItems(doctorId) {
+    var likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+    var index = likedItems.indexOf(doctorId);
+    if (index !== -1) {
+        likedItems.splice(index, 1);
+        localStorage.setItem('likedItems', JSON.stringify(likedItems));
+    }
 }
 
 function changePage(i) {

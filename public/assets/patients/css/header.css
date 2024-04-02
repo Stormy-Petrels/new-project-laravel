@@ -9,7 +9,25 @@ body {
 /* Header Styles */
 .menu-1 a:hover,
 .menu-1 a.active {
-    color: #1CBBD0; /* Màu của liên kết khi di chuột vào hoặc khi nó được chọn */
+  color: #1CBBD0;
+  /* Màu của liên kết khi di chuột vào hoặc khi nó được chọn */
+}
+
+#sign-in-up #sign-in-link:hover,
+#sign-in-up #sign-in-link.active {
+  color: #1CBBD0;
+  text-decoration: none;
+  /* Loại bỏ gạch chân*/
+
+}
+
+#sign-in-up a {
+  color: #000000;
+  font-family: sans-serif;
+  margin: auto 0;
+  font-size: 18px;
+  color: #000;
+  font-weight: 700;
 }
 
 #header {
@@ -106,19 +124,19 @@ body {
 
 
 
-#profile-image{
+#profile-image {
   order: 999;
   justify-content: flex-end;
-  position:absolute;
+  position: absolute;
   top: 5px;
   right: 50px;
 }
 
-#profile-links{
+#profile-links {
   order: 999;
   justify-content: flex-end;
-  position:absolute;
-  top:60px;
+  position: absolute;
+  top: 60px;
   right: -106px;
 }
 
@@ -211,9 +229,10 @@ body {
   margin-top: 30px;
   color: #fff;
   justify-content: center;
-  padding: 20px 20px;  
+  padding: 20px 20px;
   text-decoration: none;
 }
+
 #user-name {
   cursor: pointer;
   font-weight: bold;
@@ -224,7 +243,7 @@ body {
   position: absolute;
   background-color: #f9f9f9;
   min-width: 120px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
@@ -239,6 +258,7 @@ body {
 #profile-links a:hover {
   background-color: #f1f1f1;
 }
+
 #button-addon2 {
   position: absolute;
   right: 120;
