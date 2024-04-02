@@ -139,6 +139,8 @@ class AdminRepository
             'ltd.time_start AS time_start',
             'ltd.time_end AS time_end',
             'booking.date_booking AS date_booking',
+            'booking.id AS id',
+            'booking.status AS status',
             'patients.health_condition AS health_condition',
             'patients.note AS note'
         )
@@ -146,5 +148,21 @@ class AdminRepository
         return $appointments;
     }
 
+    public function updateBookingStatus($id, $newStatus)
+    {
+        // Tìm booking theo ID
+        $booking = DB::table('booking')->find($id);
+    
+        if ($booking) {
+            // Cập nhật trạng thái
+            DB::table('booking')
+                ->where('id', $id)
+                ->update(['status' => $newStatus]);
+    
+            return true;
+        }
+    
+        return false;
+    }
     
 }

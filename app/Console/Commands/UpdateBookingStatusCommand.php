@@ -29,8 +29,7 @@ class UpdateBookingStatusCommand extends Command
 
             foreach ($bookings as $booking) {
                 DB::table('bookings')
-                    ->where('id', $booking->id)
-                    ->update(['status' => 'completed']);
+                    ->where('id', $booking->id)                    ->update(['status' => 'completed']);
             }
 
             DB::commit();

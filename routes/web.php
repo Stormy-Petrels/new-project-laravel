@@ -60,6 +60,7 @@ Route::prefix('admin')->group(function () {
 
     // Route cho quản lý cuộc hẹn
     Route::get('/appointment', [AdminAppointmentController::class, 'index']);
+    Route::post('/appointment/{id}/update-status', [AdminAppointmentController::class, 'updateStatus'])->name('appointment.updateStatus');
 });
 
 Route::get('/admin/server_time', function () {
