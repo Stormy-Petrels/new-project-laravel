@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Models\Favorite;
 
 class DoctorRepository
 {
@@ -77,5 +78,52 @@ public function searchDoctors($searchTerm)
             }
         }
         return $results;
+    }
+    
+    public function getAllFavoriteDoctors()
+    {
+        $favoriteDoctors = DB::table('favorites')
+        ->join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
+        ->join('users', 'doctors.user_id', '=', 'users.id')
+        ->where('users.role', '=', 'doctor')
+        ->select('favorites.*', 'users.name as doctor_name')
+        ->get();
+
+    return $favoriteDoctors;
+            
+    }
+
+    /**
+     * 
+     * Handle store favorite doctor
+     * 
+     * @param int $userId
+     * @param int $doctorId
+     * 
+     * @return boolean
+     */
+    public function storeFavoriteDoctor(int $userId, int $doctorId): bool
+    {
+        
+        try {
+            DB::beginTransaction();
+            // Kiểm tra user đã thích bác sĩ hay chưa, nếu chưa thì yêu thích, rồi thì bỏ thích
+            $check = Favorite::where('user_id', $userId)->where('doctor_id', $doctorId)->first();
+            if ($check == false) {
+                Favorite::create([
+                    'user_id' => $userId,
+                    'doctor_id' => $doctorId
+                ]);
+            } else {
+                $check->delete();
+            }
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return false;
+        }
     }
 }

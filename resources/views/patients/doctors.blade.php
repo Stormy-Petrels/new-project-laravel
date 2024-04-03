@@ -69,7 +69,7 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
-
+        padding-top: 5%;
     }
 
     .max-w-sm {
@@ -136,13 +136,18 @@
         </div>
         <div class="lists_card">
             <?php foreach ($doctors as $doctor) : ?>
-                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" onclick="redirectBooking('{{$doctor->id}}')">
+                <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 d-flex flex-column justify-content-between">
                     <a href="#">
-                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('images/'.$doctor->url_image)}}" alt="" />
+                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
                     </a>
-                    <div class="p-5">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bs. {{$doctor->name}}</h5>
+                    <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Bs. {{$doctor->name}}</h5>
                     </div>
+                     <!-- Thêm biểu tượng yêu thích -->
+                    <button type="button" class="btn btn-danger" data-doctor-id="{{$doctor->id}}" onclick="addToFavorites(this)">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        Like
+                    </button>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -150,6 +155,7 @@
         </div>
 @endsection
 @section('JScontent')
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     function redirectBooking(doctorId) {
     window.location.href = 'doctor/' + doctorId + '/booking';
@@ -199,6 +205,67 @@ function listPage() {
         next.innerText = 'NEXT';
         next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
         listPageContainer.appendChild(next);
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    var likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+    likedItems.forEach(function(doctorId) {
+        var heartIcon = document.querySelector('button[data-doctor-id="' + doctorId + '"] i.fa-heart');
+        if (heartIcon) {
+            heartIcon.classList.add('liked');
+            heartIcon.style.color = 'red';
+        }
+    });
+});
+
+function addToFavorites(button) {
+    var doctorId = button.getAttribute('data-doctor-id');
+    const userInfo = localStorage.getItem("user-info");
+    var heartIcon = button.querySelector('i.fa-heart');
+
+    if (heartIcon && doctorId) {
+        var iconClassList = heartIcon.classList;
+        var likedClass = 'liked';
+
+        // Kiểm tra xem nút đã được thích hay chưa bằng cách kiểm tra class 'liked'
+        if (iconClassList.contains(likedClass)) {
+            iconClassList.remove(likedClass);
+            heartIcon.style.color = 'white'; // Chuyển sang biểu tượng trái tim không được thích
+            removeFromLikedItems(doctorId);
+        } else {
+            iconClassList.add(likedClass);
+            heartIcon.style.color = 'red'; // Chuyển sang biểu tượng trái tim được thích
+            addToLikedItems(doctorId);
+        }
+    }
+    if (userInfo !== null) {
+        const userData = JSON.parse(userInfo);
+        const userId = userData.roleId;
+        
+        axios.post('/doctor/favorite',{userId: userId, doctorId: doctorId })
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.error('Has error:', err)
+        })
+    }
+    
+}
+function addToLikedItems(doctorId) {
+    var likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+    if (!likedItems.includes(doctorId)) {
+        likedItems.push(doctorId);
+        localStorage.setItem('likedItems', JSON.stringify(likedItems));
+    }
+}
+
+function removeFromLikedItems(doctorId) {
+    var likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+    var index = likedItems.indexOf(doctorId);
+    if (index !== -1) {
+        likedItems.splice(index, 1);
+        localStorage.setItem('likedItems', JSON.stringify(likedItems));
     }
 }
 
