@@ -31,7 +31,7 @@ class SignUpController extends Controller
     {
         $signUpReq = new SignUpReq($req);
         $validation = new UserRepository();
-
+        
         $checkMail = $validation->validateEmail($signUpReq->email);
         $checkPassword = $validation->validatePassword($signUpReq->password);
         $checkFullName = $validation->validateFullName($signUpReq->fullName);
@@ -47,7 +47,7 @@ class SignUpController extends Controller
                     "address" => $signUpReq->address
                 ]
             ], 422);
-        }
+        }   
 
 
         if (!$checkMail || !$checkPassword || !$checkFullName) {

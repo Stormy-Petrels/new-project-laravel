@@ -13,6 +13,8 @@ use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HistoryBookingController;
 
 use App\Http\Controllers\FavoriteDoctorsController;
 /*
@@ -72,8 +74,9 @@ Route::prefix('admin')->group(function () {
     Route::get('/appointment', [AppointmentController::class, 'index']);
 });
 
-
+Route::get('/Profile/{id}', [ProfileController::class, 'index']);
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
-
+Route::post('/api/patient/processHistoryBooking',  [HistoryBookingController::class,'processHistoryBooking']);
+Route::get('/patient/history-booking',  [HistoryBookingController::class,'index']);

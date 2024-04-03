@@ -27,10 +27,10 @@
             <div id="user-info">
                 <img id="profile-image" src="https://static.thenounproject.com/png/4314581-200.png" alt="Profile Image" style="width: 40px; border-radius:50%; height: 40px; object-fit: cover;">
                 <div id="profile-links" style="display: none; width: 20%">
-                    <a href="#">Profile</a>
+                    <a id="profile">Profile</a>
                         <a href="/favorite-doctors">Favorite Doctors</a>
-                        <a href="#">Appointment History</a>
-                        <a href="">Logout</a>
+                        <a href="/patient/history-booking">Appointment History</a>
+                        <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
             
@@ -62,6 +62,28 @@
     }
 
     button.addEventListener('click', handleButtonClick);
+
+    document.getElementById("profile").addEventListener("click", function(event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của thẻ <a>
+    
+    // Lấy id từ local storage
+    var user = localStorage.getItem("user-info");
+    user = JSON.parse(user);
+    
+    // Kiểm tra xem id có tồn tại không
+    if (user.id) {
+        // Chuyển hướng người dùng đến đường dẫn /Profile/{id}
+        window.location.href = "/Profile/" + user.roleId;
+    } else {
+        // Xử lý trường hợp id không tồn tại trong local storage
+        console.log("ID không tồn tại trong local storage");
+    }
+    });
+    function logout() {
+        localStorage.clear();
+        window.location.href = "/sign-in";
+    }
+
 </script>
 
 <div class="container-section">
