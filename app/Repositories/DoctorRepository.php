@@ -55,13 +55,27 @@ class DoctorRepository
     }
     
     public function getAvailableTimesForBooking($selectedDate, $Doctorid)
-{
-    $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
-    FROM list_time_doctor
-    LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ? AND booking.doctor_id = ?
-    WHERE booking.time_id IS NULL";
-    
-    $result = DB::select($query, [$selectedDate, $Doctorid]);
-    return $result;
-}
+    {
+        $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
+        FROM list_time_doctor
+        LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ? AND booking.doctor_id = ?
+        WHERE booking.time_id IS NULL";
+        
+        $result = DB::select($query, [$selectedDate, $Doctorid]);
+        return $result;
+    }
+public function searchDoctors($searchTerm)
+    {
+        $res = new DoctorRepository();
+        $doctors = $res->getAllDoctor();
+        $results = array();
+
+        foreach ($doctors as $doctor) {
+            $fullName = $doctor->name;
+            if (strpos($fullName, $searchTerm) !== false) {
+                $results[] = $doctor;
+            }
+        }
+        return $results;
+    }
 }

@@ -12,6 +12,8 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\SearchController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,8 @@ use App\Http\Controllers\SignUpController;
 |
 */
 // PATIENT
+Route::post('/api/patient/search',[SearchController::class, 'search']);
+Route::get('/search',[SearchController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);

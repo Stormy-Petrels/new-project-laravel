@@ -352,6 +352,7 @@
 
     function book() {
         {
+            var selectedDate = dateInput.value;
             console.log(patientId);
             console.log(doctorId);
             console.log(selectedTimeId);
