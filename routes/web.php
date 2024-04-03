@@ -12,6 +12,7 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\FavoriteDoctorsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,10 +29,15 @@ Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 // Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/doctors', [DoctorController::class, 'index']);
+Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);
+Route::get('/favorite-doctors', [FavoriteDoctorsController::class, 'index']);
+Route::get('/favorite-doctors/delete/{id}', [FavoriteDoctorsController::class, 'delete'])->name('delete');
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
 Route::post('/api/sign-in',[SignInController::class, 'signIn']);
+Route::get('/sign-up', [SignUpController::class, 'index']);
+Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
 // ADMIN
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
