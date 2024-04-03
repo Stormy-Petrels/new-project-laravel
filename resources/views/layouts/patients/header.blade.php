@@ -54,6 +54,14 @@
         document.getElementById('user-info').style.display = "none";
         document.getElementById('sign-in-up').style.display = "block"; 
     }
+
+    const button = document.getElementById('button-addon2');
+
+    function handleButtonClick() {
+        window.location.href = '/search';
+    }
+
+    button.addEventListener('click', handleButtonClick);
 </script>
 
 <div class="container-section">

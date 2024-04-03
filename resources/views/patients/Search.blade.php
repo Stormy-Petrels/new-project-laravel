@@ -1,4 +1,5 @@
 
+@extends('layouts.patients.master')
 
 <head>
     <meta charset="UTF-8">
@@ -16,12 +17,11 @@
         background-color: black;
         border-radius: 10px;
         width: 100%;
-        max-width: 950px;
         padding: 10px 0;
+        margin-left: 50px;
     }
     .container {
-        width: 90%;
-        max-width: 950px;
+        width: 100%;
         margin: 0 auto;
         padding: 20px;
 
@@ -94,7 +94,7 @@
         border-color: #cbd5e0;
     }
     #input {
-        width: 90%;
+        width: 95%;
         border-radius: 10px;
         padding: 10px;
         box-sizing: border-box;
@@ -106,6 +106,7 @@
     }
     .content {
         margin-top: 20px;
+        margin-left: 50px;
     }
     .title {
         font-size: 25px;
@@ -129,6 +130,7 @@
         }
     }
 </style>
+@section('content')
 <body>
     <div class="container">
         <div class="container-search ">
@@ -151,6 +153,8 @@
         </div>
     </div>
 </body>
+@endsection
+@section('JScontent')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
     function redirectBooking(doctorId) {
@@ -211,3 +215,7 @@
         });
     });
 </script>
+@endsection
+@section('footer')
+  @parent 
+@endsection
