@@ -38,8 +38,7 @@
                             }
                         }
                     </script>
-                
-                    <img id="profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Z16m8LamczQtv32mpIB0V2dvphxoWNQUam3qelv703soHZccCy_cKV_02g&s" alt="Profile Image" style="width: 50px; border-radius:50%; height: 50px; object-fit: cover;">
+                    <img id="profile-image" src="https://static.thenounproject.com/png/4314581-200.png" alt="Profile Image" style="width: 40px; border-radius:50%; height: 40px; object-fit: cover;">
                 
                     <div id="profile-links" style="display: none; width: 20%">
                         <a href="#">Profile</a>
@@ -79,7 +78,11 @@
                                             <td>{{$item->user_id}}</td>
                                             <td>{{$item->doctor_id}}</td>
                                             <td>
-                                                <a onclick="return confirm('Bạn có chắc chắc muốn xóa?')" href="" class="btn btn-danger btn-sm">Xóa</a>
+                                                <form action="{{ route('favorites.destroy', ['id' => $item->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button onclick="return confirm('Bạn có chắc chắc muốn xóa?')" class="btn btn-danger btn-sm" type="submit">Xóa</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -94,7 +97,7 @@
                 </section>
             </main>
         </div>
-    </body>
+    </body>    
 @endsection
 
 @section('footer')

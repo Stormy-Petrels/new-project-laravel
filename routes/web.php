@@ -31,7 +31,8 @@ Route::get('/contact-us', [HomeController::class, 'contactUs']);
 Route::get('/doctors', [DoctorController::class, 'index']);
 Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);
 Route::get('/favorite-doctors', [FavoriteDoctorsController::class, 'index']);
-Route::get('/favorite-doctors/delete/{id}', [FavoriteDoctorsController::class, 'delete'])->name('delete');
+Route::delete('/favorites/{id}', [FavoriteDoctorsController::class, 'destroy'])->name('favorites.destroy');
+// Route::get('/favorite-doctors/delete/{id}', [FavoriteDoctorsController::class, 'delete'])->name('delete');
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
