@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Reference\Reference;
+use App\Models\User;
+
 
 class PatientRepository
 {
@@ -72,6 +74,28 @@ class PatientRepository
     DB::table('users')->where('id', $userId)->delete();
 
     return true; // Trả về true nếu xóa thành công
+}
+
+public function update_patient(User $user, Patient $patient)
+{
+    $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? WHERE id = ?";
+    $patient_sql = "UPDATE patients SET health_condition = ?, note = ?  WHERE user_id = ?";
+     
+    $user = DB::update($user_sql, [
+        $user->getFullName(),
+        $user->getPassword(),
+        $user->getPhone(),
+        $user->getAddress(),
+        $patient->getUserId()
+    ]);
+
+    $patient= DB::update($patient_sql, [
+        $patient->getHealthCondition(),
+        $patient->getNote(),
+        $patient->getUserId()
+    ]);
+
+    return $patient;
 }
 
 }

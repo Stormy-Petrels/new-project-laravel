@@ -60,9 +60,10 @@
 
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
 
-                <a href="{{route('edit', $doctor->id)}}"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Edit</button></a>
+                <a href="{{route('edit', $doctor->user_id)}}"><button type="button" class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Update</button></a>
                 <button type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded 
-                focus:outline-none focus:shadow-outline"><a href="{{route('destroy', $doctor->id)}}">Block</a></button>
+                focus:outline-none focus:shadow-outline">
+                <a href="{{route('destroy', $doctor->id)}}">Block</a></button>
             </td>
         </tr>
         @endforeach

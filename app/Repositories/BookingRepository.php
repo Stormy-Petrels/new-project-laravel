@@ -30,22 +30,22 @@ class BookingRepository
 
     public function get_patient_id($email)
     {
-        $user = DB::select('SELECT Id FROM users WHERE Email = ? LIMIT 1', [$email]);
+        $user = DB::select('SELECT id FROM users WHERE email = ? LIMIT 1', [$email]);
 
         if (!empty($user)) {
-            $userId = $user[0]->Id;
+            $userId = $user[0]->id;
 
-            $patient = DB::select('SELECT Id FROM patients WHERE UserId = ?', [$userId]);
+            $patient = DB::select('SELECT id FROM patients WHERE user_id = ?', [$userId]);
 
             if (!empty($patient)) {
-                $patientId = $patient[0]->Id;
+                $patientId = $patient[0]->id;
 
-                $bookings = DB::select('SELECT b.Id, b.PatientId, b.DoctorId, b.DateBooking, b.TimeId, u.Email, u.Fullname, u.Phone, t.time, t.price
+                $bookings = DB::select('SELECT b.id, b.patient_id, b.doctor_id, b.date_booking, b.time_id, u.email, u.name, u.phone, t.time_start, t.price
                 FROM booking b  
-                INNER JOIN doctors d ON b.DoctorId = d.Id
-                INNER JOIN users u ON d.UserId = u.Id
-                INNER JOIN listTimeDoctor t ON b.TimeId = t.id
-                WHERE b.PatientId = ?', [$patientId]);
+                INNER JOIN doctors d ON b.doctor_id = d.id
+                INNER JOIN users u ON d.user_id = u.id
+                INNER JOIN list_time_doctor t ON b.time_id = t.id
+                WHERE b.patient_id = ?', [$patientId]);
 
                 if (!empty($bookings)) {
                     return $bookings;

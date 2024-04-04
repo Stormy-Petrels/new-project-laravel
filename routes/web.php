@@ -12,6 +12,11 @@ use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AdminAppointmentController;
 use App\Http\Controllers\SignUpController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HistoryBookingController;
+
+use App\Http\Controllers\FavoriteDoctorsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,15 +28,22 @@ use App\Http\Controllers\SignUpController;
 |
 */
 // PATIENT
+Route::post('/api/patient/search',[SearchController::class, 'search']);
+Route::get('/search',[SearchController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 // Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/doctors', [DoctorController::class, 'index']);
+Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);
+Route::get('/favorite-doctors', [FavoriteDoctorsController::class, 'index']);
+Route::get('/favorite-doctors/delete/{id}', [FavoriteDoctorsController::class, 'delete'])->name('delete');
 Route::get('/services', [HomeController::class, 'services']);
 //Common
 Route::get('/sign-in', [SignInController::class, 'index']);
 Route::post('/api/sign-in',[SignInController::class, 'signIn']);
+Route::get('/sign-up', [SignUpController::class, 'index']);
+Route::post('/api/patient/sign-up', [SignUpController::class, 'signUp']);
 // ADMIN
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'dashboard']);
@@ -51,7 +63,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', [AdminDoctorController::class, 'create'])->name('create');
         Route::post('/create', [AdminDoctorController::class, 'store'])->name('store');
         Route::get('/doctor/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
-        Route::post('/doctor/{id}', [AdminDoctorController::class, 'update'])->name('update');
+        Route::put('/doctor/{id}', [AdminDoctorController::class, 'update'])->name('update');
         Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('destroy');
     });
 
@@ -63,10 +75,14 @@ Route::prefix('admin')->group(function () {
     Route::post('/appointment/{id}/update-status', [AdminAppointmentController::class, 'updateStatus'])->name('appointment.updateStatus');
 });
 
-Route::get('/admin/server_time', function () {
-    return view('admin.appointments.appointment');
-});
+
 
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
+Route::get('/Profile/{id}', [ProfileController::class, 'index']);
+Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
+Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
+Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
+Route::post('/api/patient/processHistoryBooking',  [HistoryBookingController::class,'processHistoryBooking']);
+Route::get('/patient/history-booking',  [HistoryBookingController::class,'index']);

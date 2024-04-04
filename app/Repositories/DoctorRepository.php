@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use App\Models\Favorite;
 
 class DoctorRepository
 {
@@ -55,13 +56,76 @@ class DoctorRepository
     }
     
     public function getAvailableTimesForBooking($selectedDate, $Doctorid)
-{
-    $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
-    FROM list_time_doctor
-    LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ? AND booking.doctor_id = ?
-    WHERE booking.time_id IS NULL";
+    {
+        $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
+        FROM list_time_doctor
+        LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ? AND booking.doctor_id = ?
+        WHERE booking.time_id IS NULL";
+        
+        $result = DB::select($query, [$selectedDate, $Doctorid]);
+        return $result;
+    }
+public function searchDoctors($searchTerm)
+    {
+        $res = new DoctorRepository();
+        $doctors = $res->getAllDoctor();
+        $results = array();
+
+        foreach ($doctors as $doctor) {
+            $fullName = $doctor->name;
+            if (strpos($fullName, $searchTerm) !== false) {
+                $results[] = $doctor;
+            }
+        }
+        return $results;
+    }
     
-    $result = DB::select($query, [$selectedDate, $Doctorid]);
-    return $result;
-}
+   
+
+    public function getAllFavoriteDoctors()
+    {
+        $favoriteDoctors = DB::table('favorites')
+        ->join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
+        ->join('users', 'doctors.user_id', '=', 'users.id')
+        ->where('users.role', '=', 'doctor')
+        ->select('favorites.*', 'users.name as doctor_name')
+        ->get();
+
+    return $favoriteDoctors;
+            
+    }
+
+    /**
+     * 
+     * Handle store favorite doctor
+     * 
+     * @param int $userId
+     * @param int $doctorId
+     * 
+     * @return boolean
+     */
+    public function storeFavoriteDoctor(int $userId, int $doctorId): bool
+    {
+        
+        try {
+            DB::beginTransaction();
+            // Kiểm tra user đã thích bác sĩ hay chưa, nếu chưa thì yêu thích, rồi thì bỏ thích
+            $check = Favorite::where('user_id', $userId)->where('doctor_id', $doctorId)->first();
+            if ($check == false) {
+                Favorite::create([
+                    'user_id' => $userId,
+                    'doctor_id' => $doctorId
+                ]);
+            } else {
+                $check->delete();
+            }
+            DB::commit();
+
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+
+            return false;
+        }
+    }
 }

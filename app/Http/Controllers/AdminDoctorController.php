@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Repositories\AdminRepository;
@@ -33,6 +34,7 @@ class AdminDoctorController extends Controller
     public function index()
     {
         $doctors = $this->doctorRepository->getAllDoctor();
+        // dd($doctors);
         return view('admin.doctors.doctors', compact('doctors'));
     }
 
@@ -113,8 +115,8 @@ class AdminDoctorController extends Controller
     {
         $doc = new DoctorRepository();
         $doctor = $doc->getDoctorById($id);
+        $doctor = $doctor[0];
         return view('admin.doctors.update_doctor', compact('doctor'));
-        // return $doctor;
     }
 
     /**
@@ -127,7 +129,7 @@ class AdminDoctorController extends Controller
             'name' => 'required',
             'phone' => ['required', 'regex:/^0\d{9}$/'],
             'address' => 'required',
-            'url_image' => 'required|mimes:png,jpg,jpeg,webp,gif',
+            'url_image' => 'nullable|mimes:png,jpg,jpeg,webp,gif',
         ];
 
         $validator = Validator::make($request->all(), $rule);
@@ -157,7 +159,7 @@ class AdminDoctorController extends Controller
             );
             $newDoctor = new Doctor($id, $request->input('specialization'), $request->input('description'));
             $doctor = $select->updateDoctor($user, $newDoctor);
-           
+
             if ($doctor != null) {
                 return redirect('admin/doctors/')->with('success', 'Doctor successfully updated');
             }

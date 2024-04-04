@@ -1,11 +1,22 @@
-@extends('layouts.admin.admin')
-
-@section('content')
+<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Boicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<!-- My CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+	<link rel="stylesheet" href="/assets/admin/css/style.css">
+<style>
+  #back{
+    margin-left: 50px;
+  }
+  .head-title{
+    margin-top: 50px;
+  }
+</style>
 <div class="head-title">
-    <div class="left">
-        <h1>Edit new patient</h1>
-    </div>
-    <a href="{{url('/admin/patients')}}"><button class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
+    <a href="{{url('/home')}}"><button id="back" class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
         active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
         data-ripple-light="true"> Back</button></a>
     
@@ -131,6 +142,13 @@
             @enderror
           </div>
         </div>
+        
+        
+
+
+
+
+          
 
           <div class="w-full px-3 sm:w-1/3">
             <div class="mb-5">
@@ -260,4 +278,3 @@
       });
     });
   </script>
-@endsection
