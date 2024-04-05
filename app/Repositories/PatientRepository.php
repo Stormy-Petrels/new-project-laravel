@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Reference\Reference;
+use App\Models\User;
+
 
 class PatientRepository
 {
@@ -48,6 +50,13 @@ class PatientRepository
         return $newUser->id;
     }
 
+    public function getTimeId($id){
+        $result = DB::select("SELECT time_start, time_end, price 
+        FROM list_time_doctor 
+        WHERE id = ?", [$id]);
+        return $result;     
+    }
+
     public function get_patient_by_id($id)
     {
         $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, p.health_condition, p.note
@@ -72,6 +81,28 @@ class PatientRepository
     DB::table('users')->where('id', $userId)->delete();
 
     return true; // Trả về true nếu xóa thành công
+}
+
+public function update_patient(User $user, Patient $patient)
+{
+    $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? WHERE id = ?";
+    $patient_sql = "UPDATE patients SET health_condition = ?, note = ?  WHERE user_id = ?";
+     
+    $user = DB::update($user_sql, [
+        $user->getFullName(),
+        $user->getPassword(),
+        $user->getPhone(),
+        $user->getAddress(),
+        $patient->getUserId()
+    ]);
+
+    $patient= DB::update($patient_sql, [
+        $patient->getHealthCondition(),
+        $patient->getNote(),
+        $patient->getUserId()
+    ]);
+
+    return $patient;
 }
 
 }

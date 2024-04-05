@@ -223,7 +223,7 @@
                         <div id="price"></div>
                         VND
                     </div>
-                    <button type="submit" onclick="book()" class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Make an appointment</button>
+                    <button type="submit" onclick="Payment()" class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Make an appointment</button>
                     <button class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2"><a href="/doctors" style="border: none;">Back</a></button>
                 </div>
             </div>
@@ -350,41 +350,10 @@
         console.log(patientId)
     }
 
-    function book() {
+    function Payment() {
         {
             var selectedDate = dateInput.value;
-            console.log(patientId);
-            console.log(doctorId);
-            console.log(selectedTimeId);
-            console.log(selectedDate);
-            axios.post('/patient/list-doctor/booking', {
-                    patientId: patientId,
-                    doctorId: doctorId,
-                    id: selectedTimeId,
-                    selectedDate: selectedDate
-                })
-                .then(res => {
-                    if (res.status === 200) {
-
-                        const bookingOverlay = document.getElementById('booking-overlay');
-                        const bookingSuccess = document.getElementById('booking-success');
-
-                        bookingOverlay.classList.add('booking-overlay-visible');
-                        bookingSuccess.classList.remove('booking-success-hidden');
-                        bookingSuccess.classList.add('booking-success-visible');
-                        setTimeout(() => {
-                            bookingOverlay.classList.remove('booking-overlay-visible');
-                            bookingSuccess.classList.remove('booking-success-visible');
-                            bookingSuccess.classList.add('booking-success-hidden');
-                        }, 4000);
-                        window.location.href = "/patient/history-booking"
-                    }
-
-                }).catch(error => {
-                    if (error.response.status === 404) {
-                        document.getElementById("error").innerHTML = "Please select a time before making an appointment"
-                    }
-                })
+            window.location.href = "/payment/"+patientId+"/"+doctorId+"/"+selectedDate+"/"+selectedTimeId
         }
     }
     
