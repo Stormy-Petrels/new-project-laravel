@@ -47,13 +47,14 @@ class DoctorRepository
 
     public function getDoctorById(string $id)
     {
-        $query = "SELECT users.id AS user_id, users.email, users.name, users.phone, users.address, users.url_image, doctors.specialization, doctors.description
+        $query = "SELECT users.id AS user_id, users.email, users.name, users.phone, users.address, users.password, users.url_image, doctors.specialization, doctors.description
           FROM users
           JOIN doctors ON users.id = doctors.user_id
           WHERE users.role = 'doctor' AND doctors.id = '$id'";
         $result = DB::select($query);
         return $result;
     }
+    
     
     public function getAvailableTimesForBooking($selectedDate, $Doctorid)
     {

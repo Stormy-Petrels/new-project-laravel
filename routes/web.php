@@ -54,7 +54,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/create', [AdminPatientController::class, 'store'])->name('admin.patients.store');
         Route::get('{user_id}/update', [AdminPatientController::class, 'edit'])->name('edit.patient');
         Route::put('{user_id}/update', [AdminPatientController::class, 'update'])->name('update.patient');
-        Route::delete('{user_id}/delete', [AdminPatientController::class, 'destroy'])->name('delete_patient');
+        Route::get('{id}/delete', [AdminPatientController::class, 'destroy'])->name('delete_patient');
+        Route::get('/search', [AdminPatientController::class, 'search']);
+
     });
 
     // Route cho quản lý bác sĩ
@@ -62,9 +64,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminDoctorController::class, 'index']);
         Route::get('/create', [AdminDoctorController::class, 'create'])->name('create');
         Route::post('/create', [AdminDoctorController::class, 'store'])->name('store');
-        Route::get('/doctor/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
-        Route::put('/doctor/{id}', [AdminDoctorController::class, 'update'])->name('update');
+        Route::get('/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
+        Route::post('/{id}', [AdminDoctorController::class, 'update'])->name('update');
         Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('destroy');
+        Route::get('/search_doctor/search', [AdminDoctorController::class, 'search_doctor'])->name('search_doctor');
     });
 
     // Route cho bảng điều khiển admin

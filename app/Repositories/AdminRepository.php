@@ -7,6 +7,7 @@ use App\Models\Doctor;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 use App\Models\Patient;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class AdminRepository
 {
@@ -61,12 +62,17 @@ class AdminRepository
     }
 
     public function deleteDoctor($id)
-    {
-        $userId = DB::table('doctors')->where('id', $id)->value('user_id');
-
+{
+    $userId = DB::table('doctors')->where('id', $id)->value('user_id');
+    try {
         DB::table('doctors')->where('id', $id)->delete();
         DB::table('users')->where('id', $userId)->delete();
+        return redirect('admin/doctors')->with('success', 'Doctor has been blocked successfully!');
+    } catch (\Illuminate\Database\QueryException $e) {
+        return redirect('admin/doctors')->with('error', 'Cannot block a doctor');
     }
+}
+
 
     public function edit($id)
     {
@@ -92,7 +98,7 @@ class AdminRepository
 
     public function update_patient(User $user, Patient $patient)
     {
-        $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? WHERE id = ?";
+        $user_sql = "UPDATE users SET name = ?, password = ?, phone = ?, address = ? , url_image = ?  WHERE id = ?";
         $patient_sql = "UPDATE patients SET health_condition = ?, note = ?  WHERE user_id = ?";
          
         $user = DB::update($user_sql, [
@@ -100,6 +106,7 @@ class AdminRepository
             $user->getPassword(),
             $user->getPhone(),
             $user->getAddress(),
+            $user->getUrlImage(),
             $patient->getUserId()
         ]);
 
@@ -110,18 +117,6 @@ class AdminRepository
         ]);
 
         return $patient;
-    }
-
-    public function delete_patient($patientID)
-    {
-        // Lấy UserId từ bảng patients
-        $userId = DB::table('patients')->where('id', $patientID)->value('user_id');
-
-        // Xóa hàng trong bảng patients
-        DB::table('patients')->where('id', $patientID)->delete();
-
-        // Xóa hàng trong bảng users
-        DB::table('users')->where('id', $userId)->delete();
     }
 
     public function get_appointments(){
@@ -164,5 +159,71 @@ class AdminRepository
     
         return false;
     }
+
+
+    public function search_patient($search)
+    {
+        $results = DB::table('users')
+        ->select('users.id AS user_id', 'users.name', 'users.email', 'users.phone', 'users.address', 'users.url_image', DB::raw('MAX(patients.health_condition) as health_condition'), DB::raw('MAX(patients.note) as note'))
+        ->leftJoin('patients', 'users.id', '=', 'patients.user_id')
+        ->where(function ($query) use ($search) {
+            $query->where('users.name', 'like', "%$search%")
+                ->orWhere('users.email', 'like', "%$search%")
+                ->orWhere('users.phone', 'like', "%$search%")
+                ->orWhere('users.address', 'like', "%$search%")
+                ->orWhere('patients.health_condition', 'like', "%$search%")
+                ->orWhere('patients.note', 'like', "%$search%");
+        })
+        ->where('users.role', 'patient') 
+        ->groupBy('users.id', 'users.name', 'users.email', 'users.phone', 'users.address')
+        ->get();
+
+    return $results;
+    }
+
+
+    function get_appointments_by_doctor()
     
+    {   $topDoctors = DB::table('doctors')
+                ->join('booking', 'doctors.id', '=', 'booking.doctor_id')
+                ->join('users', 'doctors.user_id', '=', 'users.id')
+                ->select('doctors.id', 'users.name', DB::raw('count(*) as total_bookings'))
+                ->groupBy('doctors.id', 'users.name')
+                ->orderByDesc('total_bookings')
+                ->limit(10)
+                ->get();
+        return $topDoctors;
+    }
+
+    public function search_doctor($search)
+{
+    $results = DB::table('users')
+        ->select('users.id AS user_id', 'users.name', 'users.email', 'users.phone', 'users.address', 'users.url_image', DB::raw('MAX(doctors.specialization) as specialization'), DB::raw('MAX(doctors.description) as description'))
+        ->leftJoin('doctors', 'users.id', '=', 'doctors.user_id')
+        ->where(function ($query) use ($search) {
+            $query->where('users.name', 'like', "%$search%")
+                ->orWhere('users.email', 'like', "%$search%")
+                ->orWhere('users.phone', 'like', "%$search%")
+                ->orWhere('users.address', 'like', "%$search%")
+                ->orWhere('doctors.specialization', 'like', "%$search%")
+                ->orWhere('doctors.description', 'like', "%$search%");
+        })
+        ->where('users.role', 'doctor') 
+        ->groupBy('users.id', 'users.name', 'users.email', 'users.phone', 'users.address')
+        ->get();
+
+    return $results;
+}
+
+    public function delete_patient($id)
+    {
+        $userId = DB::table('patients')->where('id', $id)->value('user_id');
+        try {
+            DB::table('patients')->where('id', $id)->delete();
+            DB::table('users')->where('id', $userId)->delete();
+            return redirect('admin/patients')->with('success', 'Patient has been blocked successfully!');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect('admin/patients')->with('error', 'Cannot block a patient');
+        }
+    }
 }

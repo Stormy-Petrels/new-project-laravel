@@ -112,6 +112,7 @@ class AdminPatientController extends Controller
             'new_password' => 'nullable|string|min:6',
             'address' => 'required|string',
             'phone' => 'required|string',
+            'url_image' => 'nullable',
             'health_condition' => 'nullable|string',
             'note' => 'nullable|string',
         ]);
@@ -137,7 +138,7 @@ class AdminPatientController extends Controller
             $request->input('name'),
             $request->input('address'),
             $request->input('phone'),
-            ''
+            $request->file('url_image')->move('assets/admin/images' . $request->file('url_image')->getClientOriginalExtension())
         );
         $updatePatient = new Patient(
             $id, 
@@ -154,32 +155,48 @@ class AdminPatientController extends Controller
             "message" => "Failed to update the patient",
         ], 400);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public function create()
     {
         return view('admin.patients.create_patient');
     }
 
-    public function destroy(string $userId)
+    public function destroy(string $id)
     {
-        $select = new PatientRepository();
-         
-        // Kiểm tra xem bệnh nhân có tồn tại hay không
-        $existingPatient = $select->get_patient_by_id($userId);
-        if ($existingPatient == null) {
-            return response()->json([
-                'message' => 'Patient not found'
-            ], 404);
-        }
-    
-        // Xóa bệnh nhân
-        $result = $select->delete_patient($userId);
-        if ($result) {
-            // Chuyển hướng đến trang chủ và hiển thị thông báo
-            return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
-        } else {
-            return response()->json([
-                'message' => 'Failed to delete patient'
-            ], 500);
-        }
+        $select = new AdminRepository();
+        $select->delete_patient($id);
+        return redirect('admin/patients')->with('success', 'Doctor successfully deleted');
     }
-}
+
+
+    public function search(Request $request)
+{
+    $search = $request->input('search'); // Lấy giá trị từ query string
+
+    $patients = $this->adminRepository->search_patient($search); // Chuyển giá trị search vào hàm search trong repository
+    //dd($patients);
+    return view('admin.patients.patients', compact('patients', 'search')); // Trả kết quả và từ khóa tìm kiếm đến view
+}}

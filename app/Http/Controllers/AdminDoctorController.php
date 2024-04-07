@@ -177,4 +177,16 @@ class AdminDoctorController extends Controller
         $select->deleteDoctor($id);
         return redirect('admin/doctors/')->with('success', 'Doctor successfully deleted');
     }
+
+
+    public function search_doctor(Request $request)
+    {
+        $search = $request->input('search'); // Lấy giá trị từ query string
+    
+        $doctors = $this->adminRepository->search_doctor($search); // Chuyển giá trị search vào hàm search trong repository
+        //dd($patients);
+        return view('admin.doctors.doctors', compact('doctors', 'search')); // Trả kết quả và từ khóa tìm kiếm đến view
+    }
+
+    
 }

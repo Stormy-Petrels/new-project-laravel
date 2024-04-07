@@ -12,7 +12,6 @@
     <div class="mx-auto w-full max-w-full">
         <form action="{{ route('update', $doctor->user_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @method('PUT')
             <div class="-mx-3 flex flex-wrap">
                 <div class="w-full px-3 sm:w-1/3">
                     <div class="mb-5">
@@ -76,7 +75,7 @@
                         @enderror
                     </div>
                 </div>
-                {{-- <div class="w-full px-3 sm:w-1/2">
+                <div class="w-full px-3 sm:w-1/2">
                     <div class="mb-5">
                         <label for="experience" class="mb-3 block text-base font-medium text-[#07074D]">
                             Password
@@ -86,7 +85,7 @@
                         <p class="text-red-500 text-xs italic">{{$message}}</p>
                         @enderror
                     </div>
-                </div> --}}
+                </div>
                 <div class="w-full px-3 sm:w-1/2">
                     <div class="mb-5">
                         <label for="Image" class="mb-3 block text-base font-medium text-[#07074D]">image</label>
