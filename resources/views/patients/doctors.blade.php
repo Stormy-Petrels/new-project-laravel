@@ -125,6 +125,17 @@
             width: calc(50% - 20px);
         }
     }
+
+    #myDiv {
+        background-color: #1CBBD0;
+        /* Màu nền mặc định là màu xanh */
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+    li {
+        cursor: pointer;
+    }
 </style>
 @section('content')
 <div class="container" style="margin-left: -15px;">
@@ -134,22 +145,87 @@
             We would like to extend our warm greetings and express our gratitude for your interest in our services. This website was created with the aim of providing you with excellent experiences and high-quality services.
         </p>
     </div>
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'all')">All</button>
+        <button class="tablinks" onclick="openTab(event, 'pediatrician')">Pediatrician</button>
+        <button class="tablinks" onclick="openTab(event, 'dermatologist')">Dermatologist</button>
+    </div>
+    <ul class="nav justify-content-center tab">
+        <li class="nav-item tablinks" onclick="openTab(event, 'all')">
+            <a class="nav-link active" aria-current="page">All</a>
+        </li>
+        <li class="nav-item tablinks">
+            <a class="nav-link" onclick="openTab(event, 'pediatrician')">Pediatrician</a>
+        </li>
+        <li class="nav-item tablinks" onclick="openTab(event, 'dermatologist')">
+            <a class="nav-link">Dermatologist</a>
+        </li>
+    </ul>
     <div class="lists_card" id="lists_card">
-        <?php foreach ($doctors as $doctor) : ?>
-            <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 d-flex flex-column justify-content-between">
-                <a href="#">
-                    <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
-                </a>
-                <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
-                </div>
-                <!-- Thêm biểu tượng yêu thích -->
-                <button type="button" class="btn btn-danger" data-doctor-id="{{$doctor->id}}" onclick="addToFavorites(this)">
-                    <i class="fa fa-heart" aria-hidden="true"></i>
-                    Like
-                </button>
-            </li>
-        <?php endforeach; ?>
+        <div id="all" class="tabcontent container-fluid">
+            <h3 id="myDiv">All Doctors</h3>
+            <ul id="doctorListAll">
+                <!-- Danh sách bác sĩ sẽ được hiển thị ở đây -->
+                <?php foreach ($doctors as $doctor) : ?>
+                    <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
+                        <a href="#">
+                            <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
+                        </a>
+                        <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
+                        </div>
+                        <!-- Thêm biểu tượng yêu thích -->
+                        <button type="button" class="btn btn-danger" data-doctor-id="{{$doctor->id}}" onclick="addToFavorites(this)" style="width: 100%;">
+                            <i class="fa fa-heart" aria-hidden="true"></i>
+                            Like
+                        </button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <div id="pediatrician" class="tabcontent">
+        <h3 id="myDiv">Pediatricians</h3>
+        <ul id="doctorListPediatrician">
+            <!-- Danh sách bác sĩ chuyên khoa nhi sẽ được hiển thị ở đây -->
+            <?php foreach ($doctors as $doctor) : ?>
+                <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
+                    <a href="#">
+                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
+                    </a>
+                    <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
+                    </div>
+                    <!-- Thêm biểu tượng yêu thích -->
+                    <button type="button" class="btn btn-danger" data-doctor-id="{{$doctor->id}}" onclick="addToFavorites(this)" style="width: 100%;">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        Like
+                    </button>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+
+    <div id="dermatologist" class="tabcontent">
+        <h3 id="myDiv">Dermatologists</h3>
+        <ul id="doctorListDermatologist">
+            <!-- Danh sách bác sĩ chuyên da liễu sẽ được hiển thị ở đây -->
+            <?php foreach ($doctors as $doctor) : ?>
+                <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
+                    <a href="#">
+                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
+                    </a>
+                    <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
+                    </div>
+                    <!-- Thêm biểu tượng yêu thích -->
+                    <button type="button" class="btn btn-danger" data-doctor-id="{{$doctor->id}}" onclick="addToFavorites(this)" style="width: 100%;">
+                        <i class="fa fa-heart" aria-hidden="true"></i>
+                        Like
+                    </button>
+                </li>
+            <?php endforeach; ?>
+        </ul>
     </div>
     <ul class="listPage"></ul>
 </div>
@@ -161,6 +237,20 @@
     function redirectBooking(doctorId) {
         window.location.href = 'doctor/' + doctorId + '/booking';
     }
+
+    // Mở tab và hiển thị nội dung của tab được chọn
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        document.getElementById(tabName).style.display = "block";
+    }
+
+    // Mặc định hiển thị tab "All" khi trang được tải
+    document.getElementById("defaultOpen").click();
+
 
     var isSorted = false; // Biến đánh dấu trạng thái sắp xếp
 
