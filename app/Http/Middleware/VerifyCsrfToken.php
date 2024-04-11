@@ -12,6 +12,12 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        //
+        "/api/patient/sign-up",
+        "/api/sign-in",
+        "/doctor/favorite",
+        "/patient/list-doctor/booking",
+        "/patient/list-doctor/booking/time",
+        "/api/patient/search",
+        "/api/patient/processHistoryBooking"
     ];
 }

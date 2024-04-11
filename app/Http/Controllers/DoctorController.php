@@ -1,24 +1,36 @@
 <?php
-
 namespace App\Http\Controllers;
 
+use App\Repositories\DoctorRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DoctorController extends Controller
 {
+    public function __construct(private DoctorRepository $doctorRepository)
+    {
+        
+    }
     public function index()
     {
-        return view('admin.doctors.doctors');
+        $doctors = $this->doctorRepository->getAllDoctor();
+    
+        return view('patients.doctors',['doctors' => $doctors]);
     }
 
-    public function create()
+    public function favoriteDoctor(Request $request)
     {
-        return view('admin.doctors.create_doctor');
-    }
-
-    public function update()
-    {
-        return view('admin.doctors.update_doctor');
+        $userId = $request->userId;
+        $doctorId = $request->doctorId;
+        
+        $result = $this->doctorRepository->storeFavoriteDoctor($userId, $doctorId);
+        if($result) {
+            return response()->json([
+                'message' => 'success'
+            ], 201);
+        } 
+        return response()->json([
+            'message' => 'error'
+        ], 400);
     }
 }
-
