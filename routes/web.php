@@ -13,6 +13,8 @@ use App\Http\Controllers\AdminDoctorController;
 use App\Http\Controllers\AdminAppointmentController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\PaymentController;
+use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HistoryBookingController;
 
@@ -27,6 +29,8 @@ use App\Http\Controllers\FavoriteDoctorsController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+//Payment
+Route::get('/payment/{user_id}/{doctor_id}/{date}/{time_id}', [PaymentController::class, 'index']);
 // PATIENT
 Route::post('/api/patient/search',[SearchController::class, 'search']);
 Route::get('/search',[SearchController::class, 'index']);
@@ -87,5 +91,14 @@ Route::get('/Profile/{id}', [ProfileController::class, 'index']);
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
+
+Route::get('auth/google', function () {
+    return Socialite::driver('google')->redirect();
+});
+
+Route::get('auth/google/callback', function () {
+     $user = Socialite::driver('google')->user(); 
+     dd($user);
+});
 Route::post('/api/patient/processHistoryBooking',  [HistoryBookingController::class,'processHistoryBooking']);
 Route::get('/patient/history-booking',  [HistoryBookingController::class,'index']);

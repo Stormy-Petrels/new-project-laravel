@@ -50,6 +50,13 @@ class PatientRepository
         return $newUser->id;
     }
 
+    public function getTimeId($id){
+        $result = DB::select("SELECT time_start, time_end, price 
+        FROM list_time_doctor 
+        WHERE id = ?", [$id]);
+        return $result;     
+    }
+
     public function get_patient_by_id($id)
     {
         $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, u.url_image, p.health_condition, p.note
