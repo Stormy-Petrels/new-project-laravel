@@ -128,11 +128,11 @@
 
     #myDiv {
         background-color: #1CBBD0;
-        /* Màu nền mặc định là màu xanh */
         color: white;
         text-align: center;
         cursor: pointer;
     }
+
     li {
         cursor: pointer;
     }
@@ -145,28 +145,24 @@
             We would like to extend our warm greetings and express our gratitude for your interest in our services. This website was created with the aim of providing you with excellent experiences and high-quality services.
         </p>
     </div>
-    <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'all')">All</button>
-        <button class="tablinks" onclick="openTab(event, 'pediatrician')">Pediatrician</button>
-        <button class="tablinks" onclick="openTab(event, 'dermatologist')">Dermatologist</button>
-    </div>
+
     <ul class="nav justify-content-center tab">
-        <li class="nav-item tablinks" onclick="openTab(event, 'all')">
-            <a class="nav-link active" aria-current="page">All</a>
+        <li class="nav-item tablinks" onclick="openTab(event, 'Psycho doctor')">
+            <a class="nav-link active" aria-current="page">Psycho doctors</a>
         </li>
         <li class="nav-item tablinks">
-            <a class="nav-link" onclick="openTab(event, 'pediatrician')">Pediatrician</a>
+            <a class="nav-link" onclick="openTab(event, 'Pediatrician')">Pediatricians</a>
         </li>
-        <li class="nav-item tablinks" onclick="openTab(event, 'dermatologist')">
-            <a class="nav-link">Dermatologist</a>
+        <li class="nav-item tablinks" onclick="openTab(event, 'Neurologist')">
+            <a class="nav-link">Neurologist</a>
         </li>
     </ul>
     <div class="lists_card" id="lists_card">
-        <div id="all" class="tabcontent container-fluid">
-            <h3 id="myDiv">All Doctors</h3>
-            <ul id="doctorListAll">
+        <div id="Psycho doctor" class="tabcontent container-fluid">
+            <h3 id="myDiv" style="border-radius:10px;">Psycho doctors</h3>
+            <ul id="doctorListPsycho doctor">
                 <!-- Danh sách bác sĩ sẽ được hiển thị ở đây -->
-                <?php foreach ($doctors as $doctor) : ?>
+                <?php foreach ($psychoDoctors as $doctor) : ?>
                     <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
                         <a href="#">
                             <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
@@ -184,11 +180,11 @@
             </ul>
         </div>
     </div>
-    <div id="pediatrician" class="tabcontent">
+    <div id="Pediatrician" class="tabcontent">
         <h3 id="myDiv">Pediatricians</h3>
         <ul id="doctorListPediatrician">
             <!-- Danh sách bác sĩ chuyên khoa nhi sẽ được hiển thị ở đây -->
-            <?php foreach ($doctors as $doctor) : ?>
+            <?php foreach ($psychologists as $doctor) : ?>
                 <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
                     <a href="#">
                         <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
@@ -206,11 +202,11 @@
         </ul>
     </div>
 
-    <div id="dermatologist" class="tabcontent">
-        <h3 id="myDiv">Dermatologists</h3>
-        <ul id="doctorListDermatologist">
+    <div id="Neurologist" class="tabcontent">
+        <h3 id="myDiv">Neurologists</h3>
+        <ul id="doctorListNeurologist">
             <!-- Danh sách bác sĩ chuyên da liễu sẽ được hiển thị ở đây -->
-            <?php foreach ($doctors as $doctor) : ?>
+            <?php foreach ($neurologists as $doctor) : ?>
                 <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
                     <a href="#">
                         <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
@@ -248,8 +244,8 @@
         document.getElementById(tabName).style.display = "block";
     }
 
-    // Mặc định hiển thị tab "All" khi trang được tải
-    document.getElementById("defaultOpen").click();
+    // Mặc định hiển thị tab "Psycho doctor" khi trang được tải
+    document.getElementById("defaultOpen"); 
 
 
     var isSorted = false; // Biến đánh dấu trạng thái sắp xếp
@@ -264,7 +260,7 @@
             // Start by saying: no switching is done:
             switching = false;
             b = list.getElementsByTagName("LI");
-            // Loop through all list items:
+            // Loop through Psycho doctor list items:
             for (i = 0; i < (b.length - 1); i++) {
                 // Start by saying there should be no switching:
                 shouldSwitch = false;
@@ -272,14 +268,14 @@
                 switch place with the current item: */
                 if (!isSorted) {
                     if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-                        /* If next item is alphabetically lower than current item,
+                        /* If next item is alphabeticPsycho doctory lower than current item,
                         mark as a switch and break the loop: */
                         shouldSwitch = true;
                         break;
                     }
                 } else {
                     if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
-                        /* If next item is alphabetically lower than current item,
+                        /* If next item is alphabeticPsycho doctory lower than current item,
                         mark as a switch and break the loop: */
                         shouldSwitch = true;
                         break;
@@ -415,6 +411,38 @@
     }
 
     loadItem();
+
+    // Chọn phần tử có lớp "nav justify-content-center tab"
+    const navElement = document.querySelector('.nav.justify-content-center.tab');
+
+    // Vị trí cuộn cụ thể bạn muốn áp dụng CSS (ví dụ: 300px)
+    const scrollPosition = 1060;
+    
+
+    // Thêm sự kiện scroll cho cửa sổ
+    window.addEventListener('scroll', function() {
+        // Kiểm tra vị trí cuộn hiện tại
+        const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+        console.log(currentScrollY);
+        // Kiểm tra xem vị trí cuộn có đạt đến vị trí cụ thể không
+        if (currentScrollY >= scrollPosition) {
+            // Áp dụng CSS cho phần tử
+            navElement.style.position = 'fixed';
+            navElement.style.top = '10%';
+            navElement.style.left = '50%';
+            navElement.style.backgroundColor = 'lightblue';
+            navElement.style.transform = 'translate(-50%, -50%)';
+            navElement.style.zIndex = '999';
+        } else {
+            // Nếu vị trí cuộn thấp hơn vị trí cụ thể, loại bỏ CSS
+            navElement.style.position = '';
+            navElement.style.top = '';
+            navElement.style.left = '';
+            navElement.style.backgroundColor = '';
+            navElement.style.transform = '';
+            navElement.style.zIndex = '';
+        }
+    });
 </script>
 @endsection
 @section('footer')
