@@ -33,6 +33,17 @@ class PatientRepository
             $patient->getNote()
         ]);
     }
+
+    public function insertGoogle($id)
+    {
+        $sql = "SELECT id FROM UsersLoginGoogle WHERE id = ?";
+        $existingId = DB::selectOne($sql, [$id]);
+    
+        if (!$existingId) {
+            $insertSql = "INSERT INTO UsersLoginGoogle (id) VALUES (?)";
+            DB::insert($insertSql, [$id]);
+        }
+    }
     
      
     public function get_info_patients()

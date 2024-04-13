@@ -34,7 +34,7 @@ Route::get('/payment/{user_id}/{doctor_id}/{date}/{time_id}', [PaymentController
 // PATIENT
 Route::post('/api/patient/search',[SearchController::class, 'search']);
 Route::get('/search',[SearchController::class, 'index']);
-Route::get('/home', [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
 Route::get('/contact-us', [HomeController::class, 'contactUs']);
 // Route::get('/doctors', [HomeController::class, 'doctors']);
@@ -87,9 +87,11 @@ Route::get('auth/google', function () {
     return Socialite::driver('google')->redirect();
 });
 
-Route::get('auth/google/callback', function () {
-     $user = Socialite::driver('google')->user(); 
-     dd($user);
-});
+// Route::get('auth/google/callback', function () {
+//      $user = Socialite::driver('google')->user(); 
+//      dd($user);
+// });
+
+Route::get('auth/google/callback', [SignInController::class, 'SignInGoogle']);
 Route::post('/api/patient/processHistoryBooking',  [HistoryBookingController::class,'processHistoryBooking']);
 Route::get('/patient/history-booking',  [HistoryBookingController::class,'index']);

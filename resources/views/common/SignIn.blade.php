@@ -70,16 +70,23 @@
              <div class="centered-container">
                  <div>
                      <button onclick="handleSubmitSignIn()" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Sign In</button>
+             <button onclick="SignInGoogle()" type="button" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">Sign In</button>
+
                  </div>
                  <div>
                      <p style="color:white">Don’t have an account?<a href="/sign-up" class="text-blue-600 hover:underline">Sign Up</a></p>
                  </div>
              </div>
+            
+             
          </div>
      </form>
  </body>
  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
  <script>
+    function SignInGoogle(){
+        window.location.href ="/auth/google"
+    }
     function handleSubmitSignIn() {
         const email = document.getElementById("email").value
         const password = document.getElementById("password").value

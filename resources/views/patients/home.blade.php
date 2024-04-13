@@ -147,7 +147,7 @@
       </div>
     </div>
   </div>
-
+<!-- Truy cập các thuộc tính trong $payload -->
   <div class="team">
     <div class="h1">Our Team</div>
     <div class="h2">
@@ -194,6 +194,10 @@
       src="https://cdn.builder.io/api/v1/image/assets/TEMP/120195dba242992d6c6329dd07669a632a8d377117487a8350b74d4d253f47ac?apiKey=cceb8282e0e64aaeb0533b2dfea39e76&"
       class="button" />
   </div>
+  <script> 
+var payload = <?php echo json_encode(session()->get('payload')); ?>;
+    localStorage.setItem('user-info', JSON.stringify(payload));
+  </script>
 @endsection
 
 @section('footer')

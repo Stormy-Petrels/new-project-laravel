@@ -3,13 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Dtos\Common\SignInRes;
+use App\Dtos\Common\SignInGoogleRes;
 use App\Dtos\Common\SignInReq;
 use App\Repositories\UserRepository;
 use App\Repositories\PatientRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
+
+
+use Laravel\Socialite\Facades\Socialite;
 
 class SignInController extends Controller
 {
+    private PatientRepository $patientRepository;
+
+    public function __construct()
+    {
+        $this->patientRepository = new PatientRepository();
+    }
+
     public function index()
     {
         return view("common\SignIn");
@@ -54,5 +66,21 @@ class SignInController extends Controller
                 $user->getUrlImage()
             )
         ]);
+    }
+    
+    public function SignInGoogle()
+    {
+        $user = Socialite::driver('google')->user(); 
+        $this->patientRepository->insertGoogle($user->id);
+        $payload = new SignInGoogleRes(
+            $user->id,
+            $user->email,
+            $user->name,
+            $user->avatar
+        );
+        session()->put('payload', $payload);
+       
+        return redirect()->route('home', ['payload' => $payload]);
+
     }
 }
