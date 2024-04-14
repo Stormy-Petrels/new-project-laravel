@@ -16,8 +16,8 @@ class DoctorController extends Controller
         $psychoDoctors = $this->doctorRepository->selectPsychoD();
         $psychologists = $this->doctorRepository->selectPsychologistsD();
         $neurologists = $this->doctorRepository->selectNeurologistD();
-        
-        return view('patients.doctors',['psychoDoctors' => $psychoDoctors, 'psychologists' => $psychologists, 'neurologists' => $neurologists]);
+        $typeDoctors = $this->doctorRepository->typeDoctors();
+        return view('patients.doctors',['psychoDoctors' => $psychoDoctors, 'psychologists' => $psychologists, 'neurologists' => $neurologists, 'typeDoctors' => $typeDoctors]);
     }
 
     public function favoriteDoctor(Request $request)

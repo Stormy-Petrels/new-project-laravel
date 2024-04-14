@@ -181,7 +181,7 @@
         </div>
     </div>
     <div id="Pediatrician" class="tabcontent">
-        <h3 id="myDiv">Pediatricians</h3>
+        <h3 id="myDiv" style="border-radius:10px;">Pediatricians</h3>
         <ul id="doctorListPediatrician">
             <!-- Danh sách bác sĩ chuyên khoa nhi sẽ được hiển thị ở đây -->
             <?php foreach ($psychologists as $doctor) : ?>
@@ -203,7 +203,7 @@
     </div>
 
     <div id="Neurologist" class="tabcontent">
-        <h3 id="myDiv">Neurologists</h3>
+        <h3 id="myDiv" style="border-radius:10px;">Neurologists</h3>
         <ul id="doctorListNeurologist">
             <!-- Danh sách bác sĩ chuyên da liễu sẽ được hiển thị ở đây -->
             <?php foreach ($neurologists as $doctor) : ?>
@@ -423,7 +423,6 @@
     window.addEventListener('scroll', function() {
         // Kiểm tra vị trí cuộn hiện tại
         const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
-        console.log(currentScrollY);
         // Kiểm tra xem vị trí cuộn có đạt đến vị trí cụ thể không
         if (currentScrollY >= scrollPosition) {
             // Áp dụng CSS cho phần tử

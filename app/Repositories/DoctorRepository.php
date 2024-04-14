@@ -161,4 +161,10 @@ class DoctorRepository
 
         return $neurologists;
     }
+
+    public function typeDoctors()
+    {
+        $type = DB::select("SELECT DISTINCT specialization FROM doctors;");
+        return $type;
+    }
 }
