@@ -84,12 +84,8 @@ class AdminPatientController extends Controller
             $request->input('note') ?? ''
         );
         $insert_patient->add_new_patient($new_patient);
-        // if ($patient != null) {
-        //     return Redirect::route('admin/patients')->with('success', 'Patient successfully added');
-        // }
 
         if ($patient!=null) {
-            // Chuyển hướng đến trang chủ và hiển thị thông báo
             return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
         } 
         
@@ -112,7 +108,7 @@ class AdminPatientController extends Controller
             'new_password' => 'nullable|string|min:6',
             'address' => 'required|string',
             'phone' => 'required|string',
-            'url_image' => 'nullable',
+            'url_image' => 'required|mimes:png,jpg,jpeg,webp,gif',
             'health_condition' => 'nullable|string',
             'note' => 'nullable|string',
         ]);
@@ -129,16 +125,23 @@ class AdminPatientController extends Controller
         if (!empty($newPassword)) {
             $password = $newPassword;
         }
-    
-        // Update user information
+
+        if ($request->hasFile('url_image')) {
+            $fileName = $request->file('url_image')->getClientOriginalName();
+            $request->file('url_image')->move('assets/admin/images', $fileName);
+            $imageUrl = 'assets/admin/images/' . $fileName;
+        } else {
+            $imageUrl = null;
+        }
+
         $updateUser = new User(
-            Role::Doctor,
+            Role::Patient,
             '',
             $password,
             $request->input('name'),
             $request->input('address'),
             $request->input('phone'),
-            $request->file('url_image')->move('assets/admin/images' . $request->file('url_image')->getClientOriginalExtension())
+            $imageUrl
         );
         $updatePatient = new Patient(
             $id, 
@@ -147,13 +150,11 @@ class AdminPatientController extends Controller
         );
         $patient = $select->update_patient($updateUser, $updatePatient);
         
-        if ($patient != null) {
+        if ($patient == null) {
             return redirect('/admin/patients')->with('success', 'Patient updated successfully');
         } 
     
-        return response()->json([
-            "message" => "Failed to update the patient",
-        ], 400);
+        
     }
 
 

@@ -23,7 +23,12 @@
 </div>
 <div class="flex items-center justify-center p-12">
     <div class="mx-auto w-full max-w-full">
-      <form action="{{ url('admin/patients/'.$patient[0]->user_id.'/update') }}" method="POST" enctype="multipart/form-data">
+      @if(session('success'))
+<div class="alert alert-success">
+    {{ session('success') }}
+</div>
+@endif
+      <form action="{{ url('/Profile/'.$patient[0]->user_id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="-mx-3 flex flex-wrap">
@@ -65,6 +70,9 @@
                 placeholder="Email"
                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
               />
+              @error('email')
+              <span class="text-danger">{{$message}}</span>
+              @enderror
             </div>
         </div>
 

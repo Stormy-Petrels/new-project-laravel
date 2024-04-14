@@ -9,7 +9,7 @@
 
         <img loading="lazy" src="assets/patients/images/email.png" id="location-icon" />
         <div id="header-location">Hospital@hello.com</div>
-        <a href="#" id="book-now"><b>BOOK NOW</b></a>
+        <a href="{{ url('/doctors') }}" id="book-now"><b>BOOK NOW</b></a>
     </div>
 </div>
 

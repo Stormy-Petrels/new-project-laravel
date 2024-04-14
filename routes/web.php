@@ -88,6 +88,8 @@ Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
 Route::get('/Profile/{id}', [ProfileController::class, 'index']);
+Route::put('/Profile/{id}', [ProfileController::class, 'update']);
+
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
