@@ -10,7 +10,7 @@
 </div>
 <div class="flex items-center justify-center p-12">
     <div class="mx-auto w-full max-w-full">
-        <form action="{{ route('update', $doctor->user_id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ url('/admin/doctors/'.$doctor->user_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="-mx-3 flex flex-wrap">
                 <div class="w-full px-3 sm:w-1/3">

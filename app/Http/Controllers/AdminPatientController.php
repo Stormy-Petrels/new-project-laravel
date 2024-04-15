@@ -85,7 +85,7 @@ class AdminPatientController extends Controller
         );
         $insert_patient->add_new_patient($new_patient);
 
-        if ($patient!=null) {
+        if ($patient==null) {
             return redirect('/admin/patients')->with('success', 'Patient deleted successfully');
         } 
         

@@ -12,14 +12,9 @@
         <a href="{{ url('/doctors') }}" id="book-now"><b>BOOK NOW</b></a>
     </div>
 </div>
-<style>
-.name7 {
-  text-decoration: none;
-  color: black; 
-}
-</style>    
+
 <div class="menu">
-    <div class="menu-1" id="container">
+    <div class="menu-1">
         <a href="{{ url('/home') }}" class="name1 {{ Request::is('home') ? 'active' : '' }}">Home</a>
         <a href="{{ url('/about-us') }}" class="name2 {{ Request::is('about-us') ? 'active' : '' }}">About Us</a>
         <a href="{{ url('/department') }}" class="name3 {{ Request::is('department') ? 'active' : '' }}">Department</a>
@@ -90,25 +85,25 @@
         window.location.href = "/sign-in";
     }
 
-  var url = '/add-to-cart/' + user.roleId;
-  var link = document.querySelector('.name7'); 
-  link.href = url;
-
 </script>
 
 <div class="container-section">
-    <div class="container-section2">
-        <img loading="lazy" src="assets/patients/images/photo 1.png" class="imgs" />
+
+    <div class="container-section2 w3-content w3-section">
+
+        @foreach($banners as $banner)
+    <img loading="lazy" src="{{asset('assets/admin/banners/'.$banner->image_path)}}" class="mySlides" />
+@endforeach
         <div class="container-section3">
             <div class="container-section4">
                 <img loading="lazy" src="assets/patients/images/heart.png" class="img-2" />
-                <div class="container-section5">LIVE YOUR LIKE</div>
+                <div class="container-section5" style="color: #767676;">LIVE YOUR LIKE</div>
             </div>
             <div class="container-section6">
                 We Care About
                 <span style="color: rgba(28, 187, 208, 1)">Your Health</span>
             </div>
-            <div class="container-section7">
+            <div class="container-section7" style="color: #767676;">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium
             </div>

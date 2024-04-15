@@ -12,7 +12,7 @@
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="mx-auto w-full max-w-full">
-    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('/admin/doctors/create') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="-mx-3 flex flex-wrap">
         <div class="w-full px-3 sm:w-1/3">

@@ -18,8 +18,10 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\HistoryBookingController;
+use App\Http\Controllers\AdminBanners;
 
 use App\Http\Controllers\FavoriteDoctorsController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +39,10 @@ Route::post('/api/patient/search',[SearchController::class, 'search']);
 Route::get('/search',[SearchController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
-Route::get('/contact-us', [HomeController::class, 'contactUs']);
+Route::get('/contact-us', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact-us', [ContactController::class, 'send'])->name('contact.send');
+
+
 // Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/doctors', [DoctorController::class, 'index']);
 Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);
@@ -67,13 +72,22 @@ Route::prefix('admin')->group(function () {
     // Route cho quản lý bác sĩ
     Route::prefix('doctors')->group(function () {
         Route::get('/', [AdminDoctorController::class, 'index']);
-        Route::get('/create', [AdminDoctorController::class, 'create'])->name('create');
-        Route::post('/create', [AdminDoctorController::class, 'store'])->name('store');
-        Route::get('/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
-        Route::post('/{id}', [AdminDoctorController::class, 'update'])->name('update');
-        Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('destroy');
+        Route::get('/create', [AdminDoctorController::class, 'create']);
+        Route::post('/create', [AdminDoctorController::class, 'store']);
+        Route::get('/{id}', [AdminDoctorController::class, 'edit']);
+        Route::post('/{id}', [AdminDoctorController::class, 'update']);
+        Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('deletedoctor');
         Route::get('/search_doctor/search', [AdminDoctorController::class, 'search_doctor'])->name('search_doctor');
     });
+    Route::prefix('banners')->group(function(){
+        Route::get('/', [AdminBanners::class, 'index']);
+        Route::get('/create', [AdminBanners::class, 'create']);
+        Route::post('/create', [AdminBanners::class,'store']);
+        Route::get('/banner/{id}/edit', [AdminBanners::class, 'edit']);
+        Route::put('/banner/{id}/edit', [AdminBanners::class, 'update']);
+        Route::get("/banner/{id}/delete", [AdminBanners::class, 'destroy']);
+    });
+    
 
     // Route cho bảng điều khiển admin
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
@@ -96,14 +110,15 @@ Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'che
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
 Route::post('/patient/cart/booking', [BookingController::class, 'bookingCart']);
 
-Route::get('auth/google', function () {
-    return Socialite::driver('google')->redirect();
-});
+// Route::get('auth/google', function () {
+//     return Socialite::driver('google')->redirect();
+// });
 
 Route::get('/add-to-cart/{id}',[AddToCartController::class, 'index']);
 Route::post('/add-to-cart',[AddToCartController::class, 'add']);
 Route::get('/cart/{id}', [AddToCartController::class, 'deleteCart'])->name('cart.delete');
 Route::get('/carts/{id}', [AddToCartController::class, 'getCartById']);
+
 Route::get('auth/google/callback', [SignInController::class, 'SignInGoogle']);
 Route::post('/api/patient/processHistoryBooking',  [HistoryBookingController::class,'processHistoryBooking']);
 Route::get('/patient/history-booking',  [HistoryBookingController::class,'index']);
