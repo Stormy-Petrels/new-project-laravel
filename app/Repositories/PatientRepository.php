@@ -59,7 +59,7 @@ class PatientRepository
 
     public function get_patient_by_id($id)
     {
-        $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, p.health_condition, p.note
+        $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, u.url_image, p.health_condition, p.note
                 FROM patients p
                 JOIN users u ON p.user_id = u.id
                 WHERE p.user_id = :id";

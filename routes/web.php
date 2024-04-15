@@ -10,7 +10,7 @@ use App\Http\Controllers\AdminPatientController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\AdminDoctorController;
-use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\AdminAppointmentController;
 use App\Http\Controllers\SignUpController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PaymentController;
@@ -58,7 +58,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/create', [AdminPatientController::class, 'store'])->name('admin.patients.store');
         Route::get('{user_id}/update', [AdminPatientController::class, 'edit'])->name('edit.patient');
         Route::put('{user_id}/update', [AdminPatientController::class, 'update'])->name('update.patient');
-        Route::delete('{user_id}/delete', [AdminPatientController::class, 'destroy'])->name('delete_patient');
+        Route::get('{id}/delete', [AdminPatientController::class, 'destroy'])->name('delete_patient');
+        Route::get('/search', [AdminPatientController::class, 'search']);
+
     });
 
     // Route cho quản lý bác sĩ
@@ -66,19 +68,28 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminDoctorController::class, 'index']);
         Route::get('/create', [AdminDoctorController::class, 'create'])->name('create');
         Route::post('/create', [AdminDoctorController::class, 'store'])->name('store');
-        Route::get('/doctor/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
-        Route::post('/doctor/{id}', [AdminDoctorController::class, 'update'])->name('update');
+        Route::get('/{id}', [AdminDoctorController::class, 'edit'])->name('edit');
+        Route::post('/{id}', [AdminDoctorController::class, 'update'])->name('update');
         Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('destroy');
+        Route::get('/search_doctor/search', [AdminDoctorController::class, 'search_doctor'])->name('search_doctor');
     });
 
     // Route cho bảng điều khiển admin
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
 
     // Route cho quản lý cuộc hẹn
-    Route::get('/appointment', [AppointmentController::class, 'index']);
+    Route::get('/appointment', [AdminAppointmentController::class, 'index']);
+    Route::post('/appointment/{id}/update-status', [AdminAppointmentController::class, 'updateStatus'])->name('appointment.updateStatus');
 });
 
+
+
+Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
+Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
+Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
 Route::get('/Profile/{id}', [ProfileController::class, 'index']);
+Route::put('/Profile/{id}', [ProfileController::class, 'update']);
+
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);

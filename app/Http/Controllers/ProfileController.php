@@ -41,7 +41,7 @@ class ProfileController extends Controller
         
        
         if ($validator->fails()) {
-            return redirect('admin/patients/'.$id.'/update')
+            return redirect('/Profile/'.$id)
                 ->withErrors($validator)
                 ->withInput();
         }
@@ -50,7 +50,9 @@ class ProfileController extends Controller
         $newPassword = $request->input('new_password');
         if (!empty($newPassword)) {
             $password = $newPassword;
+            
         }
+       
     
         // Update user information
         $updateUser = new User(
@@ -67,15 +69,17 @@ class ProfileController extends Controller
             $request->input('health_condition'), 
             $request->input('note')
         );
+        
         $patient = $select->update_patient($updateUser, $updatePatient);
         
-        if ($patient != null) {
-            return redirect('/admin/patients')->with('success', 'Patient updated successfully');
-        } 
+        if ($patient == null) {
+            //dd($patient);
+            return redirect('/Profile/'.$id)->with('success', 'Patient updated successfully');
+        }
     
-        return response()->json([
-            "message" => "Failed to update the patient",
-        ], 400);
+        // return response()->json([
+        //     "message" => "Failed to update the patient",
+        // ], 400);
     }
     public function create()
     {

@@ -22,8 +22,7 @@ class FavoriteDoctorsController extends Controller
 
         $favoriteDoctors = $this->doctorRepository->getAllFavoriteDoctors();
 
-        // dd($favoriteDoctors);
+   
         return view('patients.favoriteDoctors',['favoriteDoctors' => $favoriteDoctors]);
     }
 }
-

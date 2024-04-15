@@ -131,13 +131,6 @@
             @enderror
           </div>
         </div>
-        
-        
-
-
-
-
-          
 
           <div class="w-full px-3 sm:w-1/3">
             <div class="mb-5">
@@ -228,11 +221,30 @@
                 </div>
               </div>
   
+          
+          
+            </div>
+          <div class="-mx-3 flex flex-wrap">
+            <div class="w-full px-3 sm:w-1/2">
+              <div class="mb-5">
+                  <label for="Image" class="mb-3 block text-base font-medium text-[#07074D]">Image</label>
+                  <input type="file" name="url_image" id="image-input" placeholder="Image" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{ $patient[0]->url_image }}"/>
+                  @error('url_image')
+                  <p class="text-red-500 text-xs italic">{{$message}}</p>
+                  @enderror
+              </div>
           </div>
+          <div class="w-full px-3 sm:w-1/2">
+              <img src="{{ asset($patient[0]->url_image) }} " id="image-preview" alt="Hình ảnh" style="width: 100%; height: auto;" style="width: 100px; height: 100px; overflow: hidden;">
+          </div>
+          </div> 
   
         
   
         <div>
+
+
+
           <button
           type="submit"
           class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
@@ -267,4 +279,21 @@
       });
     });
   </script>
+
+<script>
+  const imageInput = document.getElementById('image-input');
+  const imagePreview = document.getElementById('image-preview');
+  // imagePreview.style.display = 'none';
+  imageInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      imagePreview.style.display = 'block';
+      reader.onload = function(e) {
+          imagePreview.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+  });
+</script>
+
 @endsection
