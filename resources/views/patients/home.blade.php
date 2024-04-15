@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-  <div class="container">
+  {{-- <div class="container"> --}}
     <div class="grid-container">
         <div class="columns">
             <div class="content">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-  </div>
+  {{-- </div> --}}
 
   <div class="custom-container">
     <div class="custom-container-2">

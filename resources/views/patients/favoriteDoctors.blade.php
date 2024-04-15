@@ -58,15 +58,15 @@
         <div class="container">
             <main>
                 <section id="favorite-doctors">
-                    <h2 class="p-4">List Favorite Doctors</h2>
+                    <h2 class="p-4"><span style="color: rgba(28, 187, 208, 1)">List Favorite Doctors</span></h2>
                     <ul id="doctor-list">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" style="width:90%">
                             <thead>
                                 <tr>
                                     <th width="5%">STT</th>
-                                    <th width="15%">Name Doctor</th>
-                                    <th width="15%">User ID</th>
-                                    <th width="15%">Doctor ID</th>
+                                    <th width="10%">Name Doctor</th>
+                                    <th width="10%">User ID</th>
+                                    <th width="10%">Doctor ID</th>
                                     <th width="5%">Delete</th>
                                 </tr>
                             </thead>
