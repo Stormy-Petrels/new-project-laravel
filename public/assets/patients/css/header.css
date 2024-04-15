@@ -2,7 +2,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #e8f0f2;
   overflow-x: hidden;
 }
 
@@ -18,7 +17,6 @@ body {
   color: #1CBBD0;
   text-decoration: none;
   /* Loại bỏ gạch chân*/
-
 }
 
 #sign-in-up a {
@@ -94,7 +92,7 @@ body {
   color: #000;
   font-weight: 700;
   justify-content: space-between;
-  padding: 15px 71px;
+  padding: 14px 71px;
   margin-left: 7%;
   position: relative;
   z-index: 1;
@@ -162,13 +160,13 @@ body {
   width: 100%;
   align-items: start;
   font-size: 20px;
-  color: #767676;
   font-weight: 800;
   justify-content: center;
   padding: 80px 60px;
 }
 
-.imgs {
+.mySlides {
+  display:none;
   position: absolute;
   inset: 0;
   height: 90%;
@@ -210,9 +208,8 @@ body {
 }
 
 .container-section6 {
-  color: #1cbbd0;
   margin-top: 33px;
-  font: 50px sans-serif;
+  font: 700 50px sans-serif;
 }
 
 .container-section7 {

@@ -10,14 +10,13 @@
 .container-section10 {
     display: flex;
     width: 100%;
-    max-width: 1097px;
+    max-width: 1280px;
     flex-direction: column;
-    margin: 27px 0 6px;
 }
 
 .container-section11 {
     color: #fff;
-    font: 700 20px sans-serif;
+    font: 700 22px sans-serif;
 }
 
 .container-section12 {
@@ -39,7 +38,7 @@
 
 .container-section14 {
     color: #fff;
-    font: 50px sans-serif;
+    font: 700 50px sans-serif;
 }
 
 .column-2 {
@@ -82,10 +81,9 @@
     color: #767676;
     white-space: nowrap;
     justify-content: center;
-    padding: 25px 41px;  
+    padding: 25px 41px;
     text-decoration: none;
 }
-
 
 /* Footer Styles */
 .footer {
@@ -107,7 +105,6 @@
 .div-18 {
     display: flex;
 }
-
 
 .div-2 {
     width: 86%;

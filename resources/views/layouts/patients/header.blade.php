@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="menu">
+<div class="menu mt-3">
     <div class="menu-1">
         <a href="{{ url('/home') }}" class="name1 {{ Request::is('home') ? 'active' : '' }}">Home</a>
         <a href="{{ url('/about-us') }}" class="name2 {{ Request::is('about-us') ? 'active' : '' }}">About Us</a>
@@ -83,22 +83,25 @@
         localStorage.clear();
         window.location.href = "/sign-in";
     }
-
 </script>
 
 <div class="container-section">
-    <div class="container-section2">
-        <img loading="lazy" src="assets/patients/images/photo 1.png" class="imgs" />
+    <div class="container-section2 w3-content w3-section">
+        <img loading="lazy" src="assets/patients/images/photo 1.png" class="mySlides" />
+        <img loading="lazy" src="assets/patients/images/photo 2.png" class="mySlides" />
+        <img loading="lazy" src="assets/patients/images/photo 3.png" class="mySlides" />
+        <img loading="lazy" src="assets/patients/images/photo 4.png" class="mySlides" />
+
         <div class="container-section3">
             <div class="container-section4">
                 <img loading="lazy" src="assets/patients/images/heart.png" class="img-2" />
-                <div class="container-section5">LIVE YOUR LIKE</div>
+                <div class="container-section5" style="color: #767676;">LIVE YOUR LIKE</div>
             </div>
             <div class="container-section6">
                 We Care About
                 <span style="color: rgba(28, 187, 208, 1)">Your Health</span>
             </div>
-            <div class="container-section7">
+            <div class="container-section7" style="color: #767676;">
                 Sed ut perspiciatis unde omnis iste natus error sit voluptatem
                 accusantium doloremque laudantium
             </div>
