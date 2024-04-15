@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repositories;
-
+use App\Models\Booking;
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Reference\Reference;
@@ -23,6 +23,18 @@ class PatientRepository
         ]);
     }
 
+    public function insertCart(Booking $booking)
+    {
+        $sql = "INSERT INTO add_to_cart (id,patient_id,doctor_id,date_booking,time_id) VALUES (?, ?, ?, ?, ?)";
+        DB::insert($sql, [
+            $booking->getId(),
+            $booking->getPatientId(),
+            $booking->getDocterId(),
+            $booking->getDate(),
+            $booking->getTimeId()
+        ]);
+    }
+
     public function insert(Patient $patient)
     {
         $sql = "INSERT INTO $this->tableName (id, user_id, health_condition, note) VALUES (?, ? , ?, ?)";
@@ -32,6 +44,17 @@ class PatientRepository
             $patient->getHealthCondition(),
             $patient->getNote()
         ]);
+    }
+
+    public function insertGoogle($id)
+    {
+        $sql = "SELECT id FROM UsersLoginGoogle WHERE id = ?";
+        $existingId = DB::selectOne($sql, [$id]);
+    
+        if (!$existingId) {
+            $insertSql = "INSERT INTO UsersLoginGoogle (id) VALUES (?)";
+            DB::insert($insertSql, [$id]);
+        }
     }
     
      

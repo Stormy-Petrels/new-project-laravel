@@ -3,13 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactUs;
+use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
     public function show() {
-        return view('patients.contactUs');
+        $banners=Banner::all();
+        return view('patients.contactUs', compact('banners'));
     }
     public function send(Request $request){
         $data = request()->validate([

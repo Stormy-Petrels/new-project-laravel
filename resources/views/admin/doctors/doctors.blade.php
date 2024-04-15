@@ -56,8 +56,8 @@
             </td>
 
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <a href="{{route('edit', $doctor->user_id)}}"><button type="button" class="btn btn-primary">Update</button></a>
-                <a href="{{route('destroy', $doctor->user_id)}}"><button type="button" class="btn btn-danger">Block</button></a>
+                <a href="{{url('/admin/doctors/'.$doctor->user_id.'edit')}}"><button type="button" class="btn btn-primary">Update</button></a>
+                <a href="{{route('deletedoctor',$doctor->user_id)}}"><button type="button" class="btn btn-danger">Block</button></a>
             </td>
         </tr>
         @endforeach
