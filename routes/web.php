@@ -16,6 +16,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\PaymentController;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AddToCartController;
 use App\Http\Controllers\HistoryBookingController;
 
 use App\Http\Controllers\FavoriteDoctorsController;
@@ -82,16 +83,16 @@ Route::get('/Profile/{id}', [ProfileController::class, 'index']);
 Route::get('/doctor/{id}/booking', [BookingController::class, 'index']);
 Route::post('/patient/list-doctor/booking/time', [BookingController::class, 'checkTime']);
 Route::post('/patient/list-doctor/booking', [BookingController::class, 'booking']);
+Route::post('/patient/cart/booking', [BookingController::class, 'bookingCart']);
 
 Route::get('auth/google', function () {
     return Socialite::driver('google')->redirect();
 });
 
-// Route::get('auth/google/callback', function () {
-//      $user = Socialite::driver('google')->user(); 
-//      dd($user);
-// });
-
+Route::get('/add-to-cart/{id}',[AddToCartController::class, 'index']);
+Route::post('/add-to-cart',[AddToCartController::class, 'add']);
+Route::get('/cart/{id}', [AddToCartController::class, 'deleteCart'])->name('cart.delete');
+Route::get('/carts/{id}', [AddToCartController::class, 'getCartById']);
 Route::get('auth/google/callback', [SignInController::class, 'SignInGoogle']);
 Route::post('/api/patient/processHistoryBooking',  [HistoryBookingController::class,'processHistoryBooking']);
 Route::get('/patient/history-booking',  [HistoryBookingController::class,'index']);

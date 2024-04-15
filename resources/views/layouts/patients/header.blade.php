@@ -12,15 +12,21 @@
         <a href="#" id="book-now"><b>BOOK NOW</b></a>
     </div>
 </div>
-
+<style>
+.name7 {
+  text-decoration: none;
+  color: black; 
+}
+</style>    
 <div class="menu">
-    <div class="menu-1">
+    <div class="menu-1" id="container">
         <a href="{{ url('/home') }}" class="name1 {{ Request::is('home') ? 'active' : '' }}">Home</a>
         <a href="{{ url('/about-us') }}" class="name2 {{ Request::is('about-us') ? 'active' : '' }}">About Us</a>
         <a href="{{ url('/department') }}" class="name3 {{ Request::is('department') ? 'active' : '' }}">Department</a>
         <a href="{{ url('/doctors') }}" class="name4 {{ Request::is('doctors') ? 'active' : '' }}">Doctors</a>
         <a href="{{ url('/services') }}" class="name5 {{ Request::is('services') ? 'active' : '' }}">Services</a>
         <a href="{{ url('/contact-us') }}" class="name6 {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
+        <a href="{{ url('/add-to-cart/') }}" class="name7 {{ Request::is('contact-us') ? 'active' : '' }}">Cart</a>
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
 
         <div claa="ml-8" style="margin-left: 15rem;">            
@@ -83,6 +89,10 @@
         localStorage.clear();
         window.location.href = "/sign-in";
     }
+
+  var url = '/add-to-cart/' + user.roleId;
+  var link = document.querySelector('.name7'); 
+  link.href = url;
 
 </script>
 

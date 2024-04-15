@@ -39,10 +39,27 @@ class BookingController extends Controller
         }
         $newBooking = new Booking($requestBooking->patientId, $requestBooking->doctorId, $requestBooking->date, $requestBooking->id);
         $booking = new BookingRepository();
-        $result = $booking->insert($newBooking);
+        $booking->insert($newBooking);
+        $booking->check();
 
         return response()->json([
             'message' => 'You have successfully booked your appointment',
         ], 200);
+    }
+
+    public function bookingCart(Request $req)
+    {
+        $requestBooking = new BookingReq($req);
+        if ($requestBooking->id == "") {
+            return response()->json([
+                'message' => 'Appointment failed',
+            ], 404);
+        }
+        $newBooking = new Booking($requestBooking->patientId, $requestBooking->doctorId, $requestBooking->date, $requestBooking->id);
+        $booking = new BookingRepository();
+        $booking->check();
+        $booking->insert($newBooking);
+
+        return redirect('/patient/history-booking');
     }
 }

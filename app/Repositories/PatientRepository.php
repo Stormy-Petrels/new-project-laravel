@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repositories;
-
+use App\Models\Booking;
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Reference\Reference;
@@ -20,6 +20,18 @@ class PatientRepository
             $patient->getId(),
             $patient->getHealthCondition(),
             $patient->getNote()
+        ]);
+    }
+
+    public function insertCart(Booking $booking)
+    {
+        $sql = "INSERT INTO add_to_cart (id,patient_id,doctor_id,date_booking,time_id) VALUES (?, ?, ?, ?, ?)";
+        DB::insert($sql, [
+            $booking->getId(),
+            $booking->getPatientId(),
+            $booking->getDocterId(),
+            $booking->getDate(),
+            $booking->getTimeId()
         ]);
     }
 

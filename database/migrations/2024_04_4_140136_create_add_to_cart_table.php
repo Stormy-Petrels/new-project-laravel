@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking', function (Blueprint $table) {
+        Schema::create('add_to_cart', function (Blueprint $table) {
             $table->string('id')->unique()->primary();
             $table->string('patient_id', 200)->notNull();
             $table->string('doctor_id', 200)->notNull();
             $table->date('date_booking')->notNull();
             $table->string('time_id')->notNull();
             $table->foreign('time_id')->references('id')->on('list_time_doctor');
-            $table->foreign('patient_i  d')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->timestamps();
         });
@@ -29,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('add_to_cart');
     }
 };

@@ -18,6 +18,8 @@ class VerifyCsrfToken extends Middleware
         "/patient/list-doctor/booking",
         "/patient/list-doctor/booking/time",
         "/api/patient/search",
-        "/api/patient/processHistoryBooking"
+        "/api/patient/processHistoryBooking",
+        "/cart/{id}",
+        "/patient/cart/booking" 
     ];
 }
