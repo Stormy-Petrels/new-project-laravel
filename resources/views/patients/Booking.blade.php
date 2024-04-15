@@ -224,6 +224,7 @@
                         VND
                     </div>
                     <button type="submit" onclick="Payment()" class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Make an appointment</button>
+                    <button type="submit" onclick="Cart()" class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">Add to cart</button>
                     <button class="px-6 py-3 text-lg font-semibold text-white transition duration-500 ease-in-out transform bg-blue-600 border border-current rounded hover:bg-blue-700 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2"><a href="/doctors" style="border: none;">Back</a></button>
                 </div>
             </div>
@@ -350,6 +351,33 @@
         patientId = id
         console.log(patientId)
     }
+
+    function Cart() {
+        {
+            var selectedDate = dateInput.value;
+            console.log(patientId);
+            console.log(doctorId);
+            console.log(selectedTimeId);
+            console.log(selectedDate);
+            axios.post('/add-to-cart', {
+                    patientId: patientId,
+                    doctorId: doctorId,
+                    id: selectedTimeId,
+                    selectedDate: selectedDate
+                })
+                .then(res => {
+                    if (res.status === 200) {
+                        window.location.href = "/add-to-cart/"+patientId
+                    }
+
+                }).catch(error => {
+                    if (error.response.status === 404) {
+                        document.getElementById("error").innerHTML = "Please select a time before making an appointment"
+                    }
+                })
+        }
+    }
+
 
     function Payment() {
         {

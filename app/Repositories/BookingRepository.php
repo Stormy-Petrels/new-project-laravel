@@ -19,6 +19,23 @@ class BookingRepository
             $booking->getDate(),
             $booking->getTimeId()
         ]);
+        
+    }
+
+    public function check(){
+        $duplicates = DB::table('booking')
+        ->select('doctor_id', 'date_booking', 'time_id')
+        ->groupBy('doctor_id', 'date_booking', 'time_id')
+        ->havingRaw('COUNT(*) > 1')
+        ->get();
+
+        foreach ($duplicates as $duplicate) {
+            DB::table('add_to_cart')
+                ->where('doctor_id', $duplicate->doctor_id)
+                ->where('date_booking', $duplicate->date_booking)
+                ->where('time_id', $duplicate->time_id)
+                ->delete();
+        }
     }
 
     public function selectAll()
