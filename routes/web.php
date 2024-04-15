@@ -19,6 +19,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HistoryBookingController;
 
 use App\Http\Controllers\FavoriteDoctorsController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +37,10 @@ Route::post('/api/patient/search',[SearchController::class, 'search']);
 Route::get('/search',[SearchController::class, 'index']);
 Route::get('/home', [HomeController::class, 'index']);
 Route::get('/about-us', [HomeController::class, 'aboutUs']);
-Route::get('/contact-us', [HomeController::class, 'contactUs']);
+Route::get('/contact-us', [ContactController::class, 'show'])->name('contact.show');
+Route::post('/contact-us', [ContactController::class, 'send'])->name('contact.send');
+
+
 // Route::get('/doctors', [HomeController::class, 'doctors']);
 Route::get('/doctors', [DoctorController::class, 'index']);
 Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);

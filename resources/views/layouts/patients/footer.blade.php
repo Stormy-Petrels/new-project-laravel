@@ -4,7 +4,7 @@
             <div class="container-section12">
                 <div class="container-section13">
                     <div class="column">
-                        <div class="container-section14">Subscribe Us To Get More Updates</div>
+                        <div class="container-section14">Subscribe Us To <br> Get More Updates</div>
                     </div>
                     <div class="column-2">
                         <div class="container-section15">

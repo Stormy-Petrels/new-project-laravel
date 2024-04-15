@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/home.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/footer.css') }}">
         <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/contactUs.css') }}">
+        <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body>
         @section('header')
