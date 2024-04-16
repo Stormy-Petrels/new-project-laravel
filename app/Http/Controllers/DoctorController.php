@@ -13,9 +13,10 @@ class DoctorController extends Controller
     }
     public function index()
     {
-        $doctors = $this->doctorRepository->getAllDoctor();
         $banners=Banner::all();
-        return view('patients.doctors',compact('banners', 'doctors'));
+        $doctors = $this->doctorRepository->getAllDoctor();
+    
+        return view('patients.doctors',['doctors' => $doctors, 'banners' => $banners]);
     }
 
     public function favoriteDoctor(Request $request)
