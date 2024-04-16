@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use App\Repositories\DoctorRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,8 @@ class DoctorController extends Controller
         $psychologists = $this->doctorRepository->selectPsychologistsD();
         $neurologists = $this->doctorRepository->selectNeurologistD();
         $typeDoctors = $this->doctorRepository->typeDoctors();
-        return view('patients.doctors',['psychoDoctors' => $psychoDoctors, 'psychologists' => $psychologists, 'neurologists' => $neurologists, 'typeDoctors' => $typeDoctors]);
+        $banners = Banner::all();
+        return view('patients.doctors', ['psychoDoctors' => $psychoDoctors, 'psychologists' => $psychologists, 'neurologists' => $neurologists, 'typeDoctors' => $typeDoctors, 'banners' => $banners]);
     }
 
     public function favoriteDoctor(Request $request)

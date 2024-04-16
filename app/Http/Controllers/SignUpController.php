@@ -94,36 +94,4 @@ class SignUpController extends Controller
             )
         ], 200);
     }
-
-    public function signUpGoogle(Request $req)
-    {
-        $signUpReq = new SignUpReq($req);
-        $validation = new UserRepository();
-
-
-        $newUser = new User(Role::Patient, $signUpReq->email, $signUpReq->password, $signUpReq->fullName, $signUpReq->address, $signUpReq->phone);
-        $newPatient = new Patient($newUser->getId());
-
-        $this->userRepository->insert($newUser);
-        $this->patientRepository->insert($newPatient);
-
-        $requestPatient = new PatientRepository();
-        $patientId = $requestPatient->findByEmail($signUpReq->email);
-
-        return response()->json([
-            'message' => 'Sign Up Successfully',
-            'payload' => new SignInRes(
-                
-                $patientId,
-                $newUser->getId(),
-                $newUser->getRole()->getValue(),
-                $newUser->getEmail(),
-                $newUser->getFullname(),
-                $newUser->getPassword(),
-                $newUser->getPhone(),
-                $newUser->getAddress(),
-                $newUser->getUrlImage()
-            )
-        ], 200);
-    }
 }

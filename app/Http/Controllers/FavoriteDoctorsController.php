@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\Banner;
 use App\Repositories\DoctorRepository;
 
 use Illuminate\Http\Request;
@@ -19,11 +21,8 @@ class FavoriteDoctorsController extends Controller
         // $favoriteDoctors = Favorite::all();
         // // Load view và truyền dữ liệu vào view
         // return view('patients.favoriteDoctors', ['favoriteDoctors' => $favoriteDoctors]);
-
+        $banners=Banner::all();
         $favoriteDoctors = $this->doctorRepository->getAllFavoriteDoctors();
-
-        // dd($favoriteDoctors);
-        return view('patients.favoriteDoctors',['favoriteDoctors' => $favoriteDoctors]);
+        return view('patients.favoriteDoctors',['favoriteDoctors' => $favoriteDoctors, 'banners' => $banners]);
     }
 }
-

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Repositories;
-
+use App\Models\Booking;
 use App\Models\Patient;
 use Illuminate\Support\Facades\DB;
 use League\CommonMark\Reference\Reference;
@@ -23,6 +23,18 @@ class PatientRepository
         ]);
     }
 
+    public function insertCart(Booking $booking)
+    {
+        $sql = "INSERT INTO add_to_cart (id,patient_id,doctor_id,date_booking,time_id) VALUES (?, ?, ?, ?, ?)";
+        DB::insert($sql, [
+            $booking->getId(),
+            $booking->getPatientId(),
+            $booking->getDocterId(),
+            $booking->getDate(),
+            $booking->getTimeId()
+        ]);
+    }
+
     public function insert(Patient $patient)
     {
         $sql = "INSERT INTO $this->tableName (id, user_id, health_condition, note) VALUES (?, ? , ?, ?)";
@@ -32,6 +44,17 @@ class PatientRepository
             $patient->getHealthCondition(),
             $patient->getNote()
         ]);
+    }
+
+    public function insertGoogle($id)
+    {
+        $sql = "SELECT id FROM UsersLoginGoogle WHERE id = ?";
+        $existingId = DB::selectOne($sql, [$id]);
+    
+        if (!$existingId) {
+            $insertSql = "INSERT INTO UsersLoginGoogle (id) VALUES (?)";
+            DB::insert($insertSql, [$id]);
+        }
     }
     
      
@@ -59,7 +82,7 @@ class PatientRepository
 
     public function get_patient_by_id($id)
     {
-        $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, p.health_condition, p.note
+        $sql = "SELECT p.user_id, u.name, u.email, u.password, u.phone, u.address, u.url_image, p.health_condition, p.note
                 FROM patients p
                 JOIN users u ON p.user_id = u.id
                 WHERE p.user_id = :id";

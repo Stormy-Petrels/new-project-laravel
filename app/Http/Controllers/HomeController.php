@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index() {
-        return view('patients.home');
-    }
-    public function contactUs() {
-        return view('patients.contactUs');
+        $banners=Banner::all();
+        return view('patients.home', compact('banners'));
     }
     public function aboutUs() {
-        return view('patients.aboutUs');
+        $banners=Banner::all();
+        return view('patients.aboutUs', compact('banners'));
     }
-    // public function doctors() {
-    //     return view('patients');
-    // }
+    
     public function services() {
-        return view('patients.services');
+        $banners=Banner::all();
+        return view('patients.services', compact('banners'));
     }
 }
