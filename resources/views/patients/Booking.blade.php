@@ -285,6 +285,7 @@
                 if (res.status === 201) {
                     console.log("Select: " + selectedDate);
                     if (listTimes != 0) {
+                        console.log(listTimes);
                         resultTime(listTimes)
                     } else {
                         document.getElementById("notification").innerHTML = "This day's schedule is fully booked"

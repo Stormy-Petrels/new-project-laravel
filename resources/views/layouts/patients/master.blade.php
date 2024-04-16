@@ -10,7 +10,7 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('/assets/patients/css/contactUs.css') }}">
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
-    <body>
+    <body >
         @section('header')
             @include('layouts.patients.header')
         @show

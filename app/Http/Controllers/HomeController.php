@@ -12,12 +12,12 @@ class HomeController extends Controller
         $topDoctors = DB::table('doctors')
         ->join('booking', 'doctors.id', '=', 'booking.doctor_id')
         ->join('users', 'doctors.user_id', '=', 'users.id')
-        ->select('doctors.id', 'users.name', DB::raw('count(*) as total_bookings'))
-        ->groupBy('doctors.id', 'users.name')
+        ->select('doctors.id', 'users.name', 'users.url_image', DB::raw('count(*) as total_bookings'))
+        ->groupBy('doctors.id', 'users.name', 'users.url_image')
         ->orderByDesc('total_bookings')
         ->limit(4)
         ->get();
-        return view('patients.home', compact('banners'), compact('topDoctors'));
+        return view('patients.home', compact('banners','topDoctors'));
     }
     public function aboutUs() {
         $banners=Banner::all();

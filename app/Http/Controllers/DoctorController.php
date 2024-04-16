@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Repositories\DoctorRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Banner;
 
 class DoctorController extends Controller
 {
@@ -16,7 +17,7 @@ class DoctorController extends Controller
         $banners=Banner::all();
         $doctors = $this->doctorRepository->getAllDoctor();
     
-        return view('patients.doctors',['doctors' => $doctors]);
+        return view('patients.doctors',['doctors' => $doctors], ['banners'=>$banners]);
     }
 
     public function favoriteDoctor(Request $request)
