@@ -20,9 +20,17 @@ class FavoriteDoctorsController extends Controller
         $banners=Banner::all();
         return view('patients.favoriteDoctors',compact('banners', 'favoriteDoctors'));
     }
+  
+    
 
-        public function destroy($id)
-        {
-           
+    public function destroy(Request $request, $id) {  
+        $favorite = Favorite::find($id);
+        if ($favorite) {
+            $favorite->delete();
+            return redirect('/favorite-doctors')->with('success', 'Favorite doctor deleted successfully');
+        } else {
+            return redirect('/favorite-doctors')->with('error', 'Favorite doctor not found');
         }
+    }
+  
 }

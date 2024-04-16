@@ -87,7 +87,11 @@
                                             <td>{{$item->doctor_spec}}</td>
                                            
                                             <td>
-                                                <a onclick="return confirm('Bạn có chắc chắc muốn xóa?')" href="" class="btn btn-danger btn-sm">Xóa</a>
+                                                <form action="{{ route('favorites.destroy', ['id' => $item->id]) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button onclick="return confirm('Bạn có chắc chắc muốn xóa?')" class="btn btn-danger btn-sm" type="submit">Xóa</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

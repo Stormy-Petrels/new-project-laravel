@@ -82,20 +82,17 @@ public function searchDoctors($searchTerm)
     }
     
    
-
     public function getAllFavoriteDoctors()
     {
-        $favoriteDoctors = DB::table('favorites')
-        ->join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
-        ->join('users', 'doctors.user_id', '=', 'users.id')
-        ->where('users.role', '=', 'doctor')
-        ->select( 'users.name as doctor_name', 'users.email as doctor_email', 'users.phone as doctor_phone', 'doctors.specialization as doctor_spec' )
-        ->get();
-
-    return $favoriteDoctors;
-            
+        $favoriteDoctors = Favorite::join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
+            ->join('users', 'doctors.user_id', '=', 'users.id')
+            ->where('users.role', '=', 'doctor')
+            ->select('favorites.id', 'users.name as doctor_name', 'users.email as doctor_email', 'users.phone as doctor_phone', 'doctors.specialization as doctor_spec')
+            ->get();
+    
+        return $favoriteDoctors;
     }
-
+    
     /**
      * 
      * Handle store favorite doctor
