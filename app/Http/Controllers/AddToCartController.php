@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Dtos\Patient\BookingReq;
+use App\Models\Banner;
 use App\Repositories\PatientRepository;
 use App\Models\Booking;
 use Illuminate\Support\Facades\DB;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 class AddToCartController extends Controller
 {
     public function index($patientId){
+        $banners=Banner::all();
         $carts = DB::table('add_to_cart')
             ->where('add_to_cart.id', '=', $patientId) // Chỉ định rõ ràng bảng 'add_to_cart' cho cột 'id'
             ->orWhere('add_to_cart.patient_id', '=', $patientId) // Chỉ định rõ ràng bảng 'add_to_cart' cho cột 'patient_id'
@@ -20,7 +22,7 @@ class AddToCartController extends Controller
             ->leftJoin('users', 'doctors.user_id', '=', 'users.id')
             ->select('add_to_cart.*', 'list_time_doctor.*', 'users.*')
             ->get();
-        return view('patients.Cart', compact('carts'));
+        return view('patients.Cart', ['carts' => $carts, 'banners' => $banners]);
     }
 
         function getCartById($patientId) {

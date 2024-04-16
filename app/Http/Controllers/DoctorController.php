@@ -1,6 +1,6 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\Banner;
+
 use App\Repositories\DoctorRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,9 +13,10 @@ class DoctorController extends Controller
     }
     public function index()
     {
-        $doctors = $this->doctorRepository->getAllDoctor();
         $banners=Banner::all();
-        return view('patients.doctors',compact('banners', 'doctors'));
+        $doctors = $this->doctorRepository->getAllDoctor();
+    
+        return view('patients.doctors',['doctors' => $doctors]);
     }
 
     public function favoriteDoctor(Request $request)

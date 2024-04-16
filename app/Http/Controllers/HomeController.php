@@ -25,6 +25,7 @@ class HomeController extends Controller
     }
     
     public function services() {
-        return view('patients.services');
+        $banners=Banner::all();
+        return view('patients.services', compact('banners'));
     }
 }
