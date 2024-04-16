@@ -165,9 +165,9 @@
                 <?php foreach ($psychoDoctors as $doctor) : ?>
                     <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
                         <a href="#">
-                            <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
+                            <img class="rounded-t-lg h-60 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
                         </a>
-                        <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                        <div class="p-2" onclick="redirectBooking('{{$doctor->id}}')">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
                         </div>
                         <!-- Thêm biểu tượng yêu thích -->
@@ -187,9 +187,9 @@
             <?php foreach ($psychologists as $doctor) : ?>
                 <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
                     <a href="#">
-                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
+                        <img class="rounded-t-lg h-60 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
                     </a>
-                    <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                    <div class="p-2" onclick="redirectBooking('{{$doctor->id}}')">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
                     </div>
                     <!-- Thêm biểu tượng yêu thích -->
@@ -209,9 +209,9 @@
             <?php foreach ($neurologists as $doctor) : ?>
                 <li class="list-unstyled max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex-column justify-content-between d-inline-block">
                     <a href="#">
-                        <img class="rounded-t-lg h-80 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
+                        <img class="rounded-t-lg h-60 object-cover" src="{{asset('assets/admin/images/'.$doctor->url_image)}}" alt="" />
                     </a>
-                    <div class="p-5" onclick="redirectBooking('{{$doctor->id}}')">
+                    <div class="p-2" onclick="redirectBooking('{{$doctor->id}}')">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark">Bs. {{$doctor->name}}</h5>
                     </div>
                     <!-- Thêm biểu tượng yêu thích -->
