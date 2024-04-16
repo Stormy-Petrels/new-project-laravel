@@ -1,9 +1,9 @@
 <nav>
     <i class='bx bx-menu' ></i>
-    <a href="#" class="nav-link">Search</a>
-    <form action="#">
+   
+    <form hidden action="#">
         <div class="form-input">
-            <input type="search" placeholder="Search...">
+            <input type="search" placeholder="">
             <button type="submit" class="search-btn"><i class='bx bx-search' ></i></button>
         </div>
     </form>

@@ -5,6 +5,7 @@ use App\Repositories\DoctorRepository;
 
 use Illuminate\Http\Request;
 use App\Models\Favorite;
+use App\Models\Banner;
 
 class FavoriteDoctorsController extends Controller
 {
@@ -15,15 +16,8 @@ class FavoriteDoctorsController extends Controller
     
     public function index()
     {
-        // // Lấy dữ liệu từ model (truy vấn cơ sở dữ liệu)
-        // $favoriteDoctors = Favorite::all();
-        // // Load view và truyền dữ liệu vào view
-        // return view('patients.favoriteDoctors', ['favoriteDoctors' => $favoriteDoctors]);
-
         $favoriteDoctors = $this->doctorRepository->getAllFavoriteDoctors();
-
-        // dd($favoriteDoctors);
-        return view('patients.favoriteDoctors',['favoriteDoctors' => $favoriteDoctors]);
+        $banners=Banner::all();
+        return view('patients.favoriteDoctors',compact('banners', 'favoriteDoctors'));
     }
 }
-

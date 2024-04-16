@@ -5,15 +5,14 @@
   <div class="left">
     <h1>Add new doctor</h1>
   </div>
-  <a href="{{url('/admin/doctors')}}"><button class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
-        active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true"> Back</button></a>
+  <a href="{{url('/admin/doctors')}}"><button class="btn btn-primary" data-ripple-light="true"> Back</button></a>
 
 </div>
 <div class="flex items-center justify-center p-12">
   <!-- Author: FormBold Team -->
   <!-- Learn More: https://formbold.com -->
   <div class="mx-auto w-full max-w-full">
-    <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{url('/admin/doctors/create') }}" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="-mx-3 flex flex-wrap">
         <div class="w-full px-3 sm:w-1/3">
@@ -108,8 +107,7 @@
         </div>
       </div>
       <div>
-        <button class="middle none center mr-4 rounded-lg bg-blue-500 py-3 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none 
-          active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" data-ripple-light="true" type="submit">
+        <button class="btn btn-primary" data-ripple-light="true" type="submit">
           Submit
         </button>
       </div>

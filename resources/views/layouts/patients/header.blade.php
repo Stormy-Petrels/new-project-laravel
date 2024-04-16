@@ -9,11 +9,11 @@
 
         <img loading="lazy" src="assets/patients/images/email.png" id="location-icon" />
         <div id="header-location">Hospital@hello.com</div>
-        <a href="/doctors" id="book-now"><b>BOOK NOW</b></a>
+        <a href="{{ url('/doctors') }}" id="book-now"><b>BOOK NOW</b></a>
     </div>
 </div>
 
-<div class="menu mt-3">
+<div class="menu">
     <div class="menu-1">
         <a href="{{ url('/home') }}" class="name1 {{ Request::is('home') ? 'active' : '' }}">Home</a>
         <a href="{{ url('/about-us') }}" class="name2 {{ Request::is('about-us') ? 'active' : '' }}">About Us</a>
@@ -21,6 +21,7 @@
         <a href="{{ url('/doctors') }}" class="name4 {{ Request::is('doctors') ? 'active' : '' }}">Doctors</a>
         <a href="{{ url('/services') }}" class="name5 {{ Request::is('services') ? 'active' : '' }}">Services</a>
         <a href="{{ url('/contact-us') }}" class="name6 {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
+        <a href="{{ url('/add-to-cart/') }}" class="name7 {{ Request::is('contact-us') ? 'active' : '' }}">Cart</a>
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
 
         <div claa="ml-8" style="margin-left: 15rem;">            
@@ -83,15 +84,16 @@
         localStorage.clear();
         window.location.href = "/sign-in";
     }
+
 </script>
 
 <div class="container-section">
-    <div class="container-section2 w3-content w3-section">
-        <img loading="lazy" src="assets/patients/images/photo 1.png" class="mySlides" />
-        <img loading="lazy" src="assets/patients/images/photo 2.png" class="mySlides" />
-        <img loading="lazy" src="assets/patients/images/photo 3.png" class="mySlides" />
-        <img loading="lazy" src="assets/patients/images/photo 4.png" class="mySlides" />
 
+    <div class="container-section2 w3-content w3-section">
+
+        @foreach($banners as $banner)
+    <img loading="lazy" src="{{asset('assets/admin/banners/'.$banner->image_path)}}" class="mySlides" />
+@endforeach
         <div class="container-section3">
             <div class="container-section4">
                 <img loading="lazy" src="assets/patients/images/heart.png" class="img-2" />

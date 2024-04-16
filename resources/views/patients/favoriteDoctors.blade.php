@@ -14,7 +14,7 @@
 
             <img loading="lazy" src="assets/patients/images/email.png" id="location-icon" />
             <div id="header-location">Hospital@hello.com</div>
-            <a href="#" id="book-now"><b>BOOK NOW</b></a>
+            <a href="{{ url('/doctors') }}" id="book-now"><b>BOOK NOW</b></a>
         </div>
     </div>
 
@@ -29,24 +29,29 @@
             <div>
                 <div id="user-info">
 
+                    <div id="user-info">
+                        <img id="profile-image" src="" alt="Profile Image" style="width: 50px; border-radius: 50%; height: 50px; object-fit: cover;">
+                        <div id="profile-links" style="display: none; width: 20%">
+                            <a href="#">Profile</a>
+                            <a href="/favorite-doctors">Favorite Doctors</a>
+                            <a href="/patient/history-booking">Appointment History</a>
+                            <a href="" onclick="logout()" >Logout</a>
+                        </div>
+                    </div>
+                    
                     <script>
+                        // Retrieve user info from localStorage
                         var user = localStorage.getItem('user-info');
                         if (user) {
-                            user = JSON.parse(user); // Chuyển đổi dữ liệu thành đối tượng JSON
+                            // Parse user info from JSON string to JavaScript object
+                            user = JSON.parse(user);
                             if (user.image) {
-                                document.getElementById('profile-image').src = user.image; // Thiết lập src cho hình ảnh
+                                // Set the src attribute of the profile image
+                                document.getElementById('profile-image').src = user.image;
                             }
                         }
                     </script>
-                
-                    <img id="profile-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-Z16m8LamczQtv32mpIB0V2dvphxoWNQUam3qelv703soHZccCy_cKV_02g&s" alt="Profile Image" style="width: 50px; border-radius:50%; height: 50px; object-fit: cover;">
-                
-                    <div id="profile-links" style="display: none; width: 20%">
-                        <a href="#">Profile</a>
-                            <a href="/favorite-doctors">Favorite Doctors</a>
-                            <a href="#">Appointment History</a>
-                            <a href="">Logout</a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -64,9 +69,10 @@
                             <thead>
                                 <tr>
                                     <th width="5%">STT</th>
-                                    <th width="10%">Name Doctor</th>
-                                    <th width="10%">User ID</th>
-                                    <th width="10%">Doctor ID</th>
+                                    <th width="15%">Name doctor</th>
+                                    <th width="15%">Email doctor</th>
+                                    <th width="15%">Phone doctor</th>
+                                    <th width="15%">Specialization</th>
                                     <th width="5%">Delete</th>
                                 </tr>
                             </thead>
@@ -76,8 +82,10 @@
                                         <tr>
                                             <td>{{$key + 1}}</td>
                                             <td>{{$item->doctor_name}}</td>
-                                            <td>{{$item->user_id}}</td>
-                                            <td>{{$item->doctor_id}}</td>
+                                            <td>{{$item->doctor_email}}</td>
+                                            <td>{{$item->doctor_phone}}</td>
+                                            <td>{{$item->doctor_spec}}</td>
+                                           
                                             <td>
                                                 <a onclick="return confirm('Bạn có chắc chắc muốn xóa?')" href="" class="btn btn-danger btn-sm">Xóa</a>
                                             </td>
@@ -157,5 +165,13 @@
         </div>
     </div>
 @endsection
+
+<script>
+    function logout() {
+        localStorage.clear();
+        window.location.href = "/sign-in";
+    }
+    
+    </script>
 
 

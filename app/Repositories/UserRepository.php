@@ -25,7 +25,6 @@ class UserRepository
             Carbon::now()
         ]);
     }
-
     public function selectAll()
     {
     }

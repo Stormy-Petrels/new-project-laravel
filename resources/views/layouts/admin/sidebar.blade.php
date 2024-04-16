@@ -23,6 +23,12 @@
             </a>
         </li>
         <li>
+            <a href="/admin/banners" class="flex items-center px-4 py-2">
+                <i class='bx bxs-message-dots text-xl'></i>
+                <span class="text-lg ml-2">Banners</span>
+            </a>
+        </li>
+        <li>
             <a href="/admin/dashboard" class="flex items-center px-4 py-2">
                 <i class='bx bxs-dashboard text-xl'></i>
                 <span class="text-lg ml-2">Dashboard</span>
