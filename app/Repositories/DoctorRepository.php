@@ -66,7 +66,8 @@ class DoctorRepository
         $result = DB::select($query, [$selectedDate, $Doctorid]);
         return $result;
     }
-public function searchDoctors($searchTerm)
+
+    public function searchDoctors($searchTerm)
     {
         $res = new DoctorRepository();
         $doctors = $res->getAllDoctor();
@@ -80,7 +81,6 @@ public function searchDoctors($searchTerm)
         }
         return $results;
     }
-    
    
     public function getAllFavoriteDoctors()
     {
