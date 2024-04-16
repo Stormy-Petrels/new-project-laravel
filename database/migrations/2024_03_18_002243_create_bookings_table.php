@@ -18,7 +18,7 @@ return new class extends Migration
             $table->date('date_booking')->notNull();
             $table->string('time_id')->notNull();
             $table->foreign('time_id')->references('id')->on('list_time_doctor');
-            $table->foreign('patient_i  d')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients');
             $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->timestamps();
         });
