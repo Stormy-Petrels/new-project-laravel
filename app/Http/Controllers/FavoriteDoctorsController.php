@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Repositories\DoctorRepository;
-
 use Illuminate\Http\Request;
 use App\Models\Favorite;
+use Illuminate\Support\Facades\DB;
 use App\Models\Banner;
 
 class FavoriteDoctorsController extends Controller
@@ -20,4 +20,9 @@ class FavoriteDoctorsController extends Controller
         $banners=Banner::all();
         return view('patients.favoriteDoctors',compact('banners', 'favoriteDoctors'));
     }
+
+        public function destroy($id)
+        {
+           
+        }
 }
