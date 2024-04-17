@@ -138,8 +138,4 @@
 </script>
 
   </div>
-      
-
-
-      
 @endsection

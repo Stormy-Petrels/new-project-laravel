@@ -16,7 +16,7 @@ class AddStatusToMessageContactsTable extends Migration
     public function down()
     {
         Schema::table('message_contacts', function (Blueprint $table) {
-            $table->dropColumn('status'); // Hủy bỏ cột 'status' nếu cần rollback
+            $table->dropColumn('status');
         });
     }
 }

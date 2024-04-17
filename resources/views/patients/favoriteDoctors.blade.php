@@ -40,13 +40,10 @@
                 </div>
 
                 <script>
-                    // Retrieve user info from localStorage
                     var user = localStorage.getItem('user-info');
                     if (user) {
-                        // Parse user info from JSON string to JavaScript object
                         user = JSON.parse(user);
                         if (user.image) {
-                            // Set the src attribute of the profile image
                             document.getElementById('profile-image').src = user.image;
                         }
                     }
