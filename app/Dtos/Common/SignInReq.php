@@ -11,7 +11,7 @@ class SignInReq
 
     public function __construct(Request $request)
     {
-        $this->email = $request->input("email");
-        $this->password = $request->input("password");
+        $this->email = $request->input("email") ?? "";
+        $this->password = $request->input("password") ?? "";
     }
 }
