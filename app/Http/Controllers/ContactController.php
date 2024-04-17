@@ -23,7 +23,7 @@ class ContactController extends Controller
         ]);
 
         // Send email to admin
-        // Mail::to('hoai.nguyen25@student.passerellesnumeriques.org')->send(new ContactUs($data));
+        Mail::to('hoai.nguyen25@student.passerellesnumeriques.org')->send(new ContactUs($data));
         MessageContact::create($data);
         $job = (new ContactUsJob($data));
         dispatch($job);

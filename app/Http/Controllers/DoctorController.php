@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 use App\Models\Banner;
 use App\Repositories\DoctorRepository;
@@ -9,27 +10,28 @@ class DoctorController extends Controller
 {
     public function __construct(private DoctorRepository $doctorRepository)
     {
-        
     }
     public function index()
     {
-        $banners=Banner::all();
-        $doctors = $this->doctorRepository->getAllDoctor();
-    
-        return view('patients.doctors',['doctors' => $doctors, 'banners' => $banners]);
+        $psychoDoctors = $this->doctorRepository->selectPsychoD();
+        $psychologists = $this->doctorRepository->selectPsychologistsD();
+        $neurologists = $this->doctorRepository->selectNeurologistD();
+        $typeDoctors = $this->doctorRepository->typeDoctors();
+        $banners = Banner::all();
+        return view('patients.doctors', ['psychoDoctors' => $psychoDoctors, 'psychologists' => $psychologists, 'neurologists' => $neurologists, 'typeDoctors' => $typeDoctors, 'banners' => $banners]);
     }
 
     public function favoriteDoctor(Request $request)
     {
         $userId = $request->userId;
         $doctorId = $request->doctorId;
-        
+
         $result = $this->doctorRepository->storeFavoriteDoctor($userId, $doctorId);
-        if($result) {
+        if ($result) {
             return response()->json([
                 'message' => 'success'
             ], 201);
-        } 
+        }
         return response()->json([
             'message' => 'error'
         ], 400);
