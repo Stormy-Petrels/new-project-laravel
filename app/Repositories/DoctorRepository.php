@@ -54,19 +54,17 @@ class DoctorRepository
         $result = DB::select($query);
         return $result;
     }
-    
-    
     public function getAvailableTimesForBooking($selectedDate, $Doctorid)
     {
         $query = "SELECT list_time_doctor.id, list_time_doctor.time_start, list_time_doctor.time_end, list_time_doctor.price
         FROM list_time_doctor
         LEFT JOIN booking ON list_time_doctor.id = booking.time_id AND booking.date_booking = ? AND booking.doctor_id = ?
         WHERE booking.time_id IS NULL";
-        
+
         $result = DB::select($query, [$selectedDate, $Doctorid]);
         return $result;
     }
-public function searchDoctors($searchTerm)
+    public function searchDoctors($searchTerm)
     {
         $res = new DoctorRepository();
         $doctors = $res->getAllDoctor();
@@ -80,20 +78,15 @@ public function searchDoctors($searchTerm)
         }
         return $results;
     }
-    
-   
-
     public function getAllFavoriteDoctors()
     {
-        $favoriteDoctors = DB::table('favorites')
-        ->join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
-        ->join('users', 'doctors.user_id', '=', 'users.id')
-        ->where('users.role', '=', 'doctor')
-        ->select( 'users.name as doctor_name', 'users.email as doctor_email', 'users.phone as doctor_phone', 'doctors.specialization as doctor_spec' )
-        ->get();
+        $favoriteDoctors = Favorite::join('doctors', 'favorites.doctor_id', '=', 'doctors.id')
+            ->join('users', 'doctors.user_id', '=', 'users.id')
+            ->where('users.role', '=', 'doctor')
+            ->select('favorites.id', 'users.name as doctor_name', 'users.email as doctor_email', 'users.phone as doctor_phone', 'doctors.specialization as doctor_spec')
+            ->get();
 
-    return $favoriteDoctors;
-            
+        return $favoriteDoctors;
     }
 
     /**
@@ -107,7 +100,7 @@ public function searchDoctors($searchTerm)
      */
     public function storeFavoriteDoctor(int $userId, int $doctorId): bool
     {
-        
+
         try {
             DB::beginTransaction();
             // Kiểm tra user đã thích bác sĩ hay chưa, nếu chưa thì yêu thích, rồi thì bỏ thích
@@ -128,5 +121,44 @@ public function searchDoctors($searchTerm)
 
             return false;
         }
+    }
+
+    public function selectPsychoD()
+    {
+        $Psycho_doctor = DB::select("SELECT  users.id AS user_id, users.id, users.email, users.name, users.phone, users.password,
+        users.address, users.url_image, doctors.id, doctors.specialization, doctors.description
+        FROM users
+        JOIN doctors ON users.id = doctors.user_id
+        WHERE users.role = 'doctor' AND doctors.specialization = 'Psycho Doctor'");
+
+        return $Psycho_doctor;
+    }
+
+    public function selectPsychologistsD()
+    {
+        $psychologists = DB::select("SELECT  users.id AS user_id, users.id, users.email, users.name, users.phone, users.password,
+        users.address, users.url_image, doctors.id, doctors.specialization, doctors.description
+        FROM users
+        JOIN doctors ON users.id = doctors.user_id
+        WHERE users.role = 'doctor' AND doctors.specialization = 'Psychologists'");
+
+        return $psychologists;
+    }
+
+    public function selectNeurologistD()
+    {
+        $neurologists = DB::select("SELECT  users.id AS user_id, users.id, users.email, users.name, users.phone, users.password,
+        users.address, users.url_image, doctors.id, doctors.specialization, doctors.description
+        FROM users
+        JOIN doctors ON users.id = doctors.user_id
+        WHERE users.role = 'doctor' AND doctors.specialization = 'Neurologist'");
+
+        return $neurologists;
+    }
+
+    public function typeDoctors()
+    {
+        $type = DB::select("SELECT DISTINCT specialization FROM doctors;");
+        return $type;
     }
 }

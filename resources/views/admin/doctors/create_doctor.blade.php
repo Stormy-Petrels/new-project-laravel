@@ -57,10 +57,20 @@
             <label for="specialization" class="mb-3 block text-base font-medium text-[#07074D]">
               Specialization
             </label>
-            <input type="text" name="specialization" id="specialization" placeholder="Specialization" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{old('specialization')}}" />
+            <!-- <input type="text" name="specialization" id="specialization" placeholder="Specialization" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" value="{{old('specialization')}}" />
+            @error('specialization')
+            <p class="text-red-500 text-xs italic">{{$message}}</p>
+            @enderror -->
+            <select name="specialization" id="specialization" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md">
+              <option value="">-- Select Specialization --</option>
+              <option value="Neurologist" {{ old('specialization') == 'Neurologist' ? 'selected' : '' }}>Neurologist</option>
+              <option value="Psychologists" {{ old('specialization') == 'Psychologists' ? 'selected' : '' }}>Psychologists</option>
+              <option value="Psycho Doctor" {{ old('specialization') == 'Psycho Doctor' ? 'selected' : '' }}>Psycho Doctor</option>
+            </select>
             @error('specialization')
             <p class="text-red-500 text-xs italic">{{$message}}</p>
             @enderror
+
           </div>
         </div>
         <div class="w-full px-3 sm:w-1/2">
@@ -99,7 +109,7 @@
         <div class="w-full px-3 sm:w-1/2">
           <div class="mb-5">
             <label for="Image" class="mb-3 block text-base font-medium text-[#07074D]">Image</label>
-            <input type="file" name="url_image" id="url_image" placeholder="Image" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"/>
+            <input type="file" name="url_image" id="url_image" placeholder="Image" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
             @error('url_image')
             <p class="text-red-500 text-xs italic">{{$message}}</p>
             @enderror

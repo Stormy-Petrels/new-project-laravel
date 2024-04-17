@@ -195,14 +195,15 @@
 
                     var img = document.createElement("img");
                     img.className = "rounded-t-lg object-cover";
-                    img.src = 'images/'+doctor.url_image;
+                    var doctorImageUrl = "assets/admin/images/"+doctor.url_image;
+                    img.src = doctorImageUrl;
                     img.alt = "";
 
                     var doctorInfoDiv = document.createElement("div");
                     doctorInfoDiv.className = "p-5";
 
                     var doctorNameH5 = document.createElement("h5");
-                    doctorNameH5.className = "mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white";
+                    doctorNameH5.className = "mb-2 text-2xl font-bold tracking-tight text-gray-900";
                     doctorNameH5.textContent = "Bs. " + doctor.name;
 
                     doctorInfoDiv.appendChild(doctorNameH5);

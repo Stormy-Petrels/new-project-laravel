@@ -57,8 +57,8 @@ class BookingController extends Controller
         }
         $newBooking = new Booking($requestBooking->patientId, $requestBooking->doctorId, $requestBooking->date, $requestBooking->id);
         $booking = new BookingRepository();
-        $booking->check();
         $booking->insert($newBooking);
+        $booking->check();
 
         return redirect('/patient/history-booking');
     }
