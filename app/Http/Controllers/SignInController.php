@@ -31,7 +31,7 @@ class SignInController extends Controller
     {
         $signInRequest = new SignInReq($req);
 
-        if ($signInRequest->email == null || $signInRequest->password == null) {
+        if ($signInRequest->email == "" && $signInRequest->password == "") {
             return response()->json([
                 'message' => 'Please enter complete information',
                 'error' => [
@@ -44,7 +44,7 @@ class SignInController extends Controller
         $userRepository = new UserRepository();
         $user = $userRepository->findByEmail($signInRequest->email);
 
-        if ($user == null || $user->getPassword() != $signInRequest->password) {
+        if ($user == "" || $user->getPassword() != $signInRequest->password) {
             return response()->json([
                 'message' => 'User not found or invalid credentials',
             ], 401);

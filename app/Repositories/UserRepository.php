@@ -90,5 +90,20 @@ class UserRepository
         }
         return true;
     }
+    public function validatePhone($phone)
+    {
+        $phonePattern = "/^\d{10}$/";
+        if (!preg_match($phonePattern, $phone)) {
+            return false;
+        }
+        return true;
+    }
+    public function validateAddress($address)
+    {
+        if (strlen($address) < 5) {
+            return false;
+        }
+        return true;
+    }
 
 }
