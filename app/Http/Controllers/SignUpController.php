@@ -35,8 +35,9 @@ class SignUpController extends Controller
         $checkMail = $validation->validateEmail($signUpReq->email);
         $checkPassword = $validation->validatePassword($signUpReq->password);
         $checkFullName = $validation->validateFullName($signUpReq->fullName);
-
-        if ($signUpReq->email == null || $signUpReq->password == null || $signUpReq->fullName == null || $signUpReq->phone == null || $signUpReq->address == null) {
+        $checkPhone = $validation->validatePhone($signUpReq->phone);
+        $checkAddress = $validation->validateAddress($signUpReq->address);
+        if ($signUpReq->email == "" || $signUpReq->password == "" || $signUpReq->fullName == "" || $signUpReq->phone == "" || $signUpReq->address == "") {
             return response()->json([
                 "message" => "Please enter complete information",
                 "error" => [
@@ -56,7 +57,9 @@ class SignUpController extends Controller
                 "error" => [
                     "email" => !$checkMail,
                     "password" => !$checkPassword,
-                    "fullName" => !$checkFullName
+                    "fullName" => !$checkFullName,
+                    "phone" =>!$checkPhone,
+                    "address" =>!$checkAddress
                 ]
             ], 400);
         }

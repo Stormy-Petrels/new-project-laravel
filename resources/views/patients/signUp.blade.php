@@ -126,7 +126,7 @@
                 if (error.response.status === 400) {
                     const errors = error.response.data;
                     if (errors.error.email) {
-                        document.getElementById("email-error").textContent = "wrong email format";
+                        document.getElementById("email-error").textContent = "Wrong email format, ex:loan@gmail.com";
                     } else {
                         document.getElementById("email-error").textContent = "";
                     }
@@ -139,6 +139,16 @@
                         document.getElementById("full-name-error").textContent = "Name at least 2 characters";
                     } else {
                         document.getElementById("full-name-error").textContent = "";
+                    }
+                    if (errors.error.phone) {
+                        document.getElementById("phoneNumber-error").textContent = "Phone must have 10 numbers and start with 0";
+                    } else {
+                        document.getElementById("phoneNumber-error").textContent = "";
+                    }
+                    if (errors.error.address) {
+                        document.getElementById("address-error").textContent = "Address must have 5 characters or more";
+                    } else {
+                        document.getElementById("address-error").textContent = "";
                     }
                 }
                 if (error.response.status === 422) {
@@ -164,9 +174,9 @@
                         document.getElementById("phoneNumber-error").textContent = "";
                     }
                     if (errors.error.address == "") {
-                        document.getElementById("addres-error").textContent = "Please fill in your address";
+                        document.getElementById("address-error").textContent = "Please fill in your address";
                     } else {
-                        document.getElementById("addres-error").textContent = "";
+                        document.getElementById("address-error").textContent = "";
                     }
                 }
                 if (error.response.status === 401) {
