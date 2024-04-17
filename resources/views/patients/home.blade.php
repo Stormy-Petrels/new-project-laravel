@@ -8,8 +8,24 @@
 @endsection
 
 @section('content')
-  <div class="container">
-    <div class="grid-container">
+
+  {{-- <div class="container"> --}}
+    <div class="container">
+        <h1 style="color: #000;font: 800 60px sans-serif;margin-left:33%;" >Top 4 Doctors</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 h-full" style="margin-top: 20px;">
+            <?php foreach($topDoctors as $doctor): ?>
+                <div class="flex justify-center items-center">
+                    <div class="max-w-xs w-full bg-white shadow-lg rounded-lg overflow-hidden">
+                        <img style="width: 100%;height: 300px;" class="w-full" src="{{asset('assets/admin/images/'.$doctor->url_image)}}">
+                        <div class="px-6 py-4">
+                            <div class="font-bold text-xl mb-2">{{$doctor->name}}</div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    </div>
+    <div class="grid-container" style="margin-top: 100px;">
         <div class="columns">
             <div class="content">
                 <span class="number">+ 5120</span>
@@ -39,7 +55,7 @@
             </div>
         </div>
     </div>
-  </div>
+  {{-- </div> --}}
 
   <div class="custom-container">
     <div class="custom-container-2">
@@ -160,6 +176,7 @@
           src="https://cdn.builder.io/api/v1/image/assets/TEMP/120195dba242992d6c6329dd07669a632a8d377117487a8350b74d4d253f47ac?apiKey=cceb8282e0e64aaeb0533b2dfea39e76&"
           class="button" />
   </div>
+
   <!-- <script> 
   var payload = <?php echo json_encode(session()->get('payload')); ?>;
     localStorage.setItem('user-info', JSON.stringify(payload));

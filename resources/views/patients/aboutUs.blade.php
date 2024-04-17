@@ -8,7 +8,7 @@
 
 @section('content')
   <div class="row pt-5">
-    <div class="col-lg-6 ps-5">
+    <div class="col-lg-5">
       <img src="assets/patients/images/photo3.png" class="mx-auto d-block ps-5" style="width: 90%; height: 90%">
     </div>
     <div class="col-lg-5">
@@ -16,16 +16,17 @@
         About
         <span style="color: rgba(28, 187, 208, 1)">Us</span>
       </div>
-      <div class="ps-2 py-4">
-        <p class="py-4">"With profound knowledge and meticulousness, doctors ensure all decisions are made accurately and carefully."</p>
-        <a href="/contact-us" class="submit" class="background-color: #e61f57; color: #ffff; stify-content: center; padding: 15px 20px; border-radius: 30px;text-decoration: none; cursor: pointer;">
+      <div class="ps-2">
+        <p class="py-5">"With profound knowledge and meticulousness, doctors ensure all decisions are made accurately and carefully."</p>
+        <a href="contact-us" class="submit"><b>CONTACT US</b></a>
+        {{-- <a href="/contact-us" class="submit" class="background-color: #e61f57; color: #ffff; stify-content: center; padding: 15px 20px; border-radius: 30px;text-decoration: none; cursor: pointer;">
           GET CONTACT
-        </a>
+        </a> --}}
       </div>
     </div>
   </div>
 
-  <div class="row" style=" border-radius: 20px; background-color: #1cbbd0; color: white; display: flex; padding: 50px 75px 0; margin: 50px; margin-left: 106px; width: 99%; height: 300px;">
+  <div class="row" style=" border-radius: 20px; background-color: #1cbbd0; color: white; display: flex; padding: 50px 80px 0; margin: 50px; margin-left: 70px; width: 88%; height: 300px;">
     <div class="row">
         <h1 style="font: 600 55px sans-serif;">Our Mission</h1>
         <div class="row py-4" style="font: 400 20px sans-serif;">
@@ -35,9 +36,9 @@
     </div>
   </div>
 
-  <div class="row pt-5 ps-5">
+  <div class="row pt-5 ps-4">
     <div class="col-lg-5">
-      <img src="assets/patients/images/photo4.png" alt="" class="mx-auto d-block" style="width: 80%; height: 90%; padding-left: 1%">
+      <img src="assets/patients/images/photo4.png" alt="" class="mx-auto d-block" style="width: 85%; height: 90%; padding-left: 1%">
     </div>
 
     <div class="col-lg-6">

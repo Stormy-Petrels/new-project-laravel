@@ -1,22 +1,18 @@
-{{-- Xây dựng layout bằng tính kế thừa --}}
 @extends('layouts.patients.master')
-
 @section('title', 'Mental Health Care')
 
 @section('header')
-  @parent 
+@parent
 @endsection
 
 @section('content')
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-
 <style>
     #title{
         margin-left: 130px;
     }
 </style>
 <body class="bg-gray-100">
-    <div class="container">
+    <div class="container">         
     <div class="grid grid-cols-4 gap-4">
     <?php foreach ($carts as $cart) : ?>
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">

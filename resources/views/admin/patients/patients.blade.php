@@ -41,7 +41,7 @@
             {{-- name --}}
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
                 <div class="flex items-center">
-                    <img src="{{ asset($patient->url_image) }} " alt="Avatar" class="w-10 h-10 rounded-full mr-2" >
+                    <img src="{{ asset('assets/admin/images/'.$patient->url_image) }}" alt="Avatar" class="w-10 h-10 rounded-full mr-2" >
                     <span>{{$patient->name}}</span>
                 </div>
             </td>

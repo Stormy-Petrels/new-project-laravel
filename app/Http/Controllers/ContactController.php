@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactUs;
+use App\Jobs\ContactUsJob;
 use App\Models\Banner;
+use App\Models\MessageContact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -13,7 +15,7 @@ class ContactController extends Controller
         $banners=Banner::all();
         return view('patients.contactUs', compact('banners'));
     }
-    public function send(Request $request){
+    public function send(){
         $data = request()->validate([
             'name' => 'required|min:3',
             'email' => 'required|email',
@@ -21,9 +23,12 @@ class ContactController extends Controller
         ]);
 
         // Send email to admin
-        Mail::to('hoai.nguyen25@student.passerellesnumeriques.org')->send(new ContactUs($data));
+        // Mail::to('hoai.nguyen25@student.passerellesnumeriques.org')->send(new ContactUs($data));
+        MessageContact::create($data);
+        $job = (new ContactUsJob($data));
+        dispatch($job);
+
         // dd('send');
-        // return redirect()->back()->with('msg', 'Thanks for reaching out. Your message has been sent successfully.');
         return redirect()->back()->with('success', 'Your message has been sent successfully.');
     }    
     

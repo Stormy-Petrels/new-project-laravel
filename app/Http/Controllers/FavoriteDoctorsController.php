@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Banner;
 use App\Repositories\DoctorRepository;
-
 use Illuminate\Http\Request;
 use App\Models\Favorite;
+use Illuminate\Support\Facades\DB;
 
 class FavoriteDoctorsController extends Controller
 {

@@ -22,19 +22,19 @@
     <div class="div-2">
         <div class="div-3">
             <div class="div-4">
-                <img loading="lazy" src="assets/patients/images/logo.png" style="width:50px;"/>
+                <img loading="lazy" src="{{asset('assets/patients/images/logo.png')}}" style="width:50px;"/>
                 <div class="div-5">Mental Health Care</div>
             </div>
             <div class="div-6">
-                <img loading="lazy" src="assets/patients/images/location.png" class="img-2" />
+                <img loading="lazy" src="{{asset('assets/patients/images/location.png')}}" class="img-2" />
                 <div class="div-7">Son Tra, Da Nang Viet Nam</div>
             </div>
             <div class="div-8">
-                <img loading="lazy" src="assets/patients/images/email.png" class="img-3" />
+                <img loading="lazy" src="{{asset('assets/patients/images/email.png')}}" class="img-3" />
                 <div class="div-9">Hospital@hello.com</div>
             </div>
             <div class="div-10">
-                <img loading="lazy" src="assets/patients/images/phone.png" class="img-4" />
+                <img loading="lazy" src="{{asset('assets/patients/images/phone.png')}}" class="img-4" />
                 <div class="div-11">(+487) 384 9452</div>
             </div>
         </div>
