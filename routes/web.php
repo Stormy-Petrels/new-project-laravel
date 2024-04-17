@@ -48,6 +48,8 @@ Route::post('/contact-us', [ContactController::class, 'send'])->name('contact.se
 Route::get('/doctors', [DoctorController::class, 'index']);
 Route::post('/doctor/favorite', [DoctorController::class, 'favoriteDoctor']);
 Route::get('/favorite-doctors', [FavoriteDoctorsController::class, 'index']);
+
+// Route::get('/favorite-doctors/delete/{id}', [FavoriteDoctorsController::class, 'delete'])->name('delete');
 Route::delete('/favorites/{id}', [FavoriteDoctorsController::class, 'destroy'])->name('favorites.destroy');
 Route::get('/services', [HomeController::class, 'services']);
 //Common
@@ -91,7 +93,7 @@ Route::prefix('admin')->group(function () {
 
     // Route cho bảng điều khiển admin
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
-    Route::get('/contact', [AdminContactController::class, 'index']);
+    Route::get('/contact', [AdminContactController::class, 'index'])->name('admin.contact');
 
 
     // Route cho quản lý cuộc hẹn
@@ -100,6 +102,7 @@ Route::prefix('admin')->group(function () {
 
     
 });
+Route::get('contact/{id}', [AdminContactController::class, 'update_contact_message'])->name('contact.update');
 
 
 

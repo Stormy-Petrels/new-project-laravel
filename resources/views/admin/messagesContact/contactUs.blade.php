@@ -14,7 +14,6 @@
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Message</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Time Contact</th>
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Status</th>
-
             <th class="p-3 font-bold uppercase bg-gray-200 text-gray-600 border border-gray-300 hidden lg:table-cell">Action</th>
         </tr>
     </thead>
@@ -38,16 +37,21 @@
                 {{ \Carbon\Carbon::parse($message->created_at)->format('h:i, F j, Y') }}
             </td>
             <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                 process , replied
+                @if ($message->status == 1)
+                    <span class="text-green-500">Replied</span>
+                @else
+                    <span class="text-blue-500">Processing</span>
+                @endif
             </td>
-            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static">
-                <a href=""><button type="button" class="btn btn-primary">reply</button></a>
-                
+            <td class="w-full lg:w-auto p-3 text-gray-800 text-center border border-b text-center block lg:table-cell relative lg:static" >
+                <a href="{{ url('contact/'.$message->id) }}" class="btn btn-sm btn-{{ $message->status ? 'success' : 'primary' }}">
+                    {{ $message->status ? 'Replied' : 'Processing' }}
+                </a>
             </td>
         </tr>
         @endforeach
-
     </tbody>
-
 </table>
 @endsection
+
+

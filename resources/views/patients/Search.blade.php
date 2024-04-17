@@ -195,7 +195,8 @@
 
                     var img = document.createElement("img");
                     img.className = "rounded-t-lg object-cover";
-                    img.src = 'images/'+doctor.url_image;
+                    var doctorImageUrl = "assets/admin/images/"+doctor.url_image;
+                    img.src = doctorImageUrl;
                     img.alt = "";
 
                     var doctorInfoDiv = document.createElement("div");

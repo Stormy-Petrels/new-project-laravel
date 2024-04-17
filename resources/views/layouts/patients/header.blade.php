@@ -1,13 +1,13 @@
 <div id="header">
     <div id="header-content">
-        <img loading="lazy" src="assets/patients/images/logo.png" id="logo" />
+        <img loading="lazy" src="{{asset('assets/patients/images/logo.png')}}" id="logo" />
         <div id="header-title">Mental Health Care</div>
     </div>
     <div id="header-actions">
-        <img loading="lazy" src="assets/patients/images/location.png" id="location-icon" />
+        <img loading="lazy" src="{{asset('assets/patients/images/location.png')}}" id="location-icon" />
         <div id="header-location">Son Tra, Da Nang Viet Nam</div>
 
-        <img loading="lazy" src="assets/patients/images/email.png" id="location-icon" />
+        <img loading="lazy" src="{{asset('assets/patients/images/email.png')}}" id="location-icon" />
         <div id="header-location">Hospital@hello.com</div>
         <a href="{{ url('/doctors') }}" id="book-now"><b>BOOK NOW</b></a>
     </div>
