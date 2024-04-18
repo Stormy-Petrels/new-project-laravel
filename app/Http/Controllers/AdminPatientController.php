@@ -106,8 +106,8 @@ class AdminPatientController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'new_password' => 'nullable|string|min:6',
-            'address' => 'required|string',
             'phone' => 'required|string',
+            'address' => 'required|string',
             'url_image' => 'required|mimes:png,jpg,jpeg,webp,gif',
             'health_condition' => 'nullable|string',
             'note' => 'nullable|string',
@@ -139,8 +139,8 @@ class AdminPatientController extends Controller
             '',
             $password,
             $request->input('name'),
-            $request->input('address'),
             $request->input('phone'),
+            $request->input('address'),
             $imageUrl
         );
         $updatePatient = new Patient(

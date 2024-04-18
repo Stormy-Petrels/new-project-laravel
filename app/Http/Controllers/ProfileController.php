@@ -33,8 +33,8 @@ class ProfileController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'new_password' => 'nullable|string|min:6',
-            'address' => 'required|string',
             'phone' => 'required|string',
+            'address' => 'required|string',
             'health_condition' => 'nullable|string',
             'note' => 'nullable|string',
         ]);
@@ -60,8 +60,8 @@ class ProfileController extends Controller
             '',
             $password,
             $request->input('name'),
-            $request->input('address'),
             $request->input('phone'),
+            $request->input('address'),
             ''
         );
         $updatePatient = new Patient(
