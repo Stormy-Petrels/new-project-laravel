@@ -40,7 +40,7 @@ class AdminBanners extends Controller
         $banner->image_path = $filename;
         $banner->save();
 
-        return redirect('admin/banners')->with('status', 'Thêm banners thành công.');
+        return redirect('admin/banners')->with('status', 'Added banner successfully.');
     }
     public function edit($id)
     {
@@ -73,7 +73,7 @@ class AdminBanners extends Controller
     }
     $banner->save();
 
-    return redirect('admin/banners')->with('status', 'Cập nhật sản phẩm thành công.');
+    return redirect('admin/banners')->with('status', 'Update banner successfully.');
 }
 
 
@@ -84,7 +84,7 @@ class AdminBanners extends Controller
         File::delete($banner->image_path);
     }
     $banner->delete();
-    return redirect()->back()->with('status', 'Thêm sản phẩm thành công');
+    return redirect()->back()->with('status', 'Delete banner successfully.');
   }
 
 }
