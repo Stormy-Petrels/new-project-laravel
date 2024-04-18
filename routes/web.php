@@ -22,6 +22,7 @@ use App\Http\Controllers\AdminBanners;
 
 use App\Http\Controllers\FavoriteDoctorsController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\AdminContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,7 +76,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminDoctorController::class, 'index']);
         Route::get('/create', [AdminDoctorController::class, 'create']);
         Route::post('/create', [AdminDoctorController::class, 'store']);
-        Route::get('/{id}', [AdminDoctorController::class, 'edit']);
+        Route::get('/{id}/edit', [AdminDoctorController::class, 'edit']);
         Route::post('/{id}', [AdminDoctorController::class, 'update']);
         Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('deletedoctor');
         Route::get('/search_doctor/search', [AdminDoctorController::class, 'search_doctor'])->name('search_doctor');
@@ -92,6 +93,8 @@ Route::prefix('admin')->group(function () {
 
     // Route cho bảng điều khiển admin
     Route::get('/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/contact', [AdminContactController::class, 'index'])->name('admin.contact');
+
 
     // Route cho quản lý cuộc hẹn
     Route::get('/appointment', [AdminAppointmentController::class, 'index']);
@@ -99,6 +102,7 @@ Route::prefix('admin')->group(function () {
 
     
 });
+Route::get('contact/{id}', [AdminContactController::class, 'update_contact_message'])->name('contact.update');
 
 
 

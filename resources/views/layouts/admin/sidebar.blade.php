@@ -29,6 +29,12 @@
             </a>
         </li>
         <li>
+            <a href="/admin/contact" class="flex items-center px-4 py-2">
+                <i class='bx bxs-message-dots text-xl'></i>
+                <span class="text-lg ml-2">Contact</span>
+            </a>
+        </li>
+        <li>
             <a href="/admin/dashboard" class="flex items-center px-4 py-2">
                 <i class='bx bxs-dashboard text-xl'></i>
                 <span class="text-lg ml-2">Dashboard</span>
@@ -37,11 +43,10 @@
     </ul>
     <ul class="side-menu mt-auto">
         <li>
-            <a href="#" class="logout flex items-center px-4 py-2">
+            <a href="{{url('/sign-in')}}" class="logout flex items-center px-4 py-2">
                 <i class='bx bxs-log-out-circle text-xl'></i>
                 <span class="text-lg ml-2">Logout</span>
             </a>
         </li>
     </ul>
-
 </section>

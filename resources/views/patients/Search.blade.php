@@ -16,9 +16,9 @@
         display: flex;
         background-color: black;
         border-radius: 10px;
-        width: 100%;
-        padding: 10px 0;
+        padding: 5px 0;
         margin-left: 50px;
+        margin-right: 150px;
     }
     .container {
         width: 100%;
@@ -149,7 +149,7 @@
             <div class="lists_card" id="lists_card">               
 
             </div>
-            <h1 id="title" class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Find your expert now</h1>
+            <h1 id="title" class="mb-4 text-2xl font-extrabold leading-none tracking-tight text-gray-900 md:text-2xl lg:text-4xl dark:text-white">Find your expert now</h1>
         </div>
     </div>
 </body>

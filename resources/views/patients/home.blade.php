@@ -8,10 +8,14 @@
 @endsection
 
 @section('content')
-
-  {{-- <div class="container"> --}}
     <div class="container">
-        <h1 style="color: #000;font: 800 60px sans-serif;margin-left:33%;" >Top 4 Doctors</h1>
+        <div class="row justify-content-center">
+            <div class="col-auto">
+              <div class="contact-us-form-heading text-center">
+                Top 4 <span style="color: rgba(28, 187, 208, 1)">Doctors</span>
+              </div>
+            </div>
+          </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 h-full" style="margin-top: 20px;">
             <?php foreach($topDoctors as $doctor): ?>
                 <div class="flex justify-center items-center">
@@ -55,7 +59,6 @@
             </div>
         </div>
     </div>
-  {{-- </div> --}}
 
   <div class="custom-container">
     <div class="custom-container-2">

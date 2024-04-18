@@ -113,6 +113,7 @@ class AdminDoctorController extends Controller
      */
     public function edit(string $id)
     {
+
         $doc = new DoctorRepository();
         $doctor = $doc->getDoctorById($id);
         $doctor = $doctor[0];

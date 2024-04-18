@@ -16,45 +16,45 @@
     <div class="container mx-auto p-4">
         <div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="px-6 py-4">
-                <h2 id="title" class="text-2xl font-semibold text-gray-800">Thanh toán</h2>
+                <h2 id="title" class="text-2xl font-semibold text-gray-800">Payment</h2>
             </div>
             <form class="p-6">
                 <div class="mb-4">
-                    <label for="customer_name" class="block text-gray-800 text-sm font-semibold mb-2">Tên khách hàng</label>
+                    <label for="customer_name" class="block text-gray-800 text-sm font-semibold mb-2">Patient name:</label>
                     <input type="text" id="customer_name" class="form-input w-full" value="{{$patient[0]->name}}">
                 </div>
                 <div class="mb-4">
-                    <label for="doctor_name" class="block text-gray-800 text-sm font-semibold mb-2">Tên bác sĩ</label>
+                    <label for="doctor_name" class="block text-gray-800 text-sm font-semibold mb-2">Doctor name:</label>
                     <input type="text" id="doctor_name" class="form-input w-full" value="{{$doctor[0]->name}}">
                 </div>
                 <div class="grid grid-cols-2 gap-4">
                     <div class="mb-4">
-                        <label for="start_time" class="block text-gray-800 text-sm font-semibold mb-2">Giờ bắt đầu</label>
+                        <label for="start_time" class="block text-gray-800 text-sm font-semibold mb-2">Start time:</label>
                         <input type="time" id="start_time" class="form-input w-full" value="{{$time[0]->time_start}}">
                     </div>
                     <div class="mb-4">
-                        <label for="end_time" class="block text-gray-800 text-sm font-semibold mb-2">Giờ kết thúc</label>
+                        <label for="end_time" class="block text-gray-800 text-sm font-semibold mb-2">End time:</label>
                         <input type="time" id="end_time" class="form-input w-full"  value="{{$time[0]->time_end}}">
                     </div>
                 </div>
                 <div class="mb-4">
-                    <label for="price" class="block text-gray-800 text-sm font-semibold mb-2">Ngày</label>  
+                    <label for="price" class="block text-gray-800 text-sm font-semibold mb-2">Date:</label>  
                     <input type="text" id="" class="form-input w-full" value="{{$date}}">
                 </div>
 
                 <div class="mb-4">
-                    <label for="price" class="block text-gray-800 text-sm font-semibold mb-2">Giá</label>
+                    <label for="price" class="block text-gray-800 text-sm font-semibold mb-2">Price:</label>
                     <input type="number" id="price" class="form-input w-full"  value="{{$time[0]->price}}">
                 </div>
                 <div class="mb-4">
-                    <label for="payment_method" class="block text-gray-800 text-sm font-semibold mb-2">Phương thức thanh toán</label>
+                    <label for="payment_method" class="block text-gray-800 text-sm font-semibold mb-2">Payment method:</label>
                     <select id="payment_method" class="form-select w-full"> 
-                        <option value="credit_card">Tiền mặt</option>
+                        <option value="credit_card">Cast</option>
                         <option value="paypal">PayPal</option>
-                        <option value="bank_transfer">Chuyển khoản ngân hàng</option>
+                        <option value="bank_transfer">Banking</option>
                     </select>
                 </div>
-                <button type="button" onclick="book()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Xác nhận thanh toán</button>
+                <button type="button" onclick="book()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Confirm payment</button>
             </form>
         </div>
     </div>

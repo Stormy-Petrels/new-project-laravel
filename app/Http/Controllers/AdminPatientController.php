@@ -129,7 +129,7 @@ class AdminPatientController extends Controller
         if ($request->hasFile('url_image')) {
             $fileName = $request->file('url_image')->getClientOriginalName();
             $request->file('url_image')->move('assets/admin/images', $fileName);
-            $imageUrl = 'assets/admin/images/' . $fileName;
+            $imageUrl =   $fileName;
         } else {
             $imageUrl = null;
         }

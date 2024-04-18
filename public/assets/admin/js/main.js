@@ -11,9 +11,6 @@ allSideMenu.forEach(item=> {
 	})
 });
 
-
-
-
 // TOGGLE SIDEBAR
 const menuBar = document.querySelector('#content nav .bx.bx-menu');
 const sidebar = document.getElementById('sidebar');
@@ -21,13 +18,6 @@ const sidebar = document.getElementById('sidebar');
 menuBar.addEventListener('click', function () {
 	sidebar.classList.toggle('hide');
 })
-
-
-
-
-
-
-
 
 const searchButton = document.querySelector('#content nav form .form-input button');
 const searchButtonIcon = document.querySelector('#content nav form .form-input button .bx');
@@ -45,17 +35,12 @@ searchButton.addEventListener('click', function (e) {
 	}
 })
 
-
-
-
-
 if(window.innerWidth < 768) {
 	sidebar.classList.add('hide');
 } else if(window.innerWidth > 576) {
 	searchButtonIcon.classList.replace('bx-x', 'bx-search');
 	searchForm.classList.remove('show');
 }
-
 
 window.addEventListener('resize', function () {
 	if(this.innerWidth > 576) {
@@ -65,9 +50,7 @@ window.addEventListener('resize', function () {
 })
 
 
-
 const switchMode = document.getElementById('switch-mode');
-
 switchMode.addEventListener('change', function () {
 	if(this.checked) {
 		document.body.classList.add('dark');
@@ -75,3 +58,23 @@ switchMode.addEventListener('change', function () {
 		document.body.classList.remove('dark');
 	}
 })
+
+document.getElementById('updateStatusForm').addEventListener('submit', function(e) {
+	e.preventDefault();
+	fetch(this.action, {
+		method: 'POST',
+		body: new FormData(this),
+		headers: {
+			'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+		}
+	}).then(response => {
+		if (response.ok) {
+			// Cập nhật trạng thái thành công, có thể thực hiện các thao tác khác ở đây nếu cần
+			console.log('Status updated successfully');
+		} else {
+			console.error('Failed to update status');
+		}
+	}).catch(error => {
+		console.error('Error:', error);
+	});
+});
