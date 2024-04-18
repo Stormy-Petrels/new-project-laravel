@@ -76,7 +76,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [AdminDoctorController::class, 'index']);
         Route::get('/create', [AdminDoctorController::class, 'create']);
         Route::post('/create', [AdminDoctorController::class, 'store']);
-        Route::get('/{id}', [AdminDoctorController::class, 'edit']);
+        Route::get('/{id}/edit', [AdminDoctorController::class, 'edit']);
         Route::post('/{id}', [AdminDoctorController::class, 'update']);
         Route::get("/delete/doctor/{id}", [AdminDoctorController::class, 'destroy'])->name('deletedoctor');
         Route::get('/search_doctor/search', [AdminDoctorController::class, 'search_doctor'])->name('search_doctor');

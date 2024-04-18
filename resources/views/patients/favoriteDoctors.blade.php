@@ -43,9 +43,10 @@
                     var user = localStorage.getItem('user-info');
                     if (user) {
                         user = JSON.parse(user);
-                        if (user.image) {
-                            document.getElementById('profile-image').src = user.image;
-                        }
+                        if (user.image !== '') {
+    document.getElementById('profile-image').src = "{{ asset('assets/admin/images/') }}" + "/" + user.image;
+}
+
                     }
                 </script>
 

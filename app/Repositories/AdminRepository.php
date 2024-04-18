@@ -209,7 +209,7 @@ class AdminRepository
                 ->orWhere('doctors.description', 'like', "%$search%");
         })
         ->where('users.role', 'doctor') 
-        ->groupBy('users.id', 'users.name', 'users.email', 'users.phone', 'users.address')
+        // ->groupBy('users.id', 'users.name', 'users.email', 'users.phone', 'users.address')
         ->get();
 
     return $results;

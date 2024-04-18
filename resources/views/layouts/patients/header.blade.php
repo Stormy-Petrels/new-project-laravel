@@ -17,11 +17,11 @@
     <div class="menu-1">
         <a href="{{ url('/home') }}" class="name1 {{ Request::is('home') ? 'active' : '' }}">Home</a>
         <a href="{{ url('/about-us') }}" class="name2 {{ Request::is('about-us') ? 'active' : '' }}">About Us</a>
-        <a href="{{ url('/department') }}" class="name3 {{ Request::is('department') ? 'active' : '' }}">Department</a>
+        <a href="#" class="name3 {{ Request::is('department') ? 'active' : '' }}">Department</a>
         <a href="{{ url('/doctors') }}" class="name4 {{ Request::is('doctors') ? 'active' : '' }}">Doctors</a>
         <a href="{{ url('/services') }}" class="name5 {{ Request::is('services') ? 'active' : '' }}">Services</a>
         <a href="{{ url('/contact-us') }}" class="name6 {{ Request::is('contact-us') ? 'active' : '' }}">Contact Us</a>
-        <a href="{{ url('/add-to-cart/') }}" class="name7 {{ Request::is('contact-us') ? 'active' : '' }}">Cart</a>
+        <a href="{{ url('/add-to-cart/') }}" class="name7 {{ Request::is('cart') ? 'active' : '' }}">Cart</a>
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2"><i class="fas fa-search"></i></button>
 
         <div claa="ml-8" style="margin-left: 15rem;">
@@ -47,9 +47,10 @@
     if (user) {
         user = JSON.parse(user);
         document.getElementById('user-info').style.display = "block";
-        if (user.image) {
-            document.getElementById('profile-image').src = user.image;
+        if (user.image !== '') {
+            document.getElementById('profile-image').src = "{{ asset('assets/admin/images/') }}" + "/" + user.image;
         }
+
         document.getElementById('sign-in-up').style.display = "none";
     } else {
         document.getElementById('user-info').style.display = "none";

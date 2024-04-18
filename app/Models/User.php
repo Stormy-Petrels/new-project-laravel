@@ -12,8 +12,8 @@ class User extends BaseModel
     private string $email;
     private string $password;
     private string $fullName;
-    private string $address;
     private string $phone;
+    private string $address;
     private string|null $urlImage;
 
     public function __construct(
